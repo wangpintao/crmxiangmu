@@ -9,7 +9,7 @@ public class Stulayui {
     private Integer code;
     private String msg;
     private Integer count;
-    private List<UserClien> data;
+    private List data;
 
     public Integer getCode() {
         return code;
@@ -35,11 +35,11 @@ public class Stulayui {
         this.count = count;
     }
 
-    public List<UserClien> getData() {
+    public List getData() {
         return data;
     }
 
-    public void setData(List<UserClien> data) {
+    public void setData(List data) {
         this.data = data;
     }
 
