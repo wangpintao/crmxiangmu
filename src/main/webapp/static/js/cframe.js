@@ -2,7 +2,7 @@ $(function(){
 
     $(window).load(function(){
         cframeInit();
-        //鍚庡彴棣栭〉鐨勫叏灞忓姛鑳界殑bug锛屽鏋滀笉寰椾笉鍙栧嚭Iframe鐨勫ぇ灏忓彉鍖栧悗鐨勭洃鍚簨浠躲€�
+        //鍚庡彴棣栭〉鐨勫叏灞忓姛鑳界殑bug锛屽鏋滀笉寰椾笉鍙栧嚭Iframe鐨勫ぇ灏忓彉鍖栧悗鐨勭洃鍚簨浠躲€�。
         $(window).resize(function(){
             cframeInit();
         });

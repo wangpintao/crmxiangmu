@@ -14,7 +14,7 @@ body{
     overflow: hidden;
     border-bottom: 1px solid #2c3441;
     box-sizing:border-box;
-    -moz-box-sizing:border-box; /* Firefox */
+    -moz-box-sizing:border-box; /* Firefox 。*/
     -webkit-box-sizing:border-box; /* Safari */
 }
 .frameMenu .logo img{

@@ -49,7 +49,7 @@ function menuFAClick(_this){
     _this.parent().siblings().find("a.menuFA").css("background-color","transparent");
 }
 
-//浜岀骇鑿滃崟鐐瑰嚮鍚庣殑澶勭悊鏂规硶
+//浜岀骇鑿滃崟鐐瑰嚮鍚庣殑澶勭悊鏂规硶。
 function menuCAClick(url,_this){
 
     //澶勭悊frameMain url鍦板潃
