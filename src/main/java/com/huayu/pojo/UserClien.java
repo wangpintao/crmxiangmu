@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @author Administrator
  * @since 2020-08-28
  */
-@TableName("userclien")
+@TableName("user_clien")
 public class UserClien extends Model<UserClien> {
 
     private static final long serialVersionUID = 1L;
