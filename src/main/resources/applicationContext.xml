@@ -41,7 +41,7 @@
     <!--开启spring注解扫描-->
     <context:component-scan base-package="com.huayu.service"></context:component-scan>
     <!--引入shiro配置文件-->
-   <!-- <import resource="shiro-string.xml"></import>-->
+    <import resource="shiro-string.xml"></import>
     <!--引入redis配置文件-->
     <import resource="redis-string.xml"></import>
     <!--引入ActiveMQ文件-->

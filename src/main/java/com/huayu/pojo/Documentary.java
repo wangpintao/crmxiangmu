@@ -60,8 +60,8 @@ public class Documentary extends Model<Documentary> {
     /**
      * 跟单分类外键
      */
-    @TableField("con_sum")
-    private Integer doc_claid;
+    @TableField("doc_claid")
+    private Integer docClaid;
 
     /**
      * 跟单状态
@@ -123,12 +123,12 @@ public class Documentary extends Model<Documentary> {
         this.docComid = docComid;
     }
 
-    public Integer getDoc_claid() {
-        return doc_claid;
+    public Integer getDocClaid() {
+        return docClaid;
     }
 
-    public void setDoc_claid(Integer doc_claid) {
-        this.doc_claid = doc_claid;
+    public void setDocClaid(Integer docClaid) {
+        this.docClaid = docClaid;
     }
 
     public Integer getDocStaid() {
@@ -148,7 +148,7 @@ public class Documentary extends Model<Documentary> {
                 ", docDetails='" + docDetails + '\'' +
                 ", docFile='" + docFile + '\'' +
                 ", docComid=" + docComid +
-                ", doc_claid=" + doc_claid +
+                ", docClaid=" + docClaid +
                 ", docStaid=" + docStaid +
                 '}';
     }

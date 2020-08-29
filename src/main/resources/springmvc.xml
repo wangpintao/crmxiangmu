@@ -52,8 +52,8 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
         <property name="proxyTargetClass" value="true"/>
     </bean>
     <!--shiro-->
-   <!-- <bean  class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+    <bean  class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager" />
     </bean>
-    <bean class="com.huayu.swaggerUtils.SwaggerConfig"></bean>-->
+    <!--<bean class="com.huayu.swaggerUtils.SwaggerConfig"></bean>-->
 </beans>
