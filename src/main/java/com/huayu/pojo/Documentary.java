@@ -69,6 +69,12 @@ public class Documentary extends Model<Documentary> {
     @TableField("doc_staid")
     private Integer docStaid;
 
+    /**
+     * 用户外键
+     */
+    @TableField("doc_user")
+    private Integer docuser;
+
 
     @Override
     protected Serializable pkVal() {
@@ -139,6 +145,14 @@ public class Documentary extends Model<Documentary> {
         this.docStaid = docStaid;
     }
 
+    public Integer getDocuser() {
+        return docuser;
+    }
+
+    public void setDocuser(Integer docuser) {
+        this.docuser = docuser;
+    }
+
     @Override
     public String toString() {
         return "Documentary{" +
@@ -150,6 +164,7 @@ public class Documentary extends Model<Documentary> {
                 ", docComid=" + docComid +
                 ", docClaid=" + docClaid +
                 ", docStaid=" + docStaid +
+                ", docuser=" + docuser +
                 '}';
     }
 }
