@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @author Administrator
  * @since 2020-08-28
  */
-@TableName("docClassify")
+@TableName("doc_classify")
 public class DocClassify extends Model<DocClassify> {
 
     private static final long serialVersionUID = 1L;
