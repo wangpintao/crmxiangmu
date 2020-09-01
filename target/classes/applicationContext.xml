@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+    <!--数据源-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/crm?serverTimezone=GMT&amp;auseSSL=false&amp;characterEncoding=utf-8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="huayu"/>
+    </bean>
+    <!--sessionFactory-->
+    <bean id="sqlsessionFactory" class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">
+        <!--注入datasource-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--pojo别名-->
+        <property name="typeAliasesPackage" value="com.huayu.pojo"></property>
+        <property name="configLocation" value="classpath:mybatis.xml"></property>
+    </bean>
+
+
+    <!--mapper接口-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlsessionFactory"></property>
+        <property name="basePackage" value="com.huayu.mapper"></property>
+    </bean>
+    <!--配置spring管理的事务-->
+    <bean id="tx" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <!--开启事务注解-->
+    <tx:annotation-driven transaction-manager="tx"/>
+    <!--开启spring注解扫描-->
+    <context:component-scan base-package="com.huayu.service"></context:component-scan>
+    <!--引入shiro配置文件-->
+    <import resource="shiro-string.xml"></import>
+    <!--引入redis配置文件-->
+    <import resource="redis-string.xml"></import>
+    <!--引入ActiveMQ文件-->
+  <!--  <import resource="ActiveMQ-spring.xml"></import>-->
+    
+</beans>

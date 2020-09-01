@@ -2,6 +2,7 @@ package com.huayu.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.huayu.JsonUtils.StulayuiJson;
+import com.huayu.pojo.AfterSale;
 import com.huayu.pojo.User;
 import com.huayu.service.imp.IUserServiceImp;
 import com.sun.org.apache.bcel.internal.generic.NEW;
@@ -16,6 +17,7 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -81,4 +83,10 @@ public class UserController {
     }
 
 
+    @GetMapping("/querytext.do")
+    @ResponseBody
+    public List<User> querytext(){
+        List<User> afterSaleList = iUserServiceImp.list();
+        return afterSaleList;
+    }
 }
