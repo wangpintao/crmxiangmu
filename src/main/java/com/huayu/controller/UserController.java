@@ -57,7 +57,7 @@ public class UserController {
         return stulayuiJson;
     }
 
-    //查询用户是否存在注册号
+    //查询用户
     @RequestMapping("/register.do")
     @ResponseBody
     public User register(String name){
