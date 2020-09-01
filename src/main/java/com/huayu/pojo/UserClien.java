@@ -17,7 +17,7 @@ import java.io.Serializable;
  * @since 2020-08-28
  */
 @TableName("user_clien")
-public class UserClien extends Model<UserClien> {
+public class UserClien extends Model<UserClien> implements  Serializable{
 
     private static final long serialVersionUID = 1L;
 
@@ -46,7 +46,7 @@ public class UserClien extends Model<UserClien> {
     private Integer souid;
 
     /**
-     * 客户来源外键
+     * 客户所属行业外键
      */
     @TableField("busid")
     private Integer busid;
@@ -58,7 +58,34 @@ public class UserClien extends Model<UserClien> {
     private Integer kinid;
 
     /**
-     * 客户邮箱
+     * 客户网址
+     */
+    @TableField("curl")
+    private String curl;
+
+    /**
+     * 国家
+     */
+    @TableField("cstate")
+    private String cstate;
+
+    /**
+     * 所属城市
+     */
+    @TableField("city")
+    private String city;
+
+    /**
+     * 详细地址
+     */
+    @TableField("csite")
+    private String csite;
+
+
+
+
+    /**
+     * 客户邮政编码
      */
     @TableField("cli_mail")
     private String cliMail;
@@ -123,10 +150,24 @@ public class UserClien extends Model<UserClien> {
     @TableField("cli_text")
     private String cliText;
 
+    private String clibusname;
+
+
+
+
+
 
     @Override
     protected Serializable pkVal() {
         return this.ucid;
+    }
+
+    public String getCurl() {
+        return curl;
+    }
+
+    public void setCurl(String curl) {
+        this.curl = curl;
     }
 
     public Integer getUcid() {
@@ -265,26 +306,54 @@ public class UserClien extends Model<UserClien> {
         this.cliText = cliText;
     }
 
+    public String getCstate() {
+        return cstate;
+    }
+
+    public void setCstate(String cstate) {
+        this.cstate = cstate;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCsite() {
+        return csite;
+    }
+
+    public void setCsite(String csite) {
+        this.csite = csite;
+    }
+
     @Override
     public String toString() {
         return "UserClien{" +
-                "ucid=" + ucid +
-                ", cliName='" + cliName + '\'' +
-                ", cliPinyin='" + cliPinyin + '\'' +
-                ", souid=" + souid +
-                ", busid=" + busid +
-                ", kinid=" + kinid +
-                ", cliMail='" + cliMail + '\'' +
-                ", cliFax=" + cliFax +
-                ", cliContacts='" + cliContacts + '\'' +
-                ", cliDepartment='" + cliDepartment + '\'' +
-                ", cliJob='" + cliJob + '\'' +
-                ", cliOffphone=" + cliOffphone +
-                ", cliqq='" + cliqq + '\'' +
-                ", cliPhone=" + cliPhone +
-                ", cliLegalperson='" + cliLegalperson + '\'' +
-                ", cliAmount=" + cliAmount +
-                ", cliText='" + cliText + '\'' +
-                '}';
+         "ucid=" + ucid +
+         ", cliName='" + cliName + '\'' +
+         ", cliPinyin='" + cliPinyin + '\'' +
+         ", souid=" + souid +
+         ", busid=" + busid +
+         ", kinid=" + kinid +
+         ", curl='" + curl + '\'' +
+         ", cstate='" + cstate + '\'' +
+         ", city='" + city + '\'' +
+         ", csite='" + csite + '\'' +
+         ", cliMail='" + cliMail + '\'' +
+         ", cliFax=" + cliFax +
+         ", cliContacts='" + cliContacts + '\'' +
+         ", cliDepartment='" + cliDepartment + '\'' +
+         ", cliJob='" + cliJob + '\'' +
+         ", cliOffphone=" + cliOffphone +
+         ", cliqq='" + cliqq + '\'' +
+         ", cliPhone=" + cliPhone +
+         ", cliLegalperson='" + cliLegalperson + '\'' +
+         ", cliAmount=" + cliAmount +
+         ", cliText='" + cliText + '\'' +
+         '}';
     }
 }
