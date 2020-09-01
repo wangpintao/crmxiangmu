@@ -69,12 +69,11 @@ public class Documentary extends Model<Documentary> {
     @TableField("doc_staid")
     private Integer docStaid;
 
-    /**
-     * 用户外键
-     */
+    /*
+    * 用户外键
+    * */
     @TableField("doc_user")
     private Integer docuser;
-
 
     @Override
     protected Serializable pkVal() {
