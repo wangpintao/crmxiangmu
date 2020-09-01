@@ -60,22 +60,11 @@ public class UserController {
     //查询用户是否存在注册号
     @RequestMapping("/register.do")
     @ResponseBody
-    public StulayuiJson register(String name){
-
-        StulayuiJson stulayuiJson = new StulayuiJson();
+    public User register(String name){
         System.out.println("前端值"+name);
         QueryWrapper queryWrapper =new QueryWrapper();
         queryWrapper.eq("username",name);
-        User user1 = iUserServiceImp.getOne(queryWrapper);
-        System.out.println(name);
-        if(user1==null){
-            System.out.println("当前用户不存在可以注册");
-            stulayuiJson.setCode(1);
-        }else {
-            System.out.println("当前用已存在存在不可以注册");
-            stulayuiJson.setCode(2);
-        }
-        return  stulayuiJson;
+        return iUserServiceImp.getOne(queryWrapper);
     }
     @RequestMapping("/useradd.do")
     @ResponseBody

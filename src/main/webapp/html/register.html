@@ -102,13 +102,13 @@
                 data:{name:user},
                 //验证用户名是否可用
                 success:function(date){
-                    console.log("name"+date.code);
-                    if (date.code(1)) {
+                    console.log("name"+date);
+                    if (null != date) {
                         $('#ri').removeAttr('hidden');
                         $('#wr').attr('hidden','hidden');
                         layer.msg('当前用户名可以使用!')
                     }
-                    if (date.code(2)){
+                    if(date){
                         $('#wr').removeAttr('hidden');
                         $('#ri').attr('hidden','hidden');
                         layer.msg('当前用户名已被占用! ')
