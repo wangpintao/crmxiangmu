@@ -39,17 +39,7 @@ public class UserClien extends Model<UserClien> implements  Serializable{
     @TableField("cli_pinyin")
     private String cliPinyin;
 
-    /**
-     * 客户表来源外键
-     */
-    @TableField("souid")
-    private Integer souid;
 
-    /**
-     * 客户所属行业外键
-     */
-    @TableField("busid")
-    private Integer busid;
 
     /**
      * 客户种类外键
@@ -149,13 +139,41 @@ public class UserClien extends Model<UserClien> implements  Serializable{
      */
     @TableField("cli_text")
     private String cliText;
+    /**
+     * 客户表来源外键
+     */
+    @TableField("souid")
+    private Integer souid;
 
-    private String clibusname;
+    /**
+     * 客户所属行业外键
+     */
+    @TableField("busid")
+    private Integer busid;
 
 
+    /*行业来源
+    * */
+    private CliBusiness cliBusiness;
+    /*客户来源
+    * */
+    private CliSource cliSource;
 
+    public CliBusiness getCliBusiness() {
+        return cliBusiness;
+    }
 
+    public void setCliBusiness(CliBusiness cliBusiness) {
+        this.cliBusiness = cliBusiness;
+    }
 
+    public CliSource getCliSource() {
+        return cliSource;
+    }
+
+    public void setCliSource(CliSource cliSource) {
+        this.cliSource = cliSource;
+    }
 
     @Override
     protected Serializable pkVal() {
@@ -336,8 +354,6 @@ public class UserClien extends Model<UserClien> implements  Serializable{
          "ucid=" + ucid +
          ", cliName='" + cliName + '\'' +
          ", cliPinyin='" + cliPinyin + '\'' +
-         ", souid=" + souid +
-         ", busid=" + busid +
          ", kinid=" + kinid +
          ", curl='" + curl + '\'' +
          ", cstate='" + cstate + '\'' +
@@ -354,6 +370,10 @@ public class UserClien extends Model<UserClien> implements  Serializable{
          ", cliLegalperson='" + cliLegalperson + '\'' +
          ", cliAmount=" + cliAmount +
          ", cliText='" + cliText + '\'' +
+         ", souid=" + souid +
+         ", busid=" + busid +
+         ", cliBusiness=" + cliBusiness +
+         ", cliSource=" + cliSource +
          '}';
     }
 }

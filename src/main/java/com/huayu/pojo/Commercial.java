@@ -29,11 +29,16 @@ public class Commercial extends Model<Commercial> {
      */
     private String coname;
 
+    /*客户所属行业名称
+    * */
+    @TableField("com_clibusname")
+    private String comClibusname;
+
     /**
-     * 客户来源外键（也就是商机来源）
+     * 客户来源外名称（也就是商机来源）
      */
     @TableField("com_souid")
-    private Integer comSouid;
+    private String comSouid;
 
     /**
      * 商机状态（取跟单的状态）
@@ -117,7 +122,7 @@ public class Commercial extends Model<Commercial> {
      * 该商机属于哪个部门
      */
     @TableField("com_depid")
-    private Integer comDepid;
+    private String comDepid;
 
     /**
      * 商机属于哪个用户
@@ -163,11 +168,19 @@ public class Commercial extends Model<Commercial> {
         this.coname = coname;
     }
 
-    public Integer getComSouid() {
+    public String getComClibusname() {
+        return comClibusname;
+    }
+
+    public void setComClibusname(String comClibusname) {
+        this.comClibusname = comClibusname;
+    }
+
+    public String getComSouid() {
         return comSouid;
     }
 
-    public void setComSouid(Integer comSouid) {
+    public void setComSouid(String comSouid) {
         this.comSouid = comSouid;
     }
 
@@ -275,11 +288,11 @@ public class Commercial extends Model<Commercial> {
         this.comText = comText;
     }
 
-    public Integer getComDepid() {
+    public String getComDepid() {
         return comDepid;
     }
 
-    public void setComDepid(Integer comDepid) {
+    public void setComDepid(String comDepid) {
         this.comDepid = comDepid;
     }
 
@@ -310,26 +323,27 @@ public class Commercial extends Model<Commercial> {
     @Override
     public String toString() {
         return "Commercial{" +
-                "coid=" + coid +
-                ", coname='" + coname + '\'' +
-                ", comSouid=" + comSouid +
-                ", comStaid=" + comStaid +
-                ", comUcid=" + comUcid +
-                ", comDocid=" + comDocid +
-                ", comSum=" + comSum +
-                ", comDate=" + comDate +
-                ", comContacts='" + comContacts + '\'' +
-                ", comDepartment='" + comDepartment + '\'' +
-                ", comJob='" + comJob + '\'' +
-                ", comOffphone=" + comOffphone +
-                ", comPhone=" + comPhone +
-                ", comMail='" + comMail + '\'' +
-                ", comFile='" + comFile + '\'' +
-                ", comText='" + comText + '\'' +
-                ", comDepid=" + comDepid +
-                ", comUname='" + comUname + '\'' +
-                ", comParticipant='" + comParticipant + '\'' +
-                ", comFollower='" + comFollower + '\'' +
-                '}';
+         "coid=" + coid +
+         ", coname='" + coname + '\'' +
+         ", comClibusname='" + comClibusname + '\'' +
+         ", comSouid='" + comSouid + '\'' +
+         ", comStaid=" + comStaid +
+         ", comUcid=" + comUcid +
+         ", comDocid=" + comDocid +
+         ", comSum=" + comSum +
+         ", comDate=" + comDate +
+         ", comContacts='" + comContacts + '\'' +
+         ", comDepartment='" + comDepartment + '\'' +
+         ", comJob='" + comJob + '\'' +
+         ", comOffphone=" + comOffphone +
+         ", comPhone=" + comPhone +
+         ", comMail='" + comMail + '\'' +
+         ", comFile='" + comFile + '\'' +
+         ", comText='" + comText + '\'' +
+         ", comDepid='" + comDepid + '\'' +
+         ", comUname='" + comUname + '\'' +
+         ", comParticipant='" + comParticipant + '\'' +
+         ", comFollower='" + comFollower + '\'' +
+         '}';
     }
 }
