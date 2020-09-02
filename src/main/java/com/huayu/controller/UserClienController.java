@@ -62,7 +62,6 @@ public List<CliKind> selectKind(){
  * */
  @RequestMapping("/addClient.do")
  public void addClient(UserClien userClien ){
-  System.out.println(userClien.getCliName());
    iUserClienServiceImp.save(userClien);
  }
 

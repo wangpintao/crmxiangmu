@@ -36,11 +36,7 @@ public class CommercialController {
  /*添加商机
   * */
  @RequestMapping("/addCommercial.do")
- public void addCommercial(Commercial commercial,String comDate){
-  System.out.println(comDate);
-  MyConvert convert=new MyConvert();
-  Date date=convert.convert(comDate);
-  commercial.setComDate(date);
+ public void addCommercial(Commercial commercial){
   iCommercialServiceImp.save(commercial);
 
  }
