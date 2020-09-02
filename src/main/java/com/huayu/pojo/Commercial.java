@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 
 /**
@@ -68,6 +70,7 @@ public class Commercial extends Model<Commercial> {
      * 商机预计成交日期
      */
     @TableField("com_date")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date comDate;
 
     /**

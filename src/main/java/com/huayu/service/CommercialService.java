@@ -14,5 +14,4 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class CommercialService extends ServiceImpl<CommercialMapper, Commercial> implements ICommercialServiceImp {
 
-
 }
