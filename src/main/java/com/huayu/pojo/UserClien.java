@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 
@@ -24,6 +25,7 @@ public class UserClien extends Model<UserClien> implements  Serializable{
     /**
      * id
      */
+    @Id
     @TableId(value = "ucid", type = IdType.AUTO)
     private Integer ucid;
 
@@ -149,12 +151,6 @@ public class UserClien extends Model<UserClien> implements  Serializable{
      */
     @TableField("cli_text")
     private String cliText;
-
-    private String clibusname;
-
-
-
-
 
 
     @Override
