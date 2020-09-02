@@ -149,22 +149,6 @@
 
         form.on('submit(example)', function (data) {
             console.log(data.field.bname)
-            table.reload('test', {
-                url:'',
-                where: {
-                    bname: data.field.bname,
-                    syzt: data.field.syzt,
-                    predictsum: data.field.predictsum,
-                    fzr: data.field.fzr,
-                    sjssbm: data.field.sjssbm,
-                    time: data.field.time,
-                }
-            })
-            return false;
-        });
-        form.on('submit(demo1)', function(data){
-            console.log(data.field.column);
-            console.log(data.field.value);
             table.reload('test',{
                 url:'/crm/after-sale/query.do'
                 ,where:{
@@ -172,11 +156,35 @@
                     ,value:data.field.value
                 }
             });
-            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            return false;
         });
 
 
+        //添加
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'add':
+                    $.ajax({
+                        url:"stu/listdelete.do",
+                        dataType:'json',
+                        data:{
+                        },
+                        type:'post',
+                        success:function(data){
 
+                        }
+
+                    });
+                    break;
+                case 'delete':
+                    layer.msg('删除');
+                    break;
+                case 'update':
+                    layer.msg('编辑');
+                    break;
+            };
+        });
         table.on('tool(test)', function (obj) {
             var data = obj.data;
             if (obj.event === 'update') {

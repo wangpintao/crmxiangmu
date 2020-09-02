@@ -14,7 +14,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     <!--配置视图模板-->
     <bean id="templateResolver" class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
         <property name="characterEncoding" value="utf-8"></property>
-        <property name="prefix" value="/html/"></property>
+        <!--<property name="prefix" value="/html/"></property>-->
         <property name="suffix" value=".html"></property>
         <property name="templateMode" value="HTML"></property>
         <!--相当热部署-->
@@ -57,15 +57,15 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     </bean>
     <!--日期转换器-->
     <!-- 配置注解驱动,使用自定义日期转换器 -->
-    <mvc:annotation-driven conversion-service="myConvert"/>
-    <!-- 定义转换器 -->
+    <!--<mvc:annotation-driven conversion-service="myConvert"/>
+    &lt;!&ndash; 定义转换器 &ndash;&gt;
     <bean id="myConvert" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">
             <set>
-                <!-- 自己的写的转换器全路径名 -->
+                &lt;!&ndash; 自己的写的转换器全路径名 &ndash;&gt;
                 <bean class="com.huayu.dateUtils.MyConvert"></bean>
             </set>
         </property>
-    </bean>
+    </bean>-->
     <!--<bean class="com.huayu.swaggerUtils.SwaggerConfig"></bean>-->
 </beans>

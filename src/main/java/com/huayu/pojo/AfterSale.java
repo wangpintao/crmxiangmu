@@ -6,6 +6,9 @@ import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
+import org.springframework.format.annotation.DateTimeFormat;
+import sun.awt.SunHints;
+
 import java.io.Serializable;
 
 /**
@@ -85,12 +88,14 @@ public class AfterSale extends Model<AfterSale> {
      * 售后服务开始时间
      */
     @TableField("aft_startdate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date aftStartdate;
 
     /**
      * 售后服务结束时间
      */
     @TableField("aft_enddate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date aftEnddate;
 
     /**
@@ -122,6 +127,12 @@ public class AfterSale extends Model<AfterSale> {
      */
     @TableField("aft_file")
     private String aftFile;
+
+    /**
+     * 售后邮箱
+     */
+    @TableField("aft_qq")
+    private String aftqq;
 
 
     @Override
@@ -267,6 +278,14 @@ public class AfterSale extends Model<AfterSale> {
         this.aftFile = aftFile;
     }
 
+    public String getAftqq() {
+        return aftqq;
+    }
+
+    public void setAftqq(String aftqq) {
+        this.aftqq = aftqq;
+    }
+
     @Override
     public String toString() {
         return "AfterSale{" +
@@ -274,7 +293,7 @@ public class AfterSale extends Model<AfterSale> {
                 ", aftTheme='" + aftTheme + '\'' +
                 ", aftUcid=" + aftUcid +
                 ", aftUid=" + aftUid +
-                ", aftConid=" + aftConid +
+                ", aftConid='" + aftConid + '\'' +
                 ", aftDetails='" + aftDetails + '\'' +
                 ", aftContacts='" + aftContacts + '\'' +
                 ", aftOffphone=" + aftOffphone +
@@ -287,6 +306,7 @@ public class AfterSale extends Model<AfterSale> {
                 ", aftCrew='" + aftCrew + '\'' +
                 ", aftScore=" + aftScore +
                 ", aftFile='" + aftFile + '\'' +
+                ", aftqq='" + aftqq + '\'' +
                 '}';
     }
 }
