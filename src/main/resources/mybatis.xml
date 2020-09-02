@@ -10,4 +10,7 @@
             &lt;!&ndash;<setting name="logImpl" value="LOG4J2"/>&ndash;&gt;
             <setting name="cacheEnabled" value="true"></setting>
         </settings>-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
     </configuration>

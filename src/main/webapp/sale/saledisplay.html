@@ -65,53 +65,27 @@
         <div class="layui-col-md10">
             <div class="layui-card">
                 <div class="layui-card-body">
-                    <div class="demoTable">
-                        <form class="layui-form" action="" lay-filter="example">
-                            <div class="layui-form-item">
-                                <div class="layui-inline">
-                                    <label class="layui-form-label">查询</label>
-                                    <div class="layui-input-inline">
-                                        <input name="bname" class="layui-input" type="text" placeholder="请输入商机名称" autocomplete="off" lay-verify="title">
-                                    </div>
-                                </div>
-                                <div class="layui-inline">
-                                    <label class="layui-form-label">查询人</label>
-                                    <div class="layui-input-inline">
-                                        <input name="fzr" class="layui-input" type="text" placeholder="请输入姓名" autocomplete="off" lay-verify="title">
-                                    </div>
-                                </div>
-                                <div class="layui-inline">
-                                    <label class="layui-form-label">查询部门</label>
-                                    <div class="layui-input-inline">
-                                        <input name="sjssbm" class="layui-input" type="text" placeholder="请输入姓名" autocomplete="off" lay-verify="title">
-                                    </div>
-                                </div>
-                                <div class="layui-inline">
-                                    <label class="layui-form-label">查询金额</label>
-                                    <div class="layui-input-inline">
-                                        <input name="predictsum" class="layui-input" type="text" placeholder="请输入姓名" autocomplete="off" lay-verify="title">
-                                    </div>
-                                </div>
-                                <input name="syzt" value="" type="hidden">
-                                <!--<div class="layui-inline">
-                                    <label class="layui-form-label">预计结账日期</label>
-                                    <div class="layui-input-inline">
-                                        <input name="time" class="layui-input" id="date" type="text" placeholder="yyyy-MM-dd" autocomplete="off" lay-verify="date">
-                                    </div>
-                                </div>-->
-
-                                <div class="layui-inline">
-                                    <div class="layui-input-block">
-                                        <button class="layui-btn" type="submit" lay-filter="example" lay-submit="">立即提交</button>
-                                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                                    </div>
-                                </div>
-                            </div>
+                        <form  class="layui-form" action="" lay-filter="example">
+                        <div class="layui-inline">
+                            <select name="column" class="layui-select" id="dept">
+                                <option>请选择</option>
+                                <option value="theme">按主题</option>
+                                <option value="aftGenre">按服务类型</option>
+                                <option value="aftStartdate">按开始时间</option>
+                                <option value="aftScore">按服务评分</option>
+                            </select>
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="layui-inline">
+                            <input class="layui-input" name="value" id="demoReload" autocomplete="off">
+                        </div>
+                        <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1"><span class="layui-icon layui-icon-search">搜索</span></button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        <div class="divcss5-right">
+                            <button class="layui-btn layui-btn-sm" lay-event="add" ><span class="layui-icon layui-icon-add-1">添加</span></button>
+                            <a class="layui-btn layui-btn-sm" href="/after_sale/query.html" lay-event="refresh" ><span class="layui-icon layui-icon-refresh-1">刷新</span></a>
+                        </div>
                         </form>
-                    </div>
-
-
-
 
                     <table class="layui-hide" id="test" lay-filter="test"></table>
                 </div>
@@ -133,7 +107,6 @@
 
 <script type="text/html" id="getname">
     {{#  if(d.data==null){ }}
-
     {{#  } else { }}
     {{d.data.type_name}}
     {{#  } }}
@@ -177,7 +150,7 @@
         form.on('submit(example)', function (data) {
             console.log(data.field.bname)
             table.reload('test', {
-
+                url:'',
                 where: {
                     bname: data.field.bname,
                     syzt: data.field.syzt,
@@ -188,6 +161,18 @@
                 }
             })
             return false;
+        });
+        form.on('submit(demo1)', function(data){
+            console.log(data.field.column);
+            console.log(data.field.value);
+            table.reload('test',{
+                url:'/crm/after-sale/query.do'
+                ,where:{
+                    column:data.field.column
+                    ,value:data.field.value
+                }
+            });
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
 
 

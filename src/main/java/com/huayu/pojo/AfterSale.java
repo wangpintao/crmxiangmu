@@ -49,7 +49,7 @@ public class AfterSale extends Model<AfterSale> {
      * 合同外键
      */
     @TableField("aft_conid")
-    private Integer aftConid;
+    private String aftConid;
 
     /**
      * 售后合同详情
@@ -163,11 +163,11 @@ public class AfterSale extends Model<AfterSale> {
         this.aftUid = aftUid;
     }
 
-    public Integer getAftConid() {
+    public String getAftConid() {
         return aftConid;
     }
 
-    public void setAftConid(Integer aftConid) {
+    public void setAftConid(String aftConid) {
         this.aftConid = aftConid;
     }
 
