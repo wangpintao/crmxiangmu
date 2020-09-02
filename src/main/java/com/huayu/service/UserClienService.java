@@ -21,7 +21,7 @@ public class UserClienService extends ServiceImpl<UserClienMapper,UserClien> imp
  public UserClien selectId(Integer ucid){
   return userClienMapper.selectId(ucid);
  }
-
+//
  @Override
  public List<UserClien> listUser() {
   return userClienMapper.listUser();
