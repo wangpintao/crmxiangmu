@@ -72,17 +72,17 @@ public List<CliKind> selectKind(){
  @RequestMapping("/selectuc.do")
  @ResponseBody
  public List<UserClien> selectuc(){
-  List<UserClien> list=iUserClienServiceImp.list();
+  List<UserClien> list=iUserClienServiceImp.listUser();
   return list;
  }
 
-/*根据id查询客户信息
-* */
-@RequestMapping("/selectid.do")
-@ResponseBody
-public UserClien selectid(Integer ucid){
- return iUserClienServiceImp.getById(ucid);
-}
+ /*根据id查询客户信息
+  * */
+ @RequestMapping("/selectid.do")
+ @ResponseBody
+ public UserClien selectid(Integer ucid){
+  return iUserClienServiceImp.getById(ucid);
+ }
 
 
 

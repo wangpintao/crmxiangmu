@@ -33,9 +33,18 @@
         form.on('select(test)', function(data){
             console.log(data.value);//得到被选中的值
             //根据id查询客户信息表
-            $.get("/userClien/selectid.do?ucid="+data.value ,function (objs) {
-              $("#business").val(objs.get);
-
+            $.get("/commercial/selectid.do?ucid="+data.value ,function (objs) {
+              $("#ucid").val(objs.ucid);
+              $("#business").val(objs.cliBusiness.clibusname);
+              $("#soid").val(objs.cliSource.clsname);
+              $("#city").val(objs.city);
+              $("#pin").val(objs.csite);
+              $("#ren").val(objs.cliContacts);
+              $("#dep").val(objs.cliDepartment);
+              $("#jop").val(objs.cliJob);
+              $("#phone").val(objs.cliOffphone);
+              $("#phones").val(objs.cliPhone);
+              $("#qq").val(objs.cliqq);
                 form.render();
             })
         });
@@ -50,17 +59,19 @@
 <body >
 <br>
 <div style="text-align: center;">
-<form class="layui-form"  method=POST   action="/userClien/addClient.do">
+<form class="layui-form"  method=POST   action="/commercial/addCommercial.do">
 
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
         <legend>客户信息</legend>
     </fieldset>
-    
+
+
+    <input type="hidden"  name="comUcid" id="ucid">
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label"><span style="color:#FF0000;">*</span>客户名称</label>
             <div class="layui-input-block" style="width: 400px;height: 40px">
-                <select name="kinid"  id="cname" lay-filter="test">
+                <select   id="cname" lay-filter="test">
                     <option value="0">请选择</option>
 
                 </select>
@@ -69,7 +80,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">所属行业</label>
             <div class="layui-input-block">
-                <input type="text" name="cliName"  id="business"    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comClibusname"  id="business"  readonly  autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
 
@@ -79,13 +90,13 @@
         <div class="layui-inline">
             <label class="layui-form-label">所在城市</label>
             <div class="layui-input-block">
-                <input type="text" name="cliName" required    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text"   id="city"  readonly   autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">详细地址</label>
             <div class="layui-input-block">
-                <input type="text" name="cliPinyin"    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text"   id="pin" readonly   autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
    </div>
@@ -94,20 +105,17 @@
         <legend>商机信息</legend>
     </fieldset>
 
-
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">商机名称</label>
             <div class="layui-input-block">
-                <input type="text" name="curl"     autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="coname"     autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">客户来源</label>
-            <div class="layui-input-block" style="width: 400px;height: 40px">
-                <select name="busid"  id="opb">
-                    <option value="0">请选择</option>
-                </select>
+            <div class="layui-input-block">
+                <input type="text" name="comSouid"  readonly id="soid"   autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
     </div>
@@ -116,13 +124,13 @@
         <div class="layui-inline">
             <label class="layui-form-label">预计成交金额</label>
             <div class="layui-input-block">
-                <input type="text" name="cliContacts" required    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comSum" required    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">预计结单日期</label>
             <div class="layui-input-block">
-                <input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" style="width: 400px;height: 40px" class="layui-input">
+                <input type="text" name="comDate" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" style="width: 400px;height: 40px" class="layui-input">
             </div>
         </div>
     </div>
@@ -132,13 +140,13 @@
         <div class="layui-inline">
             <label class="layui-form-label"><span style="color:#FF0000;">*</span>联系人</label>
             <div class="layui-input-block">
-                <input type="text" name="cliContacts" required    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comContacts" readonly id="ren"   autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">部门</label>
             <div class="layui-input-block">
-                <input type="text" name="cliDepartment"    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comDepartment"  readonly  id="dep"  autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
     </div>
@@ -147,13 +155,13 @@
         <div class="layui-inline">
             <label class="layui-form-label">职务</label>
             <div class="layui-input-block">
-                <input type="text" name="cliJob"     autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comJob"  readonly  id="jop"    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">固定电话</label>
             <div class="layui-input-block">
-                <input type="text" name="cliOffphone"    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comOffphone"    readonly  id="phone"  autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
     </div>
@@ -162,13 +170,13 @@
         <div class="layui-inline">
             <label class="layui-form-label">移动电话</label>
             <div class="layui-input-block">
-                <input type="text" name="cliPhone"     autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comPhone"  readonly  id="phones"    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">邮件/QQ</label>
             <div class="layui-input-block">
-                <input type="text" name="cliqq"     autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comMail"  readonly  id="qq"    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
     </div>
@@ -177,32 +185,30 @@
         <div class="layui-inline">
             <label class="layui-form-label">主要业务需求</label>
             <div class="layui-input-block">
-                <textarea  placeholder="请输入内容" name="cliText" class="layui-textarea" style="width: 925px;height: 40px"></textarea>
+                <textarea  placeholder="请输入内容" name="comText" class="layui-textarea" style="width: 925px;height: 40px"></textarea>
             </div>
         </div>
     </div>
-
     <div class="layui-form-item layui-form-text">
         <div class="layui-inline">
             <label class="layui-form-label">相关附件</label>
             <div class="layui-input-block">
-                <input type="text" name="csite"    autocomplete="off" class="layui-input" style="width: 925px;height: 40px">
+                <input type="text" name="comFile"    autocomplete="off" class="layui-input" style="width: 925px;height: 40px">
             </div>
         </div>
     </div>
-
 
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label"><span style="color:#FF0000;">*</span>商机所属部门</label>
             <div class="layui-input-block">
-                <input type="text" name="cliLegalperson"     autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comDepid"    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label"><span style="color:#FF0000;">*</span>商机负责人</label>
             <div class="layui-input-block">
-                <input type="text" name="cliAmount"     autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comUname"     autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
     </div>
@@ -211,13 +217,13 @@
         <div class="layui-inline">
             <label class="layui-form-label">商机参与人</label>
             <div class="layui-input-block">
-                <input type="text" name="cliLegalperson"     autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comParticipant"     autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">商机关注人</label>
             <div class="layui-input-block">
-                <input type="text" name="cliAmount"     autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comFollower"     autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
     </div>
@@ -234,7 +240,7 @@
     </div>
 </form>
 </div>
-
+<br>
 
 </body>
 </html>
