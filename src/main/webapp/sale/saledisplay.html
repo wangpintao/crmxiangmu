@@ -67,7 +67,7 @@
                 <div class="layui-card-body">
                         <form  class="layui-form" action="" lay-filter="example">
                         <div class="layui-inline">
-                            <select name="column" class="layui-select" id="dept">
+                            <select name="column" class="layui-select" >
                                 <option>请选择</option>
                                 <option value="theme">按主题</option>
                                 <option value="aftGenre">按服务类型</option>
@@ -102,7 +102,7 @@
     </div>
 </script>
 <script type=" text/html" id="titleTpl">
-    <a href= "/crm/business/toupdatebus.do?bid={{d.bid}}" class="layui-table-link"  target="blank" >{{d.bname}}</a>
+    <a href="/after/toupdate.do?aftid={{d.aftid}}" class="layui-table-link"  target="blank" >{{d.aftTheme}}</a>
 </script>
 
 <script type="text/html" id="getname">
@@ -135,7 +135,7 @@
             , title: '用户数据表'
             , cols: [[
                 //{type: 'checkbox', fixed: 'left'}
-                {field: 'aftTheme', title: '主题', width: 150/*, templet:'#titleTpl'*/}
+                {field: 'aftTheme', title: '主题', width: 150, templet:'#titleTpl'}
                 , {field: 'aftGenre', title: '服务类型', width: 150, sort: true/*,templet: '#getname'*/}
                 , {field: 'aftStartdate', title: '服务开始时间', width: 150, sort: true,templet:function(d){return util.toDateString(d.aftStartdate, "yyyy-MM-dd");}}
                 , {field: 'aftCrew', title: '服务人员', width: 150, sort: true}
@@ -148,12 +148,13 @@
 
 
         form.on('submit(example)', function (data) {
-            console.log(data.field.bname)
+            console.log(data.field.column);
+            console.log(data.field.value);
+            console.log(data.field);
             table.reload('test',{
-                url:'/crm/after-sale/query.do'
+                url:'/after/queryBya.do'
                 ,where:{
-                    column:data.field.column
-                    ,value:data.field.value
+                    where: data.field
                 }
             });
             return false;

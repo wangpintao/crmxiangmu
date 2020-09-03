@@ -2,10 +2,10 @@ package com.huayu.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.huayu.pojo.CliBusiness;
-import com.huayu.pojo.CliSource;
-import com.huayu.pojo.User;
-import com.huayu.pojo.UserClien;
+import com.github.pagehelper.Page;
+import com.huayu.pojo.*;
+import com.huayu.sqlUtils.ClientSql;
+import com.huayu.sqlUtils.salesql;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
 
@@ -22,14 +22,6 @@ import java.util.List;
 @Mapper
 public interface UserClienMapper extends BaseMapper<UserClien> {
  @Results({
-  @Result(column = "city",property = "city"),
-  @Result(column = "csite",property = "csite"),
-  @Result(column = "cli_contacts",property = "cliContacts"),
-  @Result(column = "cli_department",property = "cliDepartment"),
-  @Result(column = "cli_job",property = "cliJob"),
-  @Result(column = "cli_offphone",property = "cliOffphone"),
-  @Result(column = "cli_qq",property = "cliqq"),
-  @Result(column = "cli_phone",property = "cliPhone"),
   @Result(column = "souid",property = "souid"),
   @Result(column = "busid",property = "busid"),
   @Result(column = "souid",property = "cliSource",one =@One(select = "souqueryone",fetchType = FetchType.EAGER)),
@@ -54,19 +46,11 @@ public interface UserClienMapper extends BaseMapper<UserClien> {
 public List<UserClien> listUser();
 
 
+ @SelectProvider(type = ClientSql.class,method = "select")
+ List<UserClien> queryMany(Page page, @Param("clientid")Integer clientid,@Param("keys")String keys);
 
- @Results({
-  @Result(column = "city",property = "city"),
-  @Result(column = "csite",property = "csite"),
-  @Result(column = "cli_contacts",property = "cliContacts"),
-  @Result(column = "cli_department",property = "cliDepartment"),
-  @Result(column = "cli_job",property = "cliJob"),
-  @Result(column = "cli_offphone",property = "cliOffphone"),
-  @Result(column = "cli_qq",property = "cliqq"),
-  @Result(column = "cli_phone",property = "cliPhone"),
-  @Result(column = "clsname",property = "cliSource.clsname"),
-  @Result(column = "clibusname",property = "cliBusiness.clibusname")
- })
- @Select("select * from user_clien u,cli_source s,cli_business b where u.souid=s.clsid and u.busid=b.clibusid and u.ucid=#{ucid}")
- public UserClien selectIds(Integer ucid);
+ @Select("select * from user_clien where ucid=#{ucid}")
+ UserClien queryByid(Integer ucid);
+
+
 }

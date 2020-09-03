@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的桌面</title>
+    <!--font-awesome-->
+    <link rel="stylesheet" href="../fonts/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+</head>
+<script src="/js/jquery-1.12.3.min.js"></script>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<!-- 引入 echarts.js -->
+<script src="/echarts/echarts.min.js"></script>
+<body layadmin-themealias="default">
+
+<div class="layui-fluid">
+    <!--<div style="width: 100%;height: 15vh;">
+        <div id="u81" class="ax_default _图片">
+            <img src="http://www.axshare.cn/gsc/S3EWE1/0c/7f/0a/0c7f0a102aa0468792ba30e848859a83/images/我的桌面/u81.png?token=1285f476fc7c3ce194433178dd30234f475de5839a2a5b4effcda1adace12784"/>
+        </div>
+        <p><span>我的桌面</span></p>
+    </div>-->
+    <!--头部-->
+    <div class="header layui-nav" style="width: 100%;height: 15vh;background-color: white;margin: 0 auto;text-align: left;line-height: 80px;">
+        <a class="logo" >
+            <img src="/images/index.jpg" style="width: 50px;height: 50px;">
+        </a>
+        <span style="color: #0C0C0C;font-size: 30px">我的桌面</span>
+    </div>
+
+    <div class="layui-row layui-col-space15" style="width: 100%;">
+        <!--左边-->
+        <div class="layui-col-md8" style="width: 50%;border: 1px solid #ddd;">
+            <div class="layui-card">
+                <div class="layui-card-header"><span style="float: left;"><b>待处理事务</b></span><span class="layui-badge layui-bg-blue" style="float: right;margin-top: 10px">18</span></div>
+                <div class="layui-card-body" style="width: 100%;">
+                    <ul>
+                        <li><a lay-href="">用车申请-小花</a><a style="float:right;margin-right: 20px">5/7</a></li>
+                        <li><a lay-href="">员工培训</a><a style="float:right;margin-right: 20px">5/7</a></li>
+                        <li><a lay-href="">用车申请-小花</a><a style="float:right;margin-right: 20px">5/7</a></li>
+                        <li><a lay-href="">员工培训</a><a style="float:right;margin-right: 20px">5/7</a></li>
+                        <li><a lay-href="">用车申请-小花</a><a style="float:right;margin-right: 20px">5/7</a></li>
+                        <li><a lay-href="">员工培训</a><a style="float:right;margin-right: 20px">5/7</a></li>
+                        <li><a lay-href="">用车申请-小花</a><a style="float:right;margin-right: 20px">5/7</a></li>
+                        <li><a lay-href="">员工培训</a><a style="float:right;margin-right: 20px">5/7</a></li>
+                        <li><a lay-href="">用车申请-小花</a><a style="float:right;margin-right: 20px">5/7</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--右边-->
+        <div class="layui-col-md4" style="width: 50%;border: 1px solid #ddd;">
+            <div class="layui-card">
+                <div class="layui-card-header"><b>客户关系</b></div>
+                <div class="layui- inline" style="height: 10vh;width: 100%;margin: 0 auto;text-align: center; ">
+
+
+                <div class="layui-inline" style="width: 16.6%;margin-right:10%;">
+                    <div class="text ">
+                        <p style="font-size:14px;">
+                            <span style="font-family:'微软雅黑';font-weight:400;color:#666666;">全部客户</span>
+                        </p>
+                        <p style="font-size:20px;">
+                            <span style="font-family:'Arial Normal', 'Arial';font-weight:400;">24</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="layui-inline" style="width: 16.6%;margin-right:10%;">
+                    <div id="u118_div" class=""></div>
+                    <div id="u118_text" class="text ">
+                        <p style="font-size:14px;"><span style="font-family:'微软雅黑';font-weight:400;color:#666666;">全部商机</span></p><p style="font-size:20px;"><span style="font-family:'Arial Normal', 'Arial';font-weight:400;">24</span></p>
+                    </div>
+                </div>
+                <div class="layui-inline" style="width: 16.6%">
+                    <div id="u119_div" class=""></div>
+                    <div id="u119_text" class="text ">
+                        <p style="font-size:14px;"><span style="font-family:'微软雅黑';font-weight:400;color:#666666;">全部合同</span></p><p style="font-size:20px;"><span style="font-family:'Arial Normal', 'Arial';font-weight:400;">24</span></p>
+                    </div>
+                </div>
+                </div>
+                <div class="layui-card-body">
+                    <div style="width: 100%;height: 55vh">
+                        <div id="myEcharts" style="width: 100%;height: 100%">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('myEcharts'));
+    // 指定图表的配置项和数据
+    option = {
+        /*为图表配置标题：*/
+        title: {
+            text: '不同状态商机的预计成交额',
+            x: 'left'
+        },
+        /*配置提示信息：*/
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        color: ['#CD5C5C', '#00CED1', '#9ACD32', '#FFC0CB'],
+        stillShowZeroSum: false,
+        /*每个系列通过 type 决定自己的图表类型:*/
+        series: [
+            {
+                name: '客户',// 系列名称
+                type: 'pie',// 系列图表类型
+                radius: '55%',//饼图的半径，外半径为可视区尺寸（容器高宽中较小一项）的 55% 长度。
+                center: ['60%', '60%'],
+                data: [
+                    {value: 1, name: '已搁置'},
+                    {value: 3, name: '进行中'},
+                    {value: 7, name: '已成交'},
+                    {value: 4, name: '已丢单'},
+                ],// 系列中的数据内容
+                itemStyle: {
+                    normal: {
+                        shadowBlur: 20,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(128, 128, 128, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+    console.log(option)
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+
+</script>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<!--<div id="main" style="width: 600px;"></div>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '第一个 ECharts 实例'
+        },
+        tooltip: {},
+        legend: {
+            data:['销量']
+        },
+        xAxis: {
+            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+        },
+        yAxis: {},
+        series: [{
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20]
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>-->
+
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<!--<div id="main" style="width: 600px;height:400px;"></div>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        series : [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: '55%',
+                data:[
+                    {value:235, name:'视频广告'},
+                    {value:274, name:'联盟广告'},
+                    {value:310, name:'邮件营销'},
+                    {value:335, name:'直接访问'},
+                    {value:400, name:'搜索引擎'}
+                ],
+                itemStyle: {
+                    normal: {
+                        shadowBlur: 200,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>-->
+</body>
+</html>

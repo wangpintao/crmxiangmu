@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
@@ -44,27 +45,21 @@
 
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
-                <button 	class="layui-btn"  onclick="add()"><i class="layui-icon layui-icon-add-circle"></i> 客户添加</button>
+                <button 	class="layui-btn"  onclick="add()"><i class="layui-icon layui-icon-add-circle"></i> 商机添加</button>
                 <a class="layui-btn"  href="#" onclick="document.location.reload()"><i class="layui-icon layui-icon-refresh-1"></i>刷新</a>
             </div>
         </script>
 
         <script>
             function add(){
-                window.location.href="/client/addclient.html";
+                window.location.href="/market/addmarket.html";
             }
-        </script>
-
-        <script type="text/html" id="barDemo">
-            <a class="layui-btn layui-btn-xs" lay-event="detail"><i class="layui-icon layui-icon-search"></i>查看</a>
-            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
         </script>
 
         <table id="demo" lay-filter="test"></table>
 
-        <script type="text/html" id="ucids">
-            <a href= "/userClien/toupdate.do?ucid={{d.ucid}}" class="layui-table-link"  target="blank" >{{d.cliName}}</a>
+        <script type="text/html" id="coids">
+            <a href= "/commercial/toc.do?coid={{d.coid}}&ucid={{d.comUcid}}" class="layui-table-link"  target="blank" >{{d.coname}}</a>
         </script>
     </div>
 </div>
@@ -90,14 +85,14 @@
             elem: '#demo'
             ,toolbar:'#toolbarDemo'
             ,height: 500
-            ,url: '/userClien/clients.do' //数据接口
+            ,url: '/commercial/commercial.do' //数据接口
             ,page: true //开启分页
             ,limit:2
             ,limits:[1,2,10,30]
             ,cols: [[ //表头
-                {field: 'cliName', title: '用户名', width:120 , templet:'#ucids' }
-                ,{field: 'cliPinyin', title: '性别', width:80, sort: true}
-                ,{field: 'cliContacts', title: '年龄', width:80}
+                {field: 'coname', title: '用户名', width:120 , templet:'#coids' }
+                ,{field: 'comClibusname', title: '性别', width:80, sort: true}
+                ,{field: 'comSouid', title: '年龄', width:80}
             ]]
         });
 

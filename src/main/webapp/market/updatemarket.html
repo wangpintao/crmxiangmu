@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL-->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -62,25 +63,22 @@
 <form class="layui-form"  method=POST   action="/commercial/addCommercial.do">
 
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>客户信息</legend>
+        <legend>商机详情</legend>
     </fieldset>
 
 
-    <input type="hidden"  name="comUcid" id="ucid">
+    <input type="hidden"  name="comUcid" th:value="${commercial.comUcid}">
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label"><span style="color:#FF0000;">*</span>客户名称</label>
-            <div class="layui-input-block" style="width: 400px;height: 40px">
-                <select   id="cname" lay-filter="test">
-                    <option value="0">请选择</option>
-
-                </select>
-            </div>
+                <div class="layui-input-block">
+                    <input type="text"   th:value="${client.cliName}"  readonly  autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">所属行业</label>
             <div class="layui-input-block">
-                <input type="text" name="comClibusname"  id="business"  readonly  autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comClibusname"  th:value="${commercial.comClibusname}"  readonly  autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
     </div>
@@ -89,13 +87,13 @@
         <div class="layui-inline">
             <label class="layui-form-label">所在城市</label>
             <div class="layui-input-block">
-                <input type="text"   id="city"  readonly   autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text"  th:value="${client.city}"   readonly   autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">详细地址</label>
             <div class="layui-input-block">
-                <input type="text"   id="pin" readonly   autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text"   th:value="${client.csite}" readonly   autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
    </div>
@@ -108,13 +106,13 @@
         <div class="layui-inline">
             <label class="layui-form-label">商机名称</label>
             <div class="layui-input-block">
-                <input type="text" name="coname"     autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="coname"   th:value="${commercial.coname}"  autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">客户来源</label>
             <div class="layui-input-block">
-                <input type="text" name="comSouid"  readonly id="soid"   autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comSouid"  readonly id="soid"  th:value="${commercial.comSouid}"  autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
     </div>
@@ -123,13 +121,13 @@
         <div class="layui-inline">
             <label class="layui-form-label">预计成交金额</label>
             <div class="layui-input-block">
-                <input type="text" name="comSum" required    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comSum" required  th:value="${commercial.comSum}"   autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">预计结单日期</label>
             <div class="layui-input-block">
-                <input type="text" name="comDate" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" style="width: 400px;height: 40px" class="layui-input">
+                <input type="text" name="comDate" id="date" lay-verify="date" th:value="${commercial.comDate}" placeholder="yyyy-MM-dd" autocomplete="off" style="width: 400px;height: 40px" class="layui-input">
             </div>
         </div>
     </div>
@@ -139,13 +137,13 @@
         <div class="layui-inline">
             <label class="layui-form-label"><span style="color:#FF0000;">*</span>联系人</label>
             <div class="layui-input-block">
-                <input type="text" name="comContacts" readonly id="ren"   autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comContacts" readonly id="ren"  th:value="${commercial.comContacts}"  autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">部门</label>
             <div class="layui-input-block">
-                <input type="text" name="comDepartment"  readonly  id="dep"  autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comDepartment"  readonly  id="dep"  th:value="${commercial.comDepartment}" autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
     </div>
@@ -154,13 +152,13 @@
         <div class="layui-inline">
             <label class="layui-form-label">职务</label>
             <div class="layui-input-block">
-                <input type="text" name="comJob"  readonly  id="jop"    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comJob"  readonly  id="jop"  th:value="${commercial.comJob}"  autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">固定电话</label>
             <div class="layui-input-block">
-                <input type="text" name="comOffphone"    readonly  id="phone"  autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comOffphone" th:value="${commercial.comOffphone}"   readonly  id="phone"  autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
     </div>
@@ -169,13 +167,13 @@
         <div class="layui-inline">
             <label class="layui-form-label">移动电话</label>
             <div class="layui-input-block">
-                <input type="text" name="comPhone"  readonly  id="phones"    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comPhone"  th:value="${commercial.comPhone}" readonly  id="phones"    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">邮件/QQ</label>
             <div class="layui-input-block">
-                <input type="text" name="comMail"  readonly  id="qq"    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comMail" th:value="${commercial.comMail}"  readonly  id="qq"    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
     </div>
@@ -184,7 +182,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">主要业务需求</label>
             <div class="layui-input-block">
-                <textarea  placeholder="请输入内容" name="comText" class="layui-textarea" style="width: 925px;height: 40px"></textarea>
+                <textarea  placeholder="请输入内容" name="comText" th:value="${commercial.comText}" class="layui-textarea" style="width: 925px;height: 40px"></textarea>
             </div>
         </div>
     </div>
@@ -192,7 +190,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">相关附件</label>
             <div class="layui-input-block">
-                <input type="text" name="comFile"    autocomplete="off" class="layui-input" style="width: 925px;height: 40px">
+                <input type="text" name="comFile"  th:value="${commercial.comFile}"   autocomplete="off" class="layui-input" style="width: 925px;height: 40px">
             </div>
         </div>
     </div>
@@ -201,13 +199,13 @@
         <div class="layui-inline">
             <label class="layui-form-label"><span style="color:#FF0000;">*</span>商机所属部门</label>
             <div class="layui-input-block">
-                <input type="text" name="comDepid"    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comDepid" th:value="${commercial.comDepid}"   autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label"><span style="color:#FF0000;">*</span>商机负责人</label>
             <div class="layui-input-block">
-                <input type="text" name="comUname"     autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comUname"  th:value="${commercial.comUname}"   autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
     </div>
@@ -216,13 +214,13 @@
         <div class="layui-inline">
             <label class="layui-form-label">商机参与人</label>
             <div class="layui-input-block">
-                <input type="text" name="comParticipant"     autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comParticipant"  th:value="${commercial.comParticipant}"   autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">商机关注人</label>
             <div class="layui-input-block">
-                <input type="text" name="comFollower"     autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comFollower" th:value="${commercial.comFollower}"    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
     </div>
