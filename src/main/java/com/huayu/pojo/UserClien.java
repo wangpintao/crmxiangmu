@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 
@@ -24,6 +25,7 @@ public class UserClien extends Model<UserClien> implements  Serializable{
     /**
      * id
      */
+    @Id
     @TableId(value = "ucid", type = IdType.AUTO)
     private Integer ucid;
 
@@ -38,18 +40,6 @@ public class UserClien extends Model<UserClien> implements  Serializable{
      */
     @TableField("cli_pinyin")
     private String cliPinyin;
-
-    /**
-     * 客户表来源外键
-     */
-    @TableField("souid")
-    private Integer souid;
-
-    /**
-     * 客户所属行业外键
-     */
-    @TableField("busid")
-    private Integer busid;
 
     /**
      * 客户种类外键
@@ -80,9 +70,6 @@ public class UserClien extends Model<UserClien> implements  Serializable{
      */
     @TableField("csite")
     private String csite;
-
-
-
 
     /**
      * 客户邮政编码
@@ -149,7 +136,45 @@ public class UserClien extends Model<UserClien> implements  Serializable{
      */
     @TableField("cli_text")
     private String cliText;
+    /**
+     * 客户表来源外键
+     */
+    @TableField("souid")
+    private Integer souid;
 
+    /**
+     * 客户所属行业外键
+     */
+    @TableField("busid")
+    private Integer busid;
+
+
+    /*行业来源
+    * */
+    @TableField(exist = false)
+    private CliBusiness cliBusiness;
+    /*客户来源
+    * */
+    @TableField(exist = false)
+    private CliSource cliSource;
+
+
+
+    public CliBusiness getCliBusiness() {
+        return cliBusiness;
+    }
+
+    public void setCliBusiness(CliBusiness cliBusiness) {
+        this.cliBusiness = cliBusiness;
+    }
+
+    public CliSource getCliSource() {
+        return cliSource;
+    }
+
+    public void setCliSource(CliSource cliSource) {
+        this.cliSource = cliSource;
+    }
 
     @Override
     protected Serializable pkVal() {
@@ -183,7 +208,6 @@ public class UserClien extends Model<UserClien> implements  Serializable{
     public String getCliPinyin() {
         return cliPinyin;
     }
-
 
     public void setCliPinyin(String cliPinyin) {
         this.cliPinyin = cliPinyin;
@@ -331,8 +355,6 @@ public class UserClien extends Model<UserClien> implements  Serializable{
          "ucid=" + ucid +
          ", cliName='" + cliName + '\'' +
          ", cliPinyin='" + cliPinyin + '\'' +
-         ", souid=" + souid +
-         ", busid=" + busid +
          ", kinid=" + kinid +
          ", curl='" + curl + '\'' +
          ", cstate='" + cstate + '\'' +
@@ -349,6 +371,10 @@ public class UserClien extends Model<UserClien> implements  Serializable{
          ", cliLegalperson='" + cliLegalperson + '\'' +
          ", cliAmount=" + cliAmount +
          ", cliText='" + cliText + '\'' +
+         ", souid=" + souid +
+         ", busid=" + busid +
+         ", cliBusiness=" + cliBusiness +
+         ", cliSource=" + cliSource +
          '}';
     }
 }
