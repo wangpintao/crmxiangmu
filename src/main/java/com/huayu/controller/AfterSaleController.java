@@ -1,12 +1,15 @@
 package com.huayu.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.huayu.layuiUtils.Stulayui;
 import com.huayu.pojo.AfterSale;
+import com.huayu.pojo.Contract;
 import com.huayu.pojo.UserClien;
 import com.huayu.service.imp.IAfterSaleServiceImp;
+import com.huayu.service.imp.IContractServiceImp;
 import com.huayu.service.imp.IUserClienServiceImp;
 import jdk.nashorn.internal.runtime.linker.LinkerCallSite;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,8 @@ public class AfterSaleController {
     private IAfterSaleServiceImp iAfterSaleServiceImp;
     @Autowired
     private IUserClienServiceImp iUserClienServiceImp;
+    @Autowired
+    private IContractServiceImp iContractServiceImp;
 
     /*
     * 查询所有服务
@@ -51,7 +56,18 @@ public class AfterSaleController {
     public List<UserClien> queryClien(){
         return iUserClienServiceImp.list();
     }
-    //添加时查询合同
+
+    //添加时查询客户下的合同
+    @GetMapping("/queryByCon.do")
+    @ResponseBody
+    public List<Contract> queryByCon(Integer conUcid){
+        QueryWrapper queryWrapper =new QueryWrapper();
+        queryWrapper.eq("con_ucid",conUcid);
+        List<Contract> list = iContractServiceImp.list(queryWrapper);
+        System.out.println(list);
+        return list;
+    }
+
 
 
 
