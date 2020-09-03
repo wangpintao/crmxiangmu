@@ -31,38 +31,41 @@
      </fieldset>-->
     <blockquote class="layui-elem-quote">售后服务信息</blockquote>
     <div class="layui-form-item">
+
         <div class="layui-inline">
             <label class="layui-form-label">客户名称</label>
-            <div class="layui-input-inline">
-                <select name="aftUcid" lay-filter="clien" id="clien" style="width: 400px;height: 40px" lay-verify="required" lay-search="">
+            <div class="layui-input-block" style="width: 400px;height: 40px">
+                <select name="aftUcid" lay-filter="clien" id="clien"  lay-verify="required" lay-search="">
                 </select>
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">合同编号</label>
-            <div class="layui-input-inline">
-                <select name="aftConid" lay-filter="contract" style="width: 400px;height: 40px" id="contract" lay-verify="required" lay-search="">
+            <div class="layui-input-block" style="width: 400px;height: 40px">
+                <select name="aftConid" lay-filter="contract"  id="contract" lay-verify="required" lay-search="">
                 </select>
             </div>
         </div>
     </div>
-    <div class="layui-form-item layui-form-text">
+    <div class="layui-form-item">
+        <div class="layui-inline">
         <label class="layui-form-label">合同主要信息</label>
         <div class="layui-input-block">
-            <textarea id="contract_context" placeholder="请输入内容" class="layui-textarea"></textarea>
+            <textarea id="contract_context" placeholder="请输入内容" style="width: 925px;height: 40px" class="layui-textarea"></textarea>
+        </div>
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">联系人</label>
-            <div class="layui-input-inline">
-                <input  name="aftContacts" id="contact"  autocomplete="off" class="layui-input">
+            <div class="layui-input-block">
+                <input  name="aftContacts" id="contact"  style="width: 400px;height: 40px" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">电话</label>
-            <div class="layui-input-inline">
-                <input type="tel" name="aftOffphone" lay-verify="required|phone"  id="phone"  autocomplete="off" class="layui-input">
+            <div class="layui-input-block">
+                <input type="tel" name="aftOffphone" lay-verify="required|phone" style="width: 400px;height: 40px"  id="phone"  autocomplete="off" class="layui-input">
             </div>
         </div>
     </div>
@@ -73,17 +76,18 @@
                 <input  autocomplete="off" class="layui-input">
             </div>
         </div>-->
-        <div class="layui-inline">
-            <label class="layui-form-label">邮箱</label>
-            <div class="layui-input-inline">
-                <input type="text" name="aftqq" id="email" lay-verify="email" autocomplete="off" class="layui-input">
-            </div>
-        </div>
+
     </div>
     <div class="layui-form-item">
         <div class="layui-inline">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-block">
+                <input type="text" name="aftqq" id="email" lay-verify="email" style="width: 220px;height: 40px" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
             <label class="layui-form-label">服务类型</label>
-            <div class="layui-input-inline">
+            <div class="layui-input-block" style="width: 220px;height: 40px">
                 <select name="aftGenre" id="serve_type" lay-filter="serve_type" lay-verify="required" lay-search="">
                     <option value="">请选择</option>
                     <option value="故障申报" >故障申报</option>
@@ -94,7 +98,7 @@
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">服务方式</label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="width: 225px;height: 40px">
                 <select name="aftWay" lay-filter="" lay-verify="required" lay-search="">
                     <option value="">请选择</option>
                     <option value="上门服务" >上门服务</option>
@@ -107,39 +111,43 @@
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">开始时间</label>
-            <div class="layui-input-inline">
-                <input type="text" name="aftStartdate" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+            <div class="layui-input-block">
+                <input type="text" name="aftStartdate" id="date" style="width: 400px;height: 40px" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">结束时间</label>
-            <div class="layui-input-inline">
-                <input type="text" name="aftEnddate" id="date1" lay-verify="date1" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+            <div class="layui-input-block">
+                <input type="text" name="aftEnddate" id="date1" style="width: 400px;height: 40px" lay-verify="date1" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
             </div>
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
+        <div class="layui-inline">
         <label class="layui-form-label">服务内容</label>
         <div class="layui-input-block">
-            <textarea name="aftClass" placeholder="请输入内容" class="layui-textarea"></textarea>
+            <textarea name="aftClass" placeholder="请输入内容" style="width: 925px;height: 40px" class="layui-textarea"></textarea>
+        </div>
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
+        <div class="layui-inline">
         <label class="layui-form-label">客户反馈</label>
         <div class="layui-input-block">
-            <textarea name="aftFeedback" placeholder="请输入内容" class="layui-textarea"></textarea>
+            <textarea name="aftFeedback" placeholder="请输入内容" style="width: 925px;height: 40px" class="layui-textarea"></textarea>
+        </div>
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">服务人员</label>
-            <div class="layui-input-inline">
-                <input type="text" name="aftCrew"  autocomplete="off" class="layui-input">
+            <div class="layui-input-block">
+                <input type="text" name="aftCrew"  autocomplete="off" style="width: 400px;height: 40px" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item">
+        <div class="layui-inline">
             <label class="layui-form-label">评分</label>
-            <div class="layui-input-block">
+            <div class="layui-input-block" style="width: 400px;height: 40px">
                 <input type="radio" name="aftScore" value="5" title="5" checked="">
                 <input type="radio" name="aftScore" value="4" title="4">
                 <input type="radio" name="aftScore" value="3" title="3" >
@@ -151,10 +159,10 @@
     <button type="button" class="layui-btn" id="test1">
         <i class="layui-icon">&#xe67c;</i>上传附件
     </button>
-
+     <br>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" style="width: 400px;height: 40px">立即提交</button>
         </div>
     </div>
 </form>
@@ -183,7 +191,7 @@
             dataType:'json',
             data:{},
             success: function (data) {
-                console.log(data)
+                /*console.log(data)*/
                 var opt = "<option value=''>直接选择或搜索选择</option>";
                 //append() 方法在被选元素的结尾（仍然在内部）插入指定内容。
                 $("#clien").append(opt);
@@ -193,6 +201,28 @@
                 //更新 lay-filter="clien" 所在容器内的全部 select 状态
                 form.render('select');
             }
+        });
+
+        //监听下拉框clien改变事件
+        form.on('select(clien)', function (conUcid) {
+            console.log(conUcid)
+            $.ajax({
+                type:"get",
+                url:"/after/queryByCon.do",
+                data:{
+                    conUcid:conUcid.value
+                },
+                success: function (data) {
+                    /*console.log(data)*/
+                    $("#contract").html("");
+                    var opt = "<option value=''>直接选择或搜索选择</option>";
+                    $("#contract").append(opt);
+                    for(var i=0; i<data.length; i++){
+                        $('#contract').append(new Option(data[i].conname,data[i].serial));// 下拉菜单里添加元素
+                    }
+                    form.render('select');
+                }
+            });
         });
 
     $.ajax({

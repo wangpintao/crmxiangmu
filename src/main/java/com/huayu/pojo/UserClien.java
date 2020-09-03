@@ -150,12 +150,6 @@ public class UserClien extends Model<UserClien> implements  Serializable{
     @TableField("cli_text")
     private String cliText;
 
-    private String clibusname;
-
-
-
-
-
 
     @Override
     protected Serializable pkVal() {
@@ -189,6 +183,7 @@ public class UserClien extends Model<UserClien> implements  Serializable{
     public String getCliPinyin() {
         return cliPinyin;
     }
+
 
     public void setCliPinyin(String cliPinyin) {
         this.cliPinyin = cliPinyin;
