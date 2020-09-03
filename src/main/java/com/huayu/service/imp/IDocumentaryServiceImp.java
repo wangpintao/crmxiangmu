@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface IDocumentaryServiceImp extends IService<Documentary>{
     public List<Documentary> queryall(IPage<Documentary> page, Documentary documentary);
+
+    public List<Documentary> queryall1(Integer coid);
 }

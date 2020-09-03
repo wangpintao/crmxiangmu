@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 
 /**
@@ -37,6 +39,7 @@ public class Documentary extends Model<Documentary> {
      * 跟单日期
      */
     @TableField("doc_date")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date docDate;
 
     /**
@@ -76,6 +79,8 @@ public class Documentary extends Model<Documentary> {
     private Integer docuser;
 
     private User user;
+
+    private DocClassify docClassify;
 
     @Override
     protected Serializable pkVal() {
@@ -162,6 +167,14 @@ public class Documentary extends Model<Documentary> {
         this.user = user;
     }
 
+    public DocClassify getDocClassify() {
+        return docClassify;
+    }
+
+    public void setDocClassify(DocClassify docClassify) {
+        this.docClassify = docClassify;
+    }
+
     @Override
     public String toString() {
         return "Documentary{" +
@@ -175,6 +188,7 @@ public class Documentary extends Model<Documentary> {
                 ", docStaid=" + docStaid +
                 ", docuser=" + docuser +
                 ", user=" + user +
+                ", docClassify=" + docClassify +
                 '}';
     }
 }

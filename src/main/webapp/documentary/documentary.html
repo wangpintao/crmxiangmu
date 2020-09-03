@@ -38,6 +38,9 @@
         </center>
 </div>
 <script src="/static/layui/layui.js"></script>
+<script type="text/html" id="theme">
+    <a class="layui-table-link" target="blank" href="/documentary/update.do?docid={{d.docid}}&docComid={{d.docComid}}">{{d.theme}}</a>
+</script>
 <script>
     var add=function(){
         window.location.href="/documentary/add.do";
@@ -60,7 +63,7 @@
             , cols: [[ //表头
                 {type: 'numbers', title: '序列', width:100, sort: true, align: 'center'}
                 , {field: 'docDate', title: '跟单时间', width:200, align: 'center'/*,templet:function(d){return util.toDateString(d.docDate,"yyyy-MM-dd");}*/}
-                , {field: 'theme', title: '跟单主题', width:356, align: 'center'}
+                , {field: 'theme', title: '跟单主题', width:356, align: 'center',toolbar:'#theme'}
                 , {field: 'user', title: '跟单人', width:100, align: 'center', templet: '<div>{{d.user.uname}}<div>'}
                 , {field: 'docDetails', title: '详细内容', width:400, align: 'center'}
                 , {field: 'docFile', title: '附件', width:200, align: 'center'}
