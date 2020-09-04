@@ -24,4 +24,29 @@ public interface AfterSaleMapper extends BaseMapper<AfterSale> {
     @Select("SELECT * FROM after_sale aft,user_clien uc,contract co WHERE aft.aft_ucid=uc.ucid AND aft.aft_conid = co.serial AND aftid =#{aftid}")
     AfterSaleBo queryAllDetail(Integer aftid);
 
+
+    //每周
+    @Select("SELECT * FROM after_sale WHERE YEARWEEK(DATE_FORMAT(aft_startdate,'%Y-%m-%d'),1) = YEARWEEK(NOW(),1)")
+    List<AfterSale> newWeek();
+
+    //上周
+    @Select("SELECT * FROM after_sale WHERE YEARWEEK(DATE_FORMAT(aft_startdate,'%Y-%m-%d')) = YEARWEEK(NOW())-1;")
+    List<AfterSale> beforeWeek();
+
+    //每月
+    @Select("SELECT * FROM after_sale WHERE DATE_FORMAT(aft_startdate,'%Y-%m')=DATE_FORMAT(NOW(),'%Y-%m')")
+    List<AfterSale> newMonth();
+
+    //上月
+    @Select("SELECT * FROM after_sale WHERE PERIOD_DIFF( DATE_FORMAT( NOW( ) , '%Y%m' ) , DATE_FORMAT( aft_startdate, '%Y%m' ) ) =1")
+    List<AfterSale> beforeMonth();
+
+    //本季
+    @Select("SELECT * FROM after_sale WHERE QUARTER(aft_startdate)=QUARTER(NOW());")
+    List<AfterSale> newSeason();
+
+    //上季
+    @Select("SELECT * FROM after_sale WHERE QUARTER(aft_startdate)=QUARTER(DATE_SUB(NOW(),INTERVAL 1 QUARTER));")
+    List<AfterSale> beforeSeason();
+
 }

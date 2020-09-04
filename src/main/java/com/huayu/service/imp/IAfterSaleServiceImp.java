@@ -11,5 +11,8 @@ import java.util.List;
 public interface IAfterSaleServiceImp extends IService<AfterSale>{
     Stulayui queryMany(Integer page, Integer limit, AfterSale afterSale);
     AfterSaleBo queryAllDetail(Integer aftid);
-    Stulayui queryBya(Integer page, Integer limit, AfterSale afterSale,String column,String value);
+    Stulayui queryBya(Integer page, Integer limit, AfterSale afterSale,String calssType,String key,String value);
+    Stulayui newWeek(Integer page, Integer limit);
+    List<AfterSale> newMonth();
+    List<AfterSale> newSeason();
 }

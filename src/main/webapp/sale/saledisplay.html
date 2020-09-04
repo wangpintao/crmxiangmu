@@ -50,15 +50,30 @@
                 <div class="layui-card-body">
                     <div class="divcss5-b">
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#" id="cg" >所有分类</a>&nbsp;<span></span><br>
+                        <a href="#" id="cg" >处理中服务</a>&nbsp;<span></span><br>
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#" id="gez">处理中的服务</a>&nbsp;<span></span><br>
+                        <a href="#" id="gez">已结束服务</a>&nbsp;<span></span><br>
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#" id="diudan">以结束服务</a>&nbsp;<span></span><br>
+                        <a href="#" id="diudan">以搁置服务</a>&nbsp;<span></span><br>
+                        <hr>
+                    </div>
+                    <div class="divcss5-b">
+                        <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+                        <a href="#" id="bz" >本周新增</a>&nbsp;<span></span><br>
+                        <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+                        <a href="#" id="sz">上周新增</a>&nbsp;<span></span><br>
+                        <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+                        <a href="#" id="by">本月新增</a>&nbsp;<span></span><br>
+                        <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+                        <a href="#" id="sy" >上月新增</a>&nbsp;<span></span><br>
+                        <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+                        <a href="#" id="bj">本季新增</a>&nbsp;<span></span><br>
+                        <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+                        <a href="#" id="sj">上季新增</a>&nbsp;<span></span><br>
                         <hr>
 
                     </div>
-                    <br><br><br><br><br><br>
+
                 </div>
             </div>
         </div>
@@ -67,17 +82,17 @@
                 <div class="layui-card-body">
                         <form  class="layui-form" action="" lay-filter="example">
                         <div class="layui-inline">
-                            <select name="column" class="layui-select" >
-                                <option>请选择</option>
-                                <option value="theme">按主题</option>
-                                <option value="aftGenre">按服务类型</option>
-                                <option value="aftStartdate">按开始时间</option>
-                                <option value="aftScore">按服务评分</option>
+                            <select name="calssType" class="layui-select" >
+                                <option >请选择</option>
+                                <option value="aft_theme">按主题</option>
+                                <option value="aft_genre">按服务类型</option>
+                                <option value="aft_startdate">按开始时间</option>
+                                <option value="aft_score">按服务评分</option>
                             </select>
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="layui-inline">
-                            <input class="layui-input" name="value" id="demoReload" autocomplete="off">
+                            <input class="layui-input" name="key" id="demoReload" autocomplete="off">
                         </div>
                         <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1"><span class="layui-icon layui-icon-search">搜索</span></button>
                         <button type="reset" class="layui-btn layui-btn-primary">重置</button>
@@ -121,6 +136,7 @@
         var table = layui.table;
         var util = layui.util;
         var form = layui.form;
+        var $=layui.jquery;
 
         //监听折叠
         element.on('collapse(test)', function (data) {
@@ -129,7 +145,7 @@
         //table 渲染
         table.render({
             elem: '#test'
-            , url: '/after/queryAll.do'
+            , url: '/after/queryBya.do'
             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: []
             , title: '用户数据表'
@@ -147,15 +163,22 @@
         });
 
 
-        form.on('submit(example)', function (data) {
-            console.log(data.field.column);
-            console.log(data.field.value);
-            console.log(data.field);
+        /*window.bftask(function (value) {
+            console.log(v)
             table.reload('test',{
                 url:'/after/queryBya.do'
                 ,where:{
-                    where: data.field
+                    value:value
                 }
+            });
+            return false;
+        });*/
+
+        form.on('submit(demo1)', function (data) {
+            console.log(data)
+            table.reload('test',{
+                url:'/after/queryBya.do'
+                ,where:data.field
             });
             return false;
         });
@@ -217,6 +240,11 @@
             table.reload("test",{
                 url: ''
                 ,where: {syzt:18}
+            });
+        });
+        $("#bz").click(function () {
+            table.reload("test",{
+                url: '/after/queryByb.do'
             });
         });
 

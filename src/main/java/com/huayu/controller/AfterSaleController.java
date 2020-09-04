@@ -73,10 +73,14 @@ public class AfterSaleController {
 
     @GetMapping("/queryBya.do")
     @ResponseBody
-    public Stulayui queryBya(Integer page, Integer limit, AfterSale afterSale,String column,String value){
-        System.out.println("字段名"+column);
-        System.out.println("文本值"+value);
-        return iAfterSaleServiceImp.queryBya(page, limit, afterSale, column, value);
+    public Stulayui queryBya(Integer page, Integer limit, AfterSale afterSale,String calssType,String key,String value){
+        System.out.println("前端值"+value);
+        return iAfterSaleServiceImp.queryBya(page, limit, afterSale, calssType, key,value);
+    }
+    @GetMapping("/queryByb.do")
+    @ResponseBody
+    public Stulayui queryByb(Integer page, Integer limit){
+        return iAfterSaleServiceImp.newWeek(page,limit);
     }
 
     //去修改
@@ -88,5 +92,27 @@ public class AfterSaleController {
        return modelAndView;
     }
 
+    //模糊查询测试
+    @GetMapping("/toup.do")
+    @ResponseBody
+    public List<AfterSale> toup(String calssType,String key) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.like(calssType, key);
+        System.out.println(calssType);
+        System.out.println(key);
+        System.out.println(iAfterSaleServiceImp.list(queryWrapper));
+        return iAfterSaleServiceImp.list(queryWrapper);
+    }
 
+   /* @GetMapping("/toup1.do")
+    @ResponseBody
+    public AfterSale toup1(Integer id,String calssType,String key) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.like(calssType, key);
+        System.out.println(calssType);
+        System.out.println(key);
+        System.out.println(iAfterSaleServiceImp.getById(id));
+        AfterSale afterSale = iAfterSaleServiceImp.getById(id);
+        return afterSale;
+    }*/
 }
