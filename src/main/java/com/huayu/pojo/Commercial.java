@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -25,6 +26,12 @@ public class Commercial extends Model<Commercial> {
 
     @TableId(value = "coid", type = IdType.AUTO)
     private Integer coid;
+
+    /*
+    * 客户商机名称
+    * */
+    @TableField("coname_cliname")
+    private String conameCliNname;
 
     /**
      * 商机名称
@@ -70,6 +77,7 @@ public class Commercial extends Model<Commercial> {
      * 商机预计成交日期
      */
     @TableField("com_date")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date comDate;
 
@@ -323,10 +331,19 @@ public class Commercial extends Model<Commercial> {
         this.comFollower = comFollower;
     }
 
+    public String getConameCliNname() {
+        return conameCliNname;
+    }
+
+    public void setConameCliNname(String conameCliNname) {
+        this.conameCliNname = conameCliNname;
+    }
+
     @Override
     public String toString() {
         return "Commercial{" +
          "coid=" + coid +
+         ", conameCliNname='" + conameCliNname + '\'' +
          ", coname='" + coname + '\'' +
          ", comClibusname='" + comClibusname + '\'' +
          ", comSouid='" + comSouid + '\'' +

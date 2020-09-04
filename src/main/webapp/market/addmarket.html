@@ -5,8 +5,10 @@
     <title>商机添加</title>
     <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
 </head>
+<script src="/static/js/jquery-3.3.1.min.js"></script>
 <script src="/static/layui/layui.js"></script>
 <script>
+    var namesub="";
     //Demo
     layui.use(['form','upload','jquery','laydate'], function(){
         var form = layui.form;
@@ -30,6 +32,22 @@
 
         })
 
+        //普通文件上传
+        var uploadInst= upload.render({
+            elem: '#test1'
+            ,url: '/commercial/files.do' //改成您自己的上传接口
+            ,accept: 'file' //普通文件
+            ,done: function(res){
+                //上传成功
+                if(res.code == "0"){
+                    $("#files").val(res.data);
+                    layer.msg("文件上传成功",{icon:6});//笑脸
+                }else{
+                    layer.msg("文件上传失败",{icon:5});
+                }
+            }
+        });
+
         form.on('select(test)', function(data){
             console.log(data.value);//得到被选中的值
             //根据id查询客户信息表
@@ -47,7 +65,30 @@
               $("#qq").val(objs.cliqq);
                 form.render();
             })
+            //名字的拼接
+            if($("#cname option:selected").text()=="请选择"){
+                $("#comName").val("");
+                $("#ucid").val("");
+                $("#business").val("");
+                $("#soid").val("");
+                $("#city").val("");
+                $("#pin").val("");
+                $("#ren").val("");
+                $("#dep").val("");
+                $("#jop").val("");
+                $("#phone").val("");
+                $("#phones").val("");
+                $("#qq").val("");
+                return false;
+            }else {
+                $("#comName").val($("#cname option:selected").text());//获取下拉框的 具体的值
+                namesub=$("#cname option:selected").text();//装到变量中
+                console.log("--"+$("#cname option:selected").text());
+            }
+
+
         });
+
 
         //监听提交
         form.on('submit(formDemo)', function(data){
@@ -55,16 +96,29 @@
             parent.layer.close(index);
         });
     });
+
+    function upsj(v){//键盘录入事件
+        var str=namesub+"-"+v;
+        $("#comName").val(str);
+    }
 </script>
 <body >
 <br>
 <div style="text-align: center;">
 <form class="layui-form"  method=POST   action="/commercial/addCommercial.do">
 
+    <div class="layui-form-item layui-form-text">
+        <div class="layui-inline">
+            <label class="layui-form-label">客户商机</label>
+            <div class="layui-input-block">
+                <input    name="conameCliNname"  id="comName"  readonly  autocomplete="off" class="layui-input" style="width: 925px;height: 40px;border: 0px"></input>
+            </div>
+        </div>
+    </div>
+
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
         <legend>客户信息</legend>
     </fieldset>
-
 
     <input type="hidden"  name="comUcid" id="ucid">
     <div class="layui-form-item">
@@ -108,7 +162,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">商机名称</label>
             <div class="layui-input-block">
-                <input type="text" name="coname"     autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="coname"   id="conname"  onkeyup="upsj(this.value)"  autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
         <div class="layui-inline">
@@ -191,9 +245,12 @@
     <div class="layui-form-item layui-form-text">
         <div class="layui-inline">
             <label class="layui-form-label">相关附件</label>
-            <div class="layui-input-block">
-                <input type="text" name="comFile"    autocomplete="off" class="layui-input" style="width: 925px;height: 40px">
-            </div>
+            <button type="button" class="layui-btn" id="test1">
+                <i class="layui-icon"></i>上传文件
+            </button>
+        </div>
+        <div class="layui-inline">
+                <input type="text" name="comFile"  id="files"  readonly  autocomplete="off" class="layui-input" style="width: 800px;height: 40px">
         </div>
     </div>
 
