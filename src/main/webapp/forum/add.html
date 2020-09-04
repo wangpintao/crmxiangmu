@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增帖子</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+</head>
+<script src="/static/layui/layui.js"></script>
+<body >
+<br>
+<div style="margin:0 auto; width:80%;height:auto;">
+    <form class="layui-form" method="post" action="/documentary/update1.do">
+        <div class="layui-inline" style="float: left">
+            <input align="left" type="text" value="新增帖子" style="border:0px;font-size:20px"/>
+        </div>
+        <div class="layui-inline"style="float: right">
+            <a href="javascript:window.opener=null;window.open('','_self');window.close()"
+               class="layui-btn layui-icon layui-icon-return">返回</a>
+            <a href="javascript:;" id="flush" class="layui-btn layui-icon layui-icon-refresh">刷新</a>
+        </div>
+
+        <br><br><hr class="layui-bg-black"><br>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label"><span style="color:#FF0000;">*</span>分类</label>
+                <div class="layui-input-block" style="width: 400px;height: 40px">
+                    <select>
+                        <option value="0">请选择</option>
+                        <option value="合理化建议">合理化建议</option>
+                        <option value="技术交流">技术交流</option>
+                        <option value="企业文化">企业文化</option>
+                        <option value="生活娱乐">生活娱乐</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">标签</label>
+                <div class="layui-input-block">
+                    <input type="text" autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">主题</label>
+                <div class="layui-input-block">
+                    <input type="text" autocomplete="off" class="layui-input" style="width:925px;height:40px">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">相关附件</label>
+                <div class="layui-input-block">
+                    <input type="file" name="file">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <div class="layui-input-block">
+                    <textarea style="width:900px;height:200px">
+
+                    </textarea>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button lay-submit="" class="layui-btn layui-btn-radius layui-btn-normal">提交</button>
+                    <a href="javascript:window.opener=null;window.open('','_self');window.close()" class="layui-btn layui-btn-radius layui-btn-normal">取消</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    layui.use(['form','upload','jquery','laydate'], function(){
+        var form = layui.form;
+        var $=layui.jquery;//异步
+        var upload=layui.upload;
+        var laydate = layui.laydate;
+
+        form.verify({
+            comStaid:function (value,item) {
+                if(value==0){
+                    return '请选择当前状态';
+                }
+            }
+        });
+
+    });
+</script>
+</body>
+</html>

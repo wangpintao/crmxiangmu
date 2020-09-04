@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>我的跟单</title>
+    <title>全部讨论帖子</title>
     <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
 </head>
 <body>
@@ -10,14 +10,16 @@
         <center>
             <form class="layui-form" action="">
                 <div class="layui-inline" align="left">
-                    <i class="layui-icon layui-icon-layer" style="font-size:30px;color: #1E9FFF;">我的跟单</i>
+                    <i class="layui-icon layui-icon-layer" style="font-size:30px;color: #1E9FFF;">全部讨论帖子</i>
                 </div>
                 <div class="layui-inline">
                     <select name="docid">
                         <option value="0">请选择</option>
-                        <option value="1">按跟单时间</option>
-                        <option value="2">按跟单主题</option>
-                        <option value="3">按跟单人</option>
+                        <option value="1">按主题</option>
+                        <option value="2">按作者</option>
+                        <option value="3">按标签</option>
+                        <option value="3">按点击</option>
+                        <option value="3">按回复</option>
                     </select>
                 </div>
                 <div class="layui-inline">
@@ -30,7 +32,7 @@
                     </button>
                 </div>
                 <div class="layui-inline" align="right">
-                    <button type="button" onclick="add()" class="layui-btn"><i class="layui-icon layui-icon-add-1">新增跟单</i></button>
+                    <button type="button" onclick="add()" class="layui-btn"><i class="layui-icon layui-icon-add-1">社区发帖</i></button>
                     <button type="reset" class="layui-btn"><i class="layui-icon layui-icon-refresh-3">刷新</i></button>
                 </div>
             </form>
@@ -39,11 +41,11 @@
 </div>
 <script src="/static/layui/layui.js"></script>
 <script type="text/html" id="theme">
-    <a class="layui-table-link" target="blank" onclick=window.location.href="/documentary/update.do?docid={{d.docid}}&docComid={{d.docComid}}">{{d.theme}}</a>
+    <a class="layui-table-link" target="blank" onclick=window.location.href="/forum/update.do?docid={{d.docid}}&docComid={{d.docComid}}">{{d.forTheme}}</a>
 </script>
 <script>
     var add=function(){
-        window.location.href="/documentary/add.do";
+        window.location.href="/forum/add.html";
     }
     layui.use(['table', 'layer', 'form', 'tree'], function () {
         var table = layui.table;
@@ -56,23 +58,24 @@
         table.render({
             elem: '#demo'
             , height: 500
-            , url: '/documentary/queryall.do' //数据接口
+            , url: '/forum/queryall.do' //数据接口
             , page: true //开启分页
             , limit: 10
             , limits: [5, 10, 15, 20]
             , cols: [[ //表头
                 {type: 'numbers', title: '序列', width:100, sort: true, align: 'center'}
-                , {field: 'docDate', title: '跟单时间', width:200, align: 'center'/*,templet:function(d){return util.toDateString(d.docDate,"yyyy-MM-dd");}*/}
-                , {field: 'theme', title: '跟单主题', width:356, align: 'center',toolbar:'#theme'}
-                , {field: 'user', title: '跟单人', width:100, align: 'center', templet: '<div>{{d.user.uname}}<div>'}
-                , {field: 'docDetails', title: '详细内容', width:400, align: 'center'}
-                , {field: 'docFile', title: '附件', width:200, align: 'center'}
+                , {field: 'forTheme', title: '主题', width:360, align: 'center',toolbar:'#theme'}
+                , {field: 'forAuthor', title: '作者', width:100, align: 'center'}
+                , {field: 'forComname', title: '所属商机', width:395,align: 'center'}
+                , {field: 'forClick', title: '点击', width:100,sort: true, align: 'center'}
+                , {field: 'forReply', title: '回复', width:100,sort: true, align: 'center'}
+                , {field: 'docFile', title: '最后回复', width:200, align: 'center'}
             ]]
         });
 
         form.on('submit(formDemo)',function (data) {
             table.reload('demo', {
-                url:'/documentary/queryall.do'
+                url:'/forum/queryall.do'
                 ,where:{
                     docid:data.field.docid
                     ,docDetails: data.field.docDetails

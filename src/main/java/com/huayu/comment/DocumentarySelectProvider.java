@@ -32,4 +32,20 @@ public class DocumentarySelectProvider {
         }
         return buffer.toString();
     }
+
+    public String queryall1(@Param("page") IPage<Documentary> page,@Param("docu") Documentary documentary){
+        StringBuffer buffer=new StringBuffer("select * from documentary where 1=1");
+        if(!StringUtils.isEmpty(documentary)){
+            if(!StringUtils.isEmpty(documentary.getDocid())){
+                if(documentary.getDocid()==1){
+                    buffer.append(" and doc_Date=#{docu.docDetails}");
+                }else if(documentary.getDocid()==2){
+                    buffer.append(" and theme=#{docu.docDetails}");
+                }else if(documentary.getDocid()==3){
+                    buffer.append(" and doc_user=#{docu.docDetails}");
+                }
+            }
+        }
+        return buffer.toString();
+    }
 }

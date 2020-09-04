@@ -1,5 +1,6 @@
 package com.huayu.controller;
 
+import com.huayu.layuiUtils.Stulayui;
 import com.huayu.pojo.Documentary;
 import com.huayu.pojo.Forum;
 import com.huayu.service.imp.IDocumentaryServiceImp;
@@ -16,9 +17,23 @@ import java.util.List;
 public class ForumController {
     @Autowired
     private IForumServiceImp iForumServiceImp;
+
     @RequestMapping("/queryall.do")
     @ResponseBody
-    public List<Forum> queryall(){
-        return iForumServiceImp.list();
+    public Stulayui queryall(){
+        Stulayui stulayui=new Stulayui();
+        List<Forum> list=iForumServiceImp.list();
+        if(list.size()>0){
+            stulayui.setCode(0);
+            stulayui.setMsg("查询成功");
+            stulayui.setCount(list.size());
+            stulayui.setData(list);
+        }else{
+            stulayui.setCode(1);
+            stulayui.setMsg("无数据");
+            stulayui.setCount(list.size());
+            stulayui.setData(list);
+        }
+        return stulayui;
     }
 }

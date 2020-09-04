@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -34,6 +36,8 @@ public class DocumentaryController {
     private IUserClienServiceImp iUserClienServiceImp;
     @Autowired
     private IDocStatusServiceImp iDocStatusServiceImp;
+    @Autowired
+    private IUserServiceImp iUserServiceImp;
 
     @RequestMapping("/queryall.do")
     @ResponseBody
@@ -49,7 +53,37 @@ public class DocumentaryController {
             stulayui.setData(list);
         }else{
             stulayui.setCode(1);
-            stulayui.setMsg("查询失败");
+            stulayui.setMsg("无数据");
+            stulayui.setCount(list.size());
+            stulayui.setData(list);
+        }
+        return stulayui;
+    }
+
+    @RequestMapping("/queryall1.do")
+    @ResponseBody
+    public Stulayui queryall1(Integer page,Integer limit,Documentary documentary){
+        Stulayui stulayui=new Stulayui();
+        Page<Documentary> page1=new Page<>(page,limit);
+        if(documentary.getDocid()!=null){
+            if(documentary.getDocid()==3){
+                QueryWrapper queryWrapper=new QueryWrapper();
+                queryWrapper.eq("uname",documentary.getDocDetails());
+                User user=iUserServiceImp.getOne(queryWrapper);
+                if(user!=null){
+                    documentary.setDocDetails(String.valueOf(user.getUid()));
+                }
+            }
+        }
+        List<Documentary> list=iDocumentaryServiceImp.queryall2(page1,documentary);
+        if(list.size()>0){
+            stulayui.setCode(0);
+            stulayui.setMsg("查询成功");
+            stulayui.setCount(list.size());
+            stulayui.setData(list);
+        }else{
+            stulayui.setCode(1);
+            stulayui.setMsg("无数据");
             stulayui.setCount(list.size());
             stulayui.setData(list);
         }
@@ -65,6 +99,17 @@ public class DocumentaryController {
         model.addAttribute("shang",list);
         model.addAttribute("gen",list1);
         return "/documentary/add";
+    }
+
+    @RequestMapping("/adds.do")
+    public String adds(Model model){
+        //商机主题
+        List<Commercial> list=iCommercialServiceImp.list();
+        //跟单分类
+        List<DocClassify> list1=iDocClassifyServiceImp.list();
+        model.addAttribute("shang",list);
+        model.addAttribute("gen",list1);
+        return "/documentary/adds";
     }
 
     @PostMapping("/add1.do")
@@ -86,6 +131,27 @@ public class DocumentaryController {
             e.printStackTrace();
         }
         return "redirect:/documentary/documentary.html";
+    }
+
+    @PostMapping("/add1s.do")
+    public String add1s(@RequestParam("file") MultipartFile docfile,Documentary documentary,HttpServletRequest request){
+        try {
+            String oriName = docfile.getOriginalFilename();
+            String path = request.getServletContext().getRealPath("/upload");
+            File file = new File(path);
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+            docfile.transferTo(new File(path, oriName));
+            DocClassify docClassify=iDocClassifyServiceImp.getById(documentary.getDocClaid());
+            documentary.setTheme(documentary.getTheme()+docClassify.getClaname());
+            documentary.setDocFile(oriName);
+            documentary.setDocDate(new Date());
+            iDocumentaryServiceImp.save(documentary);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/documentary/documentarys.html";
     }
 
     @PostMapping("/coname.do")
@@ -117,7 +183,7 @@ public class DocumentaryController {
     }
 
     @RequestMapping("/update.do")
-    public String update(Documentary documentary,Model model){
+    public String update(Documentary documentary,Model model) throws ParseException {
         QueryWrapper queryWrapper1=new QueryWrapper();
         queryWrapper1.eq("coid",documentary.getDocComid());
         Commercial commercial=iCommercialServiceImp.getOne(queryWrapper1);
@@ -131,9 +197,30 @@ public class DocumentaryController {
         return "/documentary/update.html";
     }
 
+    @RequestMapping("/updates.do")
+    public String updates(Documentary documentary,Model model) throws ParseException {
+        QueryWrapper queryWrapper1=new QueryWrapper();
+        queryWrapper1.eq("coid",documentary.getDocComid());
+        Commercial commercial=iCommercialServiceImp.getOne(queryWrapper1);
+        QueryWrapper queryWrapper2=new QueryWrapper();
+        queryWrapper2.eq("ucid",commercial.getComUcid());
+        UserClien userClien=iUserClienServiceImp.getOne(queryWrapper2);
+        List<DocStatus> list=iDocStatusServiceImp.list();
+        model.addAttribute("comm",commercial);
+        model.addAttribute("user",userClien);
+        model.addAttribute("sta",list);
+        return "/documentary/updates.html";
+    }
+
     @PostMapping("/update1.do")
     public String update1(Commercial commercial){
-        iCommercialServiceImp.updateById(commercial);
+        iDocumentaryServiceImp.commercialupdate(commercial);
         return "redirect:/documentary/documentary.html";
+    }
+
+    @PostMapping("/update1s.do")
+    public String update1s(Commercial commercial){
+        iDocumentaryServiceImp.commercialupdate(commercial);
+        return "redirect:/documentary/documentarys.html";
     }
 }

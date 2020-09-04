@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>我的跟单</title>
+    <title>全部跟单</title>
     <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
 </head>
 <body>
@@ -10,7 +10,7 @@
         <center>
             <form class="layui-form" action="">
                 <div class="layui-inline" align="left">
-                    <i class="layui-icon layui-icon-layer" style="font-size:30px;color: #1E9FFF;">我的跟单</i>
+                    <i class="layui-icon layui-icon-layer" style="font-size:30px;color: #1E9FFF;">全部跟单</i>
                 </div>
                 <div class="layui-inline">
                     <select name="docid">
@@ -39,11 +39,11 @@
 </div>
 <script src="/static/layui/layui.js"></script>
 <script type="text/html" id="theme">
-    <a class="layui-table-link" target="blank" onclick=window.location.href="/documentary/update.do?docid={{d.docid}}&docComid={{d.docComid}}">{{d.theme}}</a>
+    <a class="layui-table-link" target="blank" onclick=window.location.href="/documentary/updates.do?docid={{d.docid}}&docComid={{d.docComid}}">{{d.theme}}</a>
 </script>
 <script>
     var add=function(){
-        window.location.href="/documentary/add.do";
+        window.location.href="/documentary/adds.do";
     }
     layui.use(['table', 'layer', 'form', 'tree'], function () {
         var table = layui.table;
@@ -56,7 +56,7 @@
         table.render({
             elem: '#demo'
             , height: 500
-            , url: '/documentary/queryall.do' //数据接口
+            , url: '/documentary/queryall1.do' //数据接口
             , page: true //开启分页
             , limit: 10
             , limits: [5, 10, 15, 20]
@@ -72,7 +72,7 @@
 
         form.on('submit(formDemo)',function (data) {
             table.reload('demo', {
-                url:'/documentary/queryall.do'
+                url:'/documentary/queryall1.do'
                 ,where:{
                     docid:data.field.docid
                     ,docDetails: data.field.docDetails
