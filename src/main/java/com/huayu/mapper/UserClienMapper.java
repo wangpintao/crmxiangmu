@@ -52,5 +52,7 @@ public List<UserClien> listUser();
  @Select("select * from user_clien where ucid=#{ucid}")
  UserClien queryByid(Integer ucid);
 
+ @Update("update user_clien set cli_name=#{cliName},cli_pinyin=#{ cliPinyin}, kinid=#{kinid},curl=#{curl} , cstate=#{cstate},city=#{city}, csite=#{csite},cli_mail=#{cliMail} , cli_fax=#{cliFax},cli_contacts=#{cliContacts} , cli_department=#{cliDepartment},cli_job=#{cliJob} , cli_offphone=#{cliOffphone},cli_qq=#{cliqq} , cli_phone=#{cliPhone},cli_legalperson=#{cliLegalperson} ,cli_amount=#{cliAmount} , cli_text=#{cliText},souid=#{souid} ,busid=#{busid} where coid=#{coid}")
+ public boolean updatecl(UserClien userClien);
 
 }

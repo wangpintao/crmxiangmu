@@ -13,4 +13,5 @@ public interface IUserClienServiceImp extends IService<UserClien>{
  public List<UserClien> listUser();
  Stulayui queryMany(Integer page, Integer limit, @Param("clientid")Integer clientid, @Param("keys")String keys);
  UserClien queryByid(Integer ucid);
+ public boolean updatecl(UserClien userClien);
 }

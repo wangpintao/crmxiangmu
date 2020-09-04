@@ -24,4 +24,9 @@ public class DocumentaryService extends ServiceImpl<DocumentaryMapper, Documenta
     public List<Documentary> queryall(IPage<Documentary> page, Documentary documentary) {
         return documentaryMapper.queryall(page,documentary);
     }
+
+    @Override
+    public List<Documentary> queryall1(Integer coid) {
+        return documentaryMapper.queryall1(coid);
+    }
 }

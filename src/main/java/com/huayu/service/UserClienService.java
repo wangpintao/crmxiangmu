@@ -50,5 +50,8 @@ public class UserClienService extends ServiceImpl<UserClienMapper,UserClien> imp
   return userClienMapper.queryByid(ucid);
  }
 
-
+ @Override
+ public boolean updatecl(UserClien userClien) {
+  return userClienMapper.updatecl(userClien) ;
+ }
 }

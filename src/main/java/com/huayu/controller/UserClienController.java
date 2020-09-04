@@ -91,7 +91,6 @@ public List<CliKind> selectKind(){
 
  @GetMapping ("/toupdate.do")
  public ModelAndView toupdate(Integer ucid){
-
   ModelAndView view=new ModelAndView();
   view.addObject("client",iUserClienServiceImp.queryByid(ucid));
   view.addObject("business",iCliBusinessServiceImp.list());
