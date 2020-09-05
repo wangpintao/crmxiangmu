@@ -4,6 +4,9 @@ package com.huayu.controller;/*
  *@Description:客户表
  */
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.huayu.bo.ClientBo;
 import com.huayu.layuiUtils.Stulayui;
 import com.huayu.pojo.CliBusiness;
 import com.huayu.pojo.CliKind;
@@ -13,6 +16,7 @@ import com.huayu.service.imp.ICliBusinessServiceImp;
 import com.huayu.service.imp.ICliKindServiceImp;
 import com.huayu.service.imp.ICliSourceServiceImp;
 import com.huayu.service.imp.IUserClienServiceImp;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -97,10 +101,6 @@ public List<CliKind> selectKind(){
   view.addObject("kind",iCliKindServiceImp.list());
   view.addObject("source",iCliSourceServiceImp.list());
   view.setViewName("/client/updateclient.html");
- /* model.addAttribute("client",iUserClienServiceImp.getById(ucid));
-  model.addAttribute("business",iCliBusinessServiceImp.list());
-  model.addAttribute("kind",iCliKindServiceImp.list());
-  model.addAttribute("source",iCliSourceServiceImp.list());*/
   return view;
  }
  /*修改
@@ -108,17 +108,23 @@ public List<CliKind> selectKind(){
 @PostMapping("/update.do")
  public String update(UserClien userClien){
  System.out.println(userClien);
-  iUserClienServiceImp.saveOrUpdate(userClien);
-  return "/client/clientselect.html";
+  iUserClienServiceImp.updatecl(userClien);
+  return "redirect:/client/clientselect.html";
  }
 
- /*根据id查询客户信息
+ /*商机联合 , Integer clientid, String keys
   * */
  @RequestMapping("/clientid.do")
  @ResponseBody
- public Stulayui clientid(Integer page, Integer limit, Integer clientid, String keys){
-  System.out.println(clientid+"||||"+keys);
-  return iUserClienServiceImp.queryMany(page,limit,clientid,keys);
+ public Stulayui clientid(@Param("page")Integer page, @Param("limit")Integer limit){
+  IPage<UserClien> page1= new Page<>(page,limit);
+  Stulayui stulayui=new Stulayui();
+  List<ClientBo>  list= iUserClienServiceImp.queryMany(page1);
+  stulayui.setMsg("查询成功");
+  stulayui.setCode(0);
+  stulayui.setCount(list.size());
+  stulayui.setData(list);
+  return stulayui;
  }
 
  @RequestMapping("/clients.do")

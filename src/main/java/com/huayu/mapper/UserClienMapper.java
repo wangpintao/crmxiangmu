@@ -46,13 +46,11 @@ public interface UserClienMapper extends BaseMapper<UserClien> {
 public List<UserClien> listUser();
 
 
- @SelectProvider(type = ClientSql.class,method = "select")
- List<UserClien> queryMany(Page page, @Param("clientid")Integer clientid,@Param("keys")String keys);
 
  @Select("select * from user_clien where ucid=#{ucid}")
  UserClien queryByid(Integer ucid);
 
- @Update("update user_clien set cli_name=#{cliName},cli_pinyin=#{ cliPinyin}, kinid=#{kinid},curl=#{curl} , cstate=#{cstate},city=#{city}, csite=#{csite},cli_mail=#{cliMail} , cli_fax=#{cliFax},cli_contacts=#{cliContacts} , cli_department=#{cliDepartment},cli_job=#{cliJob} , cli_offphone=#{cliOffphone},cli_qq=#{cliqq} , cli_phone=#{cliPhone},cli_legalperson=#{cliLegalperson} ,cli_amount=#{cliAmount} , cli_text=#{cliText},souid=#{souid} ,busid=#{busid} where coid=#{coid}")
+ @Update("update user_clien set cli_name=#{cliName} , cli_pinyin=#{ cliPinyin}, kinid=#{kinid}, souid=#{souid} ,busid=#{busid}, curl=#{curl} , cstate=#{cstate} , city=#{city}, csite=#{csite}, cli_mail=#{cliMail} , cli_fax=#{cliFax} , cli_contacts=#{cliContacts} , cli_department=#{cliDepartment} , cli_job=#{cliJob} , cli_offphone=#{cliOffphone} , cli_qq=#{cliqq} , cli_phone=#{cliPhone} , cli_legalperson=#{cliLegalperson} ,cli_amount=#{cliAmount} , cli_text=#{cliText} where ucid=#{ucid}")
  public boolean updatecl(UserClien userClien);
 
 }

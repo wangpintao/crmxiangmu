@@ -1,8 +1,11 @@
 package com.huayu.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.huayu.bo.ClientBo;
 import com.huayu.layuiUtils.Stulayui;
 import com.huayu.mapper.UserClienMapper;
 import com.huayu.mapper.UserMapper;
@@ -22,6 +25,7 @@ public class UserClienService extends ServiceImpl<UserClienMapper,UserClien> imp
  @Autowired
  private UserClienMapper userClienMapper;
 
+
  public UserClien selectId(Integer ucid){
   return userClienMapper.selectId(ucid);
  }
@@ -31,18 +35,24 @@ public class UserClienService extends ServiceImpl<UserClienMapper,UserClien> imp
   return userClienMapper.listUser();
  }
 
+ /*客户联和
+ * */
  @Override
- public Stulayui queryMany(Integer page,Integer limit, Integer clientid, String keys) {
-  Stulayui stulayui =new Stulayui();
-  Page page1 = PageHelper.startPage(page,limit,true);
-  List<UserClien> list = userClienMapper.queryMany(page1,clientid, keys);
-  System.out.println(list);
-  System.out.println(list);
-  stulayui.setCode(0);
-  stulayui.setMsg("查询客户信息");
-  stulayui.setCount(Integer.parseInt(String.valueOf(page1.getTotal())));
-  stulayui.setData(list);
-  return stulayui;
+ public List<ClientBo> queryMany(IPage<UserClien> page1) {
+   ClientBo clientBo=new ClientBo();
+   QueryWrapper wrapper=new QueryWrapper();
+   IPage<UserClien>  list=userClienMapper.selectPage(page1,null);
+   List<UserClien> clienList= list.getRecords();
+   for(UserClien cli:clienList){
+    Integer ucid= cli.getUcid();
+    wrapper.eq("ucid",ucid);
+    UserClien userClien=userClienMapper.selectOne(wrapper);
+    userClien.getCliName();
+
+   }
+
+
+  return null;
  }
 
  @Override

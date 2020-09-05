@@ -81,9 +81,10 @@
         </div>
     </div>
 
-    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>商机详情</legend>
-    </fieldset>
+    <div class="layui-form-item"
+         style="border:1px solid ;background-color:lightyellow;height:35px;font-size: 20px;border-left: none;border-right: none;">
+        商机详情
+    </div>
 
     <input type="hidden"  name="comUcid" th:value="${commercial.comUcid}">
     <div class="layui-form-item">
@@ -116,9 +117,10 @@
         </div>
    </div>
 
-    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>商机信息</legend>
-    </fieldset>
+    <div class="layui-form-item"
+         style="border:1px solid ;background-color:lightyellow;height:35px;font-size: 20px;border-left: none;border-right: none;">
+        商机详情
+    </div>
 
     <div class="layui-form-item">
         <div class="layui-inline">
@@ -200,7 +202,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">主要业务需求</label>
             <div class="layui-input-block">
-                <textarea  placeholder="请输入内容" name="comText" th:value="${commercial.comText}" class="layui-textarea" style="width: 925px;height: 40px"></textarea>
+                <textarea  placeholder="请输入内容" name="comText" th:text="${commercial.comText}" class="layui-textarea" style="width: 925px;height: 40px"></textarea>
             </div>
         </div>
     </div>
