@@ -115,16 +115,20 @@ public class DocumentaryController {
     @PostMapping("/add1.do")
     public String add1(@RequestParam("file") MultipartFile docfile,Documentary documentary,HttpServletRequest request){
         try {
-            String oriName = docfile.getOriginalFilename();
-            String path = request.getServletContext().getRealPath("/upload");
-            File file = new File(path);
-            if (!file.exists()) {
-                file.mkdirs();
+            if(docfile!=null){
+                String oriName = docfile.getOriginalFilename();
+                String path = request.getServletContext().getRealPath("/upload");
+                File file = new File(path);
+                if (!file.exists()) {
+                    file.mkdirs();
+                }
+                docfile.transferTo(new File(path, oriName));
+                documentary.setDocFile(oriName);
+            }else{
+                documentary.setDocFile("无附件");
             }
-            docfile.transferTo(new File(path, oriName));
             DocClassify docClassify=iDocClassifyServiceImp.getById(documentary.getDocClaid());
             documentary.setTheme(documentary.getTheme()+docClassify.getClaname());
-            documentary.setDocFile(oriName);
             documentary.setDocDate(new Date());
             iDocumentaryServiceImp.save(documentary);
         } catch (IOException e) {
@@ -136,16 +140,20 @@ public class DocumentaryController {
     @PostMapping("/add1s.do")
     public String add1s(@RequestParam("file") MultipartFile docfile,Documentary documentary,HttpServletRequest request){
         try {
-            String oriName = docfile.getOriginalFilename();
-            String path = request.getServletContext().getRealPath("/upload");
-            File file = new File(path);
-            if (!file.exists()) {
-                file.mkdirs();
+            if(docfile!=null){
+                String oriName = docfile.getOriginalFilename();
+                String path = request.getServletContext().getRealPath("/upload");
+                File file = new File(path);
+                if (!file.exists()) {
+                    file.mkdirs();
+                }
+                docfile.transferTo(new File(path, oriName));
+                documentary.setDocFile(oriName);
+            }else{
+                documentary.setDocFile("无附件");
             }
-            docfile.transferTo(new File(path, oriName));
             DocClassify docClassify=iDocClassifyServiceImp.getById(documentary.getDocClaid());
             documentary.setTheme(documentary.getTheme()+docClassify.getClaname());
-            documentary.setDocFile(oriName);
             documentary.setDocDate(new Date());
             iDocumentaryServiceImp.save(documentary);
         } catch (IOException e) {

@@ -5,7 +5,11 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -70,6 +74,34 @@ public class Forum extends Model<Forum> {
      */
     @TableField("for_comname")
     private String forComname;
+
+    /**
+     * 发帖时间
+     */
+    @TableField("for_date")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
+    private Date forDate;
+
+    /**
+     * 帖子回复人
+     */
+    @TableField("for_revert")
+    private String forRevert;
+
+    /**
+     * 发帖内容
+     */
+    @TableField("for_content")
+    private String forContent;
+
+    /**
+     * 最后回复时间
+     */
+    @TableField("for_finally")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
+    private Date forFinally;
 
 
     @Override
@@ -149,6 +181,38 @@ public class Forum extends Model<Forum> {
         this.forComname = forComname;
     }
 
+    public String getForRevert() {
+        return forRevert;
+    }
+
+    public void setForRevert(String forRevert) {
+        this.forRevert = forRevert;
+    }
+
+    public String getForContent() {
+        return forContent;
+    }
+
+    public void setForContent(String forContent) {
+        this.forContent = forContent;
+    }
+
+    public Date getForDate() {
+        return forDate;
+    }
+
+    public void setForDate(Date forDate) {
+        this.forDate = forDate;
+    }
+
+    public Date getForFinally() {
+        return forFinally;
+    }
+
+    public void setForFinally(Date forFinally) {
+        this.forFinally = forFinally;
+    }
+
     @Override
     public String toString() {
         return "Forum{" +
@@ -161,6 +225,10 @@ public class Forum extends Model<Forum> {
                 ", forReply=" + forReply +
                 ", forAuthor='" + forAuthor + '\'' +
                 ", forComname='" + forComname + '\'' +
+                ", forDate=" + forDate +
+                ", forRevert='" + forRevert + '\'' +
+                ", forContent='" + forContent + '\'' +
+                ", forFinally=" + forFinally +
                 '}';
     }
 }

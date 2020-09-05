@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--suppress ALL-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>新增帖子</title>
@@ -9,7 +10,7 @@
 <body >
 <br>
 <div style="margin:0 auto; width:80%;height:auto;">
-    <form class="layui-form" method="post" action="/documentary/update1.do">
+    <form class="layui-form" method="post" action="/forum/add1.do" enctype="multipart/form-data">
         <div class="layui-inline" style="float: left">
             <input align="left" type="text" value="新增帖子" style="border:0px;font-size:20px"/>
         </div>
@@ -22,10 +23,20 @@
         <br><br><hr class="layui-bg-black"><br>
 
         <div class="layui-form-item">
+            <label class="layui-form-label">商机名称</label>
+            <div class="layui-input-block" style="height:30px;width:150px;">
+                <select name="forComname" lay-verify="forComname">
+                    <option value="0">请选择</option>
+                    <option th:each="s:${shang}" th:value="${s.coname}" th:text="${s.coname}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label"><span style="color:#FF0000;">*</span>分类</label>
+                <label class="layui-form-label"><span style="color:#FF0000;">*</span>帖子分类</label>
                 <div class="layui-input-block" style="width: 400px;height: 40px">
-                    <select>
+                    <select name="forClassify" lay-verify="forClassify">
                         <option value="0">请选择</option>
                         <option value="合理化建议">合理化建议</option>
                         <option value="技术交流">技术交流</option>
@@ -36,18 +47,18 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">标签</label>
+                <label class="layui-form-label">帖子标签</label>
                 <div class="layui-input-block">
-                    <input type="text" autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                    <input type="text" lay-verify="forLabel" placeholder="请输入帖子标签" name="forLabel" autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
                 </div>
             </div>
         </div>
 
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">主题</label>
+                <label class="layui-form-label">帖子主题</label>
                 <div class="layui-input-block">
-                    <input type="text" autocomplete="off" class="layui-input" style="width:925px;height:40px">
+                    <input type="text" lay-verify="forTheme" placeholder="请输入帖子主题" name="forTheme" autocomplete="off" class="layui-input" style="width:923px;height:40px">
                 </div>
             </div>
         </div>
@@ -61,12 +72,11 @@
             </div>
         </div>
 
-        <div class="layui-form-item">
+        <div class="layui-form-item layui-form-text">
             <div class="layui-inline">
+                <label class="layui-form-label">发帖内容</label>
                 <div class="layui-input-block">
-                    <textarea style="width:900px;height:200px">
-
-                    </textarea>
+                    <textarea  placeholder="请输入内容" lay-verify="forContent" name="forContent" class="layui-textarea" style="width:923px;height:200px"></textarea>
                 </div>
             </div>
         </div>
@@ -89,9 +99,29 @@
         var laydate = layui.laydate;
 
         form.verify({
-            comStaid:function (value,item) {
+            forComname:function (value,item) {
                 if(value==0){
-                    return '请选择当前状态';
+                    return '请选择商机名称';
+                }
+            },
+            forClassify:function (value,item) {
+                if(value==0){
+                    return '请选择帖子分类';
+                }
+            },
+            forLabel:function (value,item) {
+                if(value.length==0){
+                    return '请输入帖子标签';
+                }
+            },
+            forTheme:function (value,item) {
+                if(value.length==0){
+                    return '请输入帖子主题';
+                }
+            },
+            forContent:function (value,item) {
+                if(value.length==0){
+                    return '请输入发帖内容';
                 }
             }
         });
