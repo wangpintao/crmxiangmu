@@ -39,16 +39,9 @@ public class AfterSaleController {
     @Autowired
     private IContractServiceImp iContractServiceImp;
 
-    /*
-    * 查询所有服务
-    * */
-    @GetMapping("/queryAll.do")
-    @ResponseBody
-    public Stulayui queryAll(Integer page,Integer limit,AfterSale afterSale){
-       return iAfterSaleServiceImp.queryMany(page,limit,afterSale);
-    }
 
     @PostMapping("/add.do")
+    @ResponseBody
     public String add(AfterSale afterSale){
         iAfterSaleServiceImp.save(afterSale);
         return "redirect:/sale/saledisplay.html";
@@ -67,23 +60,22 @@ public class AfterSaleController {
         QueryWrapper queryWrapper =new QueryWrapper();
         queryWrapper.eq("con_ucid",conUcid);
         List<Contract> list = iContractServiceImp.list(queryWrapper);
-        System.out.println(list);
         return list;
     }
 
+    /**
+     * 售后究极查询
+     * */
     @GetMapping("/queryBya.do")
     @ResponseBody
-    public Stulayui queryBya(Integer page, Integer limit, AfterSale afterSale,String calssType,String key,String value){
-        System.out.println("前端值"+value);
-        return iAfterSaleServiceImp.queryBya(page, limit, afterSale, calssType, key,value);
-    }
-    @GetMapping("/queryByb.do")
-    @ResponseBody
-    public Stulayui queryByb(Integer page, Integer limit){
-        return iAfterSaleServiceImp.newWeek(page,limit);
+    public Stulayui queryBya(Integer page, Integer limit, AfterSale afterSale,String calssType,String key,String sta){
+       /* System.out.println("前端值："+afterSale.getAftStatus());
+        System.out.println("字段"+calssType);
+        System.out.println("文本值"+key);*/
+        return iAfterSaleServiceImp.queryBya(page, limit, afterSale, calssType, key,sta);
     }
 
-    //去修改
+    //查看详情
     @GetMapping("/toupdate.do")
     public ModelAndView toupdate(Integer aftid){
         ModelAndView modelAndView = new ModelAndView();
@@ -92,6 +84,17 @@ public class AfterSaleController {
        return modelAndView;
     }
 
+    //查询数量
+    @GetMapping("/queryCount.do")
+    public List<Integer> queryCount(){
+        return iAfterSaleServiceImp.queryCount();
+    }
+    //根据合同编号id查询所有合同
+    @GetMapping("/queryByid.do")
+    @ResponseBody
+    public Contract queryByid(String clause){
+        return iContractServiceImp.queryByConId(clause);
+    }
     //模糊查询测试
     @GetMapping("/toup.do")
     @ResponseBody
@@ -104,15 +107,4 @@ public class AfterSaleController {
         return iAfterSaleServiceImp.list(queryWrapper);
     }
 
-   /* @GetMapping("/toup1.do")
-    @ResponseBody
-    public AfterSale toup1(Integer id,String calssType,String key) {
-        QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.like(calssType, key);
-        System.out.println(calssType);
-        System.out.println(key);
-        System.out.println(iAfterSaleServiceImp.getById(id));
-        AfterSale afterSale = iAfterSaleServiceImp.getById(id);
-        return afterSale;
-    }*/
 }

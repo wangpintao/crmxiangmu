@@ -50,26 +50,28 @@
                 <div class="layui-card-body">
                     <div class="divcss5-b">
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#" id="cg" >处理中服务</a>&nbsp;<span></span><br>
+                        <a href="#"  onclick=tableRerole("queryAll")>查看所有分类</a>&nbsp;<span></span><br>
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#" id="gez">已结束服务</a>&nbsp;<span></span><br>
+                        <a href="#"  onclick=tableRerole(1)>处理中服务</a>&nbsp;<span id="label0"></span><br>
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#" id="diudan">以搁置服务</a>&nbsp;<span></span><br>
+                        <a href="#"  onclick=tableRerole(2)>已结束服务</a>&nbsp;<span id="label1"></span><br>
+                        <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+                        <a href="#"  onclick=tableRerole(3)>以搁置服务</a>&nbsp;<span id="label2"></span><br>
                         <hr>
                     </div>
                     <div class="divcss5-b">
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#" id="bz" >本周新增</a>&nbsp;<span></span><br>
+                        <a href="#"  onclick=tableRerole('week')>本周新增</a>&nbsp;<span id="label3"></span><br>
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#" id="sz">上周新增</a>&nbsp;<span></span><br>
+                        <a href="#"  onclick=tableRerole('lastWeek')>上周新增</a>&nbsp;<span id="label4"></span><br>
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#" id="by">本月新增</a>&nbsp;<span></span><br>
+                        <a href="#" onclick=tableRerole('month')>本月新增</a>&nbsp;<span id="label5"></span><br>
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#" id="sy" >上月新增</a>&nbsp;<span></span><br>
+                        <a href="#" onclick=tableRerole('lastMonth')>上月新增</a>&nbsp;<span id="label6"></span><br>
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#" id="bj">本季新增</a>&nbsp;<span></span><br>
+                        <a href="#" onclick=tableRerole('quarter')>本季新增</a>&nbsp;<span id="label7"></span><br>
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#" id="sj">上季新增</a>&nbsp;<span></span><br>
+                        <a href="#" onclick=tableRerole('lastQuarter')>上季新增</a>&nbsp;<span id="label8"></span><br>
                         <hr>
 
                     </div>
@@ -83,7 +85,7 @@
                         <form  class="layui-form" action="" lay-filter="example">
                         <div class="layui-inline">
                             <select name="calssType" class="layui-select" >
-                                <option >请选择</option>
+                                <option value="">请选择</option>
                                 <option value="aft_theme">按主题</option>
                                 <option value="aft_genre">按服务类型</option>
                                 <option value="aft_startdate">按开始时间</option>
@@ -127,7 +129,7 @@
     {{#  } }}
 </script>
 <script src="/static/layui/layui.js" charset="utf-8"></script>
-<script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
     layui.use(['element', 'layer', 'table', 'util','form'], function () {
@@ -163,16 +165,7 @@
         });
 
 
-        /*window.bftask(function (value) {
-            console.log(v)
-            table.reload('test',{
-                url:'/after/queryBya.do'
-                ,where:{
-                    value:value
-                }
-            });
-            return false;
-        });*/
+
 
         form.on('submit(demo1)', function (data) {
             console.log(data)
@@ -209,6 +202,30 @@
                     break;
             };
         });
+
+        window.tableRerole=function (value) {
+            console.log(value);
+            table.reload('test',{
+                url:'/after/queryBya.do'
+                ,where:{
+                    "aftStatus": value
+                }
+            });
+        };
+
+        $.ajax({
+            type:"get",
+            url:"/after/queryCount.do",
+            data:{},
+            success: function (data) {
+                console.log(data);
+                for(var i=0;i<data.length;i++){
+                    /*var count="label"+i;*/
+                    window.document.getElementById("#label3").innerHTML=" <span style='font-size:20px;'> "+data[i]+" </span>";
+                }
+            }
+        });
+
         table.on('tool(test)', function (obj) {
             var data = obj.data;
             if (obj.event === 'update') {
@@ -224,7 +241,7 @@
                 });
             }
         });
-        $("#cg").click(function () {
+      /*  $("#cg").click(function () {
             table.reload("test",{
                 url: ''
                 ,where: {syzt:13}
@@ -241,12 +258,8 @@
                 url: ''
                 ,where: {syzt:18}
             });
-        });
-        $("#bz").click(function () {
-            table.reload("test",{
-                url: '/after/queryByb.do'
-            });
-        });
+        });*/
+
 
         /* table.on('toolbar(test)', function (obj) {
              var layEvent = obj.event;

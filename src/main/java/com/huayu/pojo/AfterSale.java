@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 import sun.awt.SunHints;
 
@@ -88,6 +89,7 @@ public class AfterSale extends Model<AfterSale> {
      * 售后服务开始时间
      */
     @TableField("aft_startdate")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date aftStartdate;
 
@@ -95,6 +97,7 @@ public class AfterSale extends Model<AfterSale> {
      * 售后服务结束时间
      */
     @TableField("aft_enddate")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date aftEnddate;
 
@@ -134,13 +137,22 @@ public class AfterSale extends Model<AfterSale> {
     @TableField("aft_qq")
     private String aftqq;
 
+    @TableField("aft_status")
+    private String aftStatus;
+
 
     @Override
     protected Serializable pkVal() {
         return this.aftid;
     }
 
+    public String getAftStatus() {
+        return aftStatus;
+    }
 
+    public void setAftStatus(String aftStatus) {
+        this.aftStatus = aftStatus;
+    }
 
     public Integer getAftid() {
         return aftid;
@@ -307,6 +319,7 @@ public class AfterSale extends Model<AfterSale> {
                 ", aftScore=" + aftScore +
                 ", aftFile='" + aftFile + '\'' +
                 ", aftqq='" + aftqq + '\'' +
+                ", aftStatus='" + aftStatus + '\'' +
                 '}';
     }
 }

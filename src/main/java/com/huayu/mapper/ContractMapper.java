@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.huayu.pojo.Contract;
 import com.huayu.pojo.DocStatus;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * <p>
@@ -16,5 +17,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface ContractMapper extends BaseMapper<Contract> {
+    @Select("select * from contract where serial =#{serial}")
+    Contract queryByConId(String serial);
 
 }

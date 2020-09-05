@@ -224,6 +224,31 @@
                 }
             });
         });
+        //监听下拉框contract改变事件
+        form.on('select(contract)', function (contract) {
+            $.ajax({
+                type:"get",
+                url:"/after/queryByid.do",
+                data:{
+                    'clause':contract.value
+                },
+                success: function (data) {
+                    $("#contract_context").html("");
+                    console.log(data);
+                    console.log(data.contract_name);
+                    var contract_context="";
+                    contract_context+="【合同全称】 "+data.conname+"  ";
+                    contract_context+="【关联人员】 "+data.conUname+"  ";
+                    contract_context+="【签约日期】 "+data.conStartdate+"  ";
+                    contract_context+="【生效日期】 "+data.conPredate+"  ";
+                    contract_context+="【服务期至】 "+data.conEnddate+"  ";
+                    window.document.getElementById("contract_context").innerText=contract_context;
+                    window.document.getElementById("contact").value=data.conContacts;
+                    window.document.getElementById("phone").value=data.conPhone;
+                    window.document.getElementById("email").value=data.conMail;
+                }
+            });
+        });
 
     $.ajax({
         url:"",

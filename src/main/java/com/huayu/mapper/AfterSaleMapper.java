@@ -30,7 +30,7 @@ public interface AfterSaleMapper extends BaseMapper<AfterSale> {
     List<AfterSale> newWeek();
 
     //上周
-    @Select("SELECT * FROM after_sale WHERE YEARWEEK(DATE_FORMAT(aft_startdate,'%Y-%m-%d')) = YEARWEEK(NOW())-1;")
+    @Select("SELECT * FROM after_sale WHERE YEARWEEK(DATE_FORMAT(aft_startdate,'%Y-%m-%d')) = YEARWEEK(NOW())-1")
     List<AfterSale> beforeWeek();
 
     //每月
@@ -42,11 +42,11 @@ public interface AfterSaleMapper extends BaseMapper<AfterSale> {
     List<AfterSale> beforeMonth();
 
     //本季
-    @Select("SELECT * FROM after_sale WHERE QUARTER(aft_startdate)=QUARTER(NOW());")
+    @Select("SELECT * FROM after_sale WHERE QUARTER(aft_startdate)=QUARTER(NOW())")
     List<AfterSale> newSeason();
 
     //上季
-    @Select("SELECT * FROM after_sale WHERE QUARTER(aft_startdate)=QUARTER(DATE_SUB(NOW(),INTERVAL 1 QUARTER));")
+    @Select("SELECT * FROM after_sale WHERE QUARTER(aft_startdate)=QUARTER(DATE_SUB(NOW(),INTERVAL 1 QUARTER))")
     List<AfterSale> beforeSeason();
 
 }

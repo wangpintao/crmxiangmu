@@ -6,6 +6,9 @@ import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 
 /**
@@ -44,18 +47,24 @@ public class Contract extends Model<Contract> {
      * 合同开始日期
      */
     @TableField("con_startdate")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date conStartdate;
 
     /**
      * 生效日期
      */
     @TableField("con_predate")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date conPredate;
 
     /**
      * 合同结束日期
      */
     @TableField("con_enddate")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date conEnddate;
 
     /**
