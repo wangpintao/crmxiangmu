@@ -164,6 +164,12 @@ public class Commercial extends Model<Commercial> {
     @TableField("com_follower")
     private String comFollower;
 
+    /*商机创建时间
+    * */
+    @TableField("com_thisdate")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date comThisdate;
 
     @Override
     protected Serializable pkVal() {
@@ -369,6 +375,14 @@ public class Commercial extends Model<Commercial> {
         this.comName = comName;
     }
 
+    public Date getComThisdate() {
+        return comThisdate;
+    }
+
+    public void setComThisdate(Date comThisdate) {
+        this.comThisdate = comThisdate;
+    }
+
     @Override
     public String toString() {
         return "Commercial{" +
@@ -396,6 +410,7 @@ public class Commercial extends Model<Commercial> {
          ", comUname='" + comUname + '\'' +
          ", comParticipant='" + comParticipant + '\'' +
          ", comFollower='" + comFollower + '\'' +
+         ", comThisdate=" + comThisdate +
          '}';
     }
 }

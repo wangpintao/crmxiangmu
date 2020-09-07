@@ -8,6 +8,7 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     //Demo
+    var cname="";
     layui.use(['form','upload','jquery'], function(){
         var form = layui.form;
         var $=layui.jquery;//异步
@@ -16,20 +17,27 @@
 
 
         $(function(){
+                //查询客户信息表
+                $.get("/userClien/selectuc.do",function (data) {
+                    for (let i = 0; i <data.length ; i++) {
+                    cname=data[i].cliName;
+                    }
+                });
+
             //查询分类
             $.get("/userClien/selectKind.do",function (data) {
                 for (let i = 0; i <data.length ; i++) {
                     $("#opt").append(new Option(data[i].clikinname,data[i].clikinid));
                 }
                 form.render();
-            })
+            });
             //查询客户所属行业表
             $.get("/userClien/selectBusiness.do",function (data) {
                 for (let i = 0; i <data.length ; i++) {
                     $("#opb").append(new Option(data[i].clibusname,data[i].clibusid));
                 }
                 form.render();
-            })
+            });
 
            //查询客户来源表
             $.ajax({
@@ -52,6 +60,17 @@
             parent.layer.close(index);
         });
     });
+    function cnames(v){//键盘录入事件
+      if(cname==v){
+        alert("客户名称重复，请重新命名");
+        return false;
+      }else{
+          return true;
+      }
+    }
+
+
+
 </script>
 <body >
 <br>
@@ -67,7 +86,7 @@
         <div class="layui-inline">
             <label class="layui-form-label"><span style="color:#FF0000;">*</span>客户名称</label>
             <div class="layui-input-block">
-                <input type="text" name="cliName" required    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="cliName"  id="card"  onkeyup="cnames(this.value)"   required    autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
         <div class="layui-inline">

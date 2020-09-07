@@ -14,21 +14,6 @@ import com.huayu.pojo.UserClien;
 
 public class ClientBo {
 
- @TableField(exist = false)
- private UserClien userClien;
-
- @TableField(exist = false)
- private Commercial commercial;
-
- @TableField(exist = false)
- private Contract contract;
-
- @TableField(exist = false)
- private AfterSale afterSale;
-
-
-
-
  /**
   * 客户名字
   */
@@ -59,6 +44,10 @@ private Integer conCount;
  * */
 
 
+ /*售后服务数
+ * */
+ private Integer aftCount;
+
  /**
   * 服务评分
   */
@@ -66,5 +55,72 @@ private Integer conCount;
  private Integer aftScore;
 
 
+ public String getCliName() {
+  return cliName;
+ }
 
+ public void setCliName(String cliName) {
+  this.cliName = cliName;
+ }
+
+ public Integer getCsum() {
+  return csum;
+ }
+
+ public void setCsum(Integer csum) {
+  this.csum = csum;
+ }
+
+ public Long getComSum() {
+  return comSum;
+ }
+
+ public void setComSum(Long comSum) {
+  this.comSum = comSum;
+ }
+
+ public Integer getConCount() {
+  return conCount;
+ }
+
+ public void setConCount(Integer conCount) {
+  this.conCount = conCount;
+ }
+
+ public Long getConSum() {
+  return conSum;
+ }
+
+ public void setConSum(Long conSum) {
+  this.conSum = conSum;
+ }
+
+ public Integer getAftCount() {
+  return aftCount;
+ }
+
+ public void setAftCount(Integer aftCount) {
+  this.aftCount = aftCount;
+ }
+
+ public Integer getAftScore() {
+  return aftScore;
+ }
+
+ public void setAftScore(Integer aftScore) {
+  this.aftScore = aftScore;
+ }
+
+ @Override
+ public String toString() {
+  return "ClientBo{" +
+   "cliName='" + cliName + '\'' +
+   ", csum=" + csum +
+   ", comSum=" + comSum +
+   ", conCount=" + conCount +
+   ", conSum=" + conSum +
+   ", aftCount=" + aftCount +
+   ", aftScore=" + aftScore +
+   '}';
+ }
 }

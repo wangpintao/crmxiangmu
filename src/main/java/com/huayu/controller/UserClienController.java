@@ -120,9 +120,10 @@ public List<CliKind> selectKind(){
   IPage<UserClien> page1= new Page<>(page,limit);
   Stulayui stulayui=new Stulayui();
   List<ClientBo>  list= iUserClienServiceImp.queryMany(page1);
+  System.out.println(list);
   stulayui.setMsg("查询成功");
   stulayui.setCode(0);
-  stulayui.setCount(list.size());
+  stulayui.setCount(Integer.valueOf(String.valueOf(page1.getTotal())));
   stulayui.setData(list);
   return stulayui;
  }
