@@ -5,13 +5,12 @@ package com.huayu.controller;/*
  */
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.huayu.bo.ClientBo;
 import com.huayu.layuiUtils.Stulayui;
-import com.huayu.pojo.CliBusiness;
-import com.huayu.pojo.CliKind;
-import com.huayu.pojo.CliSource;
-import com.huayu.pojo.UserClien;
+import com.huayu.pojo.*;
 import com.huayu.service.imp.ICliBusinessServiceImp;
 import com.huayu.service.imp.ICliKindServiceImp;
 import com.huayu.service.imp.ICliSourceServiceImp;
@@ -116,14 +115,14 @@ public List<CliKind> selectKind(){
   * */
  @RequestMapping("/clientid.do")
  @ResponseBody
- public Stulayui clientid(@Param("page")Integer page, @Param("limit")Integer limit){
-  IPage<UserClien> page1= new Page<>(page,limit);
+ public Stulayui clientid(Integer page, Integer limit, String clientid ,String keys){
   Stulayui stulayui=new Stulayui();
-  List<ClientBo>  list= iUserClienServiceImp.queryMany(page1);
+  List<ClientBo>  list= iUserClienServiceImp.queryMany(page,limit,clientid,keys);
+  PageInfo<ClientBo> pageInfo = new PageInfo<ClientBo>(list);
   System.out.println(list);
   stulayui.setMsg("查询成功");
   stulayui.setCode(0);
-  stulayui.setCount(Integer.valueOf(String.valueOf(page1.getTotal())));
+  stulayui.setCount(Integer.valueOf(String.valueOf(pageInfo.getTotal())));
   stulayui.setData(list);
   return stulayui;
  }

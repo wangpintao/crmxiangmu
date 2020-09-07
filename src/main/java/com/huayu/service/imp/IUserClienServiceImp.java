@@ -13,7 +13,7 @@ import java.util.List;
 public interface IUserClienServiceImp extends IService<UserClien>{
  public UserClien selectId(Integer ucid);
  public List<UserClien> listUser();
- List<ClientBo> queryMany(IPage<UserClien> page1);
+ List<ClientBo> queryMany(Integer page,Integer limit,String clientid ,String keys);
  UserClien queryByid(Integer ucid);
  public boolean updatecl(UserClien userClien);
 }

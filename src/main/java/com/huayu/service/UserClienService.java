@@ -13,6 +13,7 @@ import com.huayu.service.imp.IUserClienServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +46,20 @@ public class UserClienService extends ServiceImpl<UserClienMapper,UserClien> imp
  /*客户联和
  * */
  @Override
- public List<ClientBo> queryMany(IPage<UserClien> page1) {
+ public List<ClientBo> queryMany(Integer page,Integer limit,String clientid ,String keys) {
    List<ClientBo> clientBoList=new ArrayList<>();
-   ClientBo clientBo=new ClientBo();
-   IPage<UserClien>  list=userClienMapper.selectPage(page1,null);
-   List<UserClien> clienList= list.getRecords();
+  Page page1 = PageHelper.startPage(page,limit,true);
+   QueryWrapper wrapper5=new QueryWrapper();
+   if(StringUtils.isEmpty(clientid) || StringUtils.isEmpty(keys)){
+    wrapper5=null;
+   }else if (!StringUtils.isEmpty(clientid) && !StringUtils.isEmpty(keys)){
+    wrapper5.like(clientid,keys);
+   }
+   List<UserClien> list=userClienMapper.queryAll(page1);
+   /*System.out.println("集合"+list.getRecords());*/
+   List<UserClien> clienList= list;
    for(UserClien cli:clienList){
+    ClientBo clientBo=new ClientBo();
     Integer ucid= cli.getUcid();
     QueryWrapper wrapper=new QueryWrapper();
     wrapper.eq("ucid",ucid);
@@ -92,11 +101,13 @@ public class UserClienService extends ServiceImpl<UserClienMapper,UserClien> imp
     //售后服务数
     clientBo.setAftCount(afterSales.size());
     //服务评分
-    int afts=0;
+    Float afts=0.0F;
+    Float aftcs=0.0F;
     for(AfterSale aft:afterSales){
      afts+=aft.getAftScore();
+     aftcs=afts/aftc;
     }
-    clientBo.setAftScore(Integer.valueOf(afts));
+    clientBo.setAftScore(aftcs);
     clientBoList.add(clientBo);
    }
   return clientBoList;

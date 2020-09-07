@@ -15,7 +15,19 @@
 <br>
 <div id="main" style="width:100%;">
 
-        <div id="test7"></div>
+    <div id="left" style="width:15%;float:left;">
+        <div id="test7">
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            <a href="#"  onclick=tableRerole("queryAll")>所有分类</a>&nbsp;<span></span><br><br><br>
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            <a href="#"  onclick=tableRerole(1)>处理中服务</a>&nbsp;<span id="label0"></span><br><br><br>
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            <a href="#"  onclick=tableRerole(2)>已结束服务</a>&nbsp;<span id="label1"></span><br><br><br>
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            <a href="#"  onclick=tableRerole(3)>以搁置服务</a>&nbsp;<span id="label2"></span><br><br><br>
+            <hr>
+
+        </div>
     </div>
 
     <div id="right" style="width:85%;float:left;">
@@ -27,18 +39,19 @@
                     <div class="layui-input-block" style="width: 200px;height: 40px">
                         <select  name="clientid"  lay-filter="test">
                             <option >请选择</option>
-                            <option value="1">按客户名称</option>
-                            <option value="2">按拼音</option>
-                            <option value="3">按联系人</option>
+                            <option value="cliName">按客户名称</option>
+                            <option value="cliPinyin">按拼音</option>
+                            <option value="cliContacts">按联系人</option>
                         </select>
                     </div>
                 </div>
                 <div class="layui-inline">
-                        <input type="text" name="keys"  placeholder="请输入关键字查找" id="business"   autocomplete="off" class="layui-input" style="width: 300px;height: 40px">
+                        <input type="text" name="keys"  placeholder="请输入关键字查找"    autocomplete="off" class="layui-input" style="width: 300px;height: 40px">
                 </div>
                 <button class="layui-btn" lay-submit lay-filter="formDemo"><i class="layui-icon layui-icon-search"></i> 查找</button>
 
               </div>
+
 
         </form>
 
@@ -81,23 +94,23 @@
         var tree = layui.tree;
 
 
-
-
-
-
         //第一个实例   var a=table.render表格重载第二种方式
         table.render({
             elem: '#demo'
             ,toolbar:'#toolbarDemo'
             ,height: 500
-            ,url: '/userClien/clients.do' //数据接口
+            ,url: '/userClien/clientid.do' //数据接口
             ,page: true //开启分页
             ,limit:2
             ,limits:[1,2,10,30]
             ,cols: [[ //表头
-                {field: 'cliName', title: '用户名', width:120 , templet:'#ucids' }
-                ,{field: 'cliPinyin', title: '性别', width:80, sort: true}
-                ,{field: 'cliContacts', title: '年龄', width:80}
+                {field: 'cliName', title: '客户名称', width:180 , templet:'#ucids' }
+                ,{field: 'csum', title: '商机数', width:180  }
+                ,{field: 'comSum', title: '预计成交金额', width:180 }
+                ,{field: 'conCount', title: '合同数', width:180  }
+                ,{field: 'conSum', title: '合同金额', width:180 }
+                ,{field: 'aftCount', title: '售后服务数', width:180  }
+                ,{field: 'aftScore', title: '服务评分', width:180 }
             ]]
         });
 

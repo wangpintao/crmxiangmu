@@ -52,7 +52,7 @@ private Integer conCount;
   * 服务评分
   */
  @TableField("aft_score")
- private Integer aftScore;
+ private Float aftScore;
 
 
  public String getCliName() {
@@ -103,11 +103,11 @@ private Integer conCount;
   this.aftCount = aftCount;
  }
 
- public Integer getAftScore() {
+ public Float getAftScore() {
   return aftScore;
  }
 
- public void setAftScore(Integer aftScore) {
+ public void setAftScore(Float aftScore) {
   this.aftScore = aftScore;
  }
 
