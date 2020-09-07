@@ -26,15 +26,28 @@ public class ClientBo {
  @TableField(exist = false)
  private AfterSale afterSale;
 
-/*商机名称
-* */
+
+
+
+ /**
+  * 客户名字
+  */
  @TableField("cli_name")
  private String cliName;
+
+/*商机数
+* */
+ private Integer csum;
+
 
  /*预计成交金额
  * */
  @TableField("com_sum")
  private Long comSum;
+
+ /*合同数
+ * */
+private Integer conCount;
 
  /**
   * 合同金额
@@ -42,10 +55,16 @@ public class ClientBo {
  @TableField("con_sum")
  private Long conSum;
 
+ /*回款额
+ * */
+
+
  /**
   * 服务评分
   */
  @TableField("aft_score")
  private Integer aftScore;
+
+
 
 }

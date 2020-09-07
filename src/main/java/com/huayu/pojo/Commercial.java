@@ -38,16 +38,27 @@ public class Commercial extends Model<Commercial> {
      */
     private String coname;
 
-    /*客户所属行业名称
+    /*客户所属行业外键
     * */
-    @TableField("com_clibusname")
-    private String comClibusname;
+    @TableField("com_busid")
+    private Integer comBusid;
+
+    /*客户所属行业名称
+     * */
+    @TableField("com_busname")
+    private String comBusname;
+
 
     /**
-     * 客户来源外名称（也就是商机来源）
+     * 客户来源外键（也就是商机来源）
      */
     @TableField("com_souid")
-    private String comSouid;
+    private Integer comSouid;
+
+    /*客户来源名称
+    * */
+    @TableField("com_name")
+    private String comName;
 
     /**
      * 商机状态（取跟单的状态）
@@ -179,21 +190,6 @@ public class Commercial extends Model<Commercial> {
         this.coname = coname;
     }
 
-    public String getComClibusname() {
-        return comClibusname;
-    }
-
-    public void setComClibusname(String comClibusname) {
-        this.comClibusname = comClibusname;
-    }
-
-    public String getComSouid() {
-        return comSouid;
-    }
-
-    public void setComSouid(String comSouid) {
-        this.comSouid = comSouid;
-    }
 
     public Integer getComStaid() {
         return comStaid;
@@ -339,14 +335,50 @@ public class Commercial extends Model<Commercial> {
         this.conameCliNname = conameCliNname;
     }
 
+
+
+    public Integer getComSouid() {
+        return comSouid;
+    }
+
+    public void setComSouid(Integer comSouid) {
+        this.comSouid = comSouid;
+    }
+
+    public Integer getComBusid() {
+        return comBusid;
+    }
+
+    public void setComBusid(Integer comBusid) {
+        this.comBusid = comBusid;
+    }
+
+    public String getComBusname() {
+        return comBusname;
+    }
+
+    public void setComBusname(String comBusname) {
+        this.comBusname = comBusname;
+    }
+
+    public String getComName() {
+        return comName;
+    }
+
+    public void setComName(String comName) {
+        this.comName = comName;
+    }
+
     @Override
     public String toString() {
         return "Commercial{" +
          "coid=" + coid +
          ", conameCliNname='" + conameCliNname + '\'' +
          ", coname='" + coname + '\'' +
-         ", comClibusname='" + comClibusname + '\'' +
-         ", comSouid='" + comSouid + '\'' +
+         ", comBusid=" + comBusid +
+         ", comBusname='" + comBusname + '\'' +
+         ", comSouid=" + comSouid +
+         ", comName='" + comName + '\'' +
          ", comStaid=" + comStaid +
          ", comUcid=" + comUcid +
          ", comDocid=" + comDocid +

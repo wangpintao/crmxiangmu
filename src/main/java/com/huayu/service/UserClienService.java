@@ -25,7 +25,7 @@ public class UserClienService extends ServiceImpl<UserClienMapper,UserClien> imp
  @Autowired
  private UserClienMapper userClienMapper;
 
-
+ @Override
  public UserClien selectId(Integer ucid){
   return userClienMapper.selectId(ucid);
  }
@@ -47,7 +47,7 @@ public class UserClienService extends ServiceImpl<UserClienMapper,UserClien> imp
     Integer ucid= cli.getUcid();
     wrapper.eq("ucid",ucid);
     UserClien userClien=userClienMapper.selectOne(wrapper);
-    userClien.getCliName();
+
 
    }
 

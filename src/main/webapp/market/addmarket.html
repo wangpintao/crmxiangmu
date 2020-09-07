@@ -53,6 +53,8 @@
             //根据id查询客户信息表
             $.get("/commercial/selectid.do?ucid="+data.value ,function (objs) {
               $("#ucid").val(objs.ucid);
+              $("#buid").val(objs.busid);
+              $("#souids").val(objs.souid);
               $("#business").val(objs.cliBusiness.clibusname);
               $("#soid").val(objs.cliSource.clsname);
               $("#city").val(objs.city);
@@ -132,10 +134,12 @@
                 </select>
             </div>
         </div>
+
+        <input type="hidden" name="comBusid"   id="buid">
         <div class="layui-inline">
             <label class="layui-form-label">所属行业</label>
             <div class="layui-input-block">
-                <input type="text" name="comClibusname"  id="business"  readonly  autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comBusname"  id="business"  readonly  autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
     </div>
@@ -167,10 +171,11 @@
                 <input type="text" name="coname"   id="conname"  onkeyup="upsj(this.value)"  autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
+        <input type="hidden" name="comSouid"  id="souids">
         <div class="layui-inline">
             <label class="layui-form-label">客户来源</label>
             <div class="layui-input-block">
-                <input type="text" name="comSouid"  readonly id="soid"   autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                <input type="text" name="comName"  readonly id="soid"   autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
             </div>
         </div>
     </div>
