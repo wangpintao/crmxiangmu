@@ -49,4 +49,8 @@ public interface AfterSaleMapper extends BaseMapper<AfterSale> {
     @Select("SELECT * FROM after_sale WHERE QUARTER(aft_startdate)=QUARTER(DATE_SUB(NOW(),INTERVAL 1 QUARTER))")
     List<AfterSale> beforeSeason();
 
+    //测试
+    @Select("SELECT COUNT(aft_startdate) FROM after_sale WHERE YEARWEEK(DATE_FORMAT(aft_startdate,'%Y-%m-%d')) = YEARWEEK(NOW())-1 GROUP BY aft_startdate")
+    List<Integer> Week();
+
 }

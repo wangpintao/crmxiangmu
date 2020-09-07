@@ -10,6 +10,7 @@ import com.github.pagehelper.util.StringUtil;
 import com.huayu.bo.AfterSaleBo;
 import com.huayu.layuiUtils.Stulayui;
 import com.huayu.mapper.AfterSaleMapper;
+import com.huayu.mapper.CommercialMapper;
 import com.huayu.pojo.AfterSale;
 import com.huayu.service.imp.IAfterSaleServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class AfterSaleService extends ServiceImpl<AfterSaleMapper, AfterSale> im
 
     @Autowired
     private AfterSaleMapper afterSaleMapper;
+    @Autowired
+    private CommercialMapper commercialMapper;
 
     //售后究极查询
     @Override
@@ -33,7 +36,6 @@ public class AfterSaleService extends ServiceImpl<AfterSaleMapper, AfterSale> im
         Stulayui stulayui =new Stulayui();
         Page page1 = PageHelper.startPage(page,limit);
         List<AfterSale> list =new ArrayList<>();
-        PageInfo<AfterSale> pageInfo = new PageInfo<AfterSale>(list);
         QueryWrapper queryWrapper =new QueryWrapper();
         if(!StringUtils.isEmpty(calssType)&&!StringUtils.isEmpty(key)){
             queryWrapper.like(calssType,key);
@@ -68,7 +70,7 @@ public class AfterSaleService extends ServiceImpl<AfterSaleMapper, AfterSale> im
                 list=afterSaleMapper.selectList(queryWrapper);
             }
         }else{
-                //如果对象null不为空查询
+                //如果对象null查询
                 list=afterSaleMapper.selectList(queryWrapper);
             }
 
@@ -81,7 +83,17 @@ public class AfterSaleService extends ServiceImpl<AfterSaleMapper, AfterSale> im
     @Override
     public List<Integer> queryCount(){
         List<Integer> count =new ArrayList<>();
+        for (int i =1 ;i<=3 ;i++){
+            QueryWrapper queryWrapper = new QueryWrapper();
+            queryWrapper.eq("aft_status", i+"");
+            count.add(afterSaleMapper.selectList(queryWrapper).size());
+        }
         count.add(afterSaleMapper.newWeek().size());
+        count.add(afterSaleMapper.beforeWeek().size());
+        count.add(afterSaleMapper.newMonth().size());
+        count.add(afterSaleMapper.beforeMonth().size());
+        count.add(afterSaleMapper.newSeason().size());
+        count.add(afterSaleMapper.beforeSeason().size());
         return count;
     }
 
@@ -89,5 +101,11 @@ public class AfterSaleService extends ServiceImpl<AfterSaleMapper, AfterSale> im
     @Override
     public AfterSaleBo queryAllDetail(Integer aftid){
       return  afterSaleMapper.queryAllDetail(aftid);
+    }
+
+    //测试
+    @Override
+    public  Integer  Week() {
+        return commercialMapper.ComYear();
     }
 }

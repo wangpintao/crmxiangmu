@@ -86,15 +86,18 @@ public class AfterSaleController {
 
     //查询数量
     @GetMapping("/queryCount.do")
+    @ResponseBody
     public List<Integer> queryCount(){
         return iAfterSaleServiceImp.queryCount();
     }
+
     //根据合同编号id查询所有合同
     @GetMapping("/queryByid.do")
     @ResponseBody
     public Contract queryByid(String clause){
         return iContractServiceImp.queryByConId(clause);
     }
+
     //模糊查询测试
     @GetMapping("/toup.do")
     @ResponseBody
@@ -105,6 +108,16 @@ public class AfterSaleController {
         System.out.println(key);
         System.out.println(iAfterSaleServiceImp.list(queryWrapper));
         return iAfterSaleServiceImp.list(queryWrapper);
+    }
+
+    /*
+    * 测试
+    * */
+    @GetMapping("/queryByc.do")
+    @ResponseBody
+    public Integer queryByc(){
+        System.out.println(iAfterSaleServiceImp.Week());
+        return iAfterSaleServiceImp.Week();
     }
 
 }

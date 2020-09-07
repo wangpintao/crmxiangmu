@@ -12,5 +12,7 @@ public interface IAfterSaleServiceImp extends IService<AfterSale>{
     AfterSaleBo queryAllDetail(Integer aftid);
     Stulayui queryBya(Integer page, Integer limit, AfterSale afterSale,String calssType,String key,String sta);
     List<Integer> queryCount();
+    //测试
+    Integer Week();
 
 }
