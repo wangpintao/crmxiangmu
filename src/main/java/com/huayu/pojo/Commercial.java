@@ -40,6 +40,7 @@ public class Commercial extends Model<Commercial> {
     private Integer comuid;
 
 
+
     /**
      * 商机名称
      */
