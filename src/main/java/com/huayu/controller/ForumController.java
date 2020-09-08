@@ -1,5 +1,6 @@
 package com.huayu.controller;
 
+import com.alibaba.druid.sql.visitor.functions.If;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.huayu.layuiUtils.Stulayui;
 import com.huayu.pojo.Commercial;
@@ -38,7 +39,8 @@ public class ForumController {
     public Stulayui queryall(){
         Stulayui stulayui=new Stulayui();
         QueryWrapper queryWrapper=new QueryWrapper();
-        List<Forum> list=iForumServiceImp.list();
+        queryWrapper.eq("for_forid",0);
+        List<Forum> list=iForumServiceImp.list(queryWrapper);
         if(list.size()>0){
             stulayui.setCode(0);
             stulayui.setMsg("查询成功");
@@ -80,6 +82,7 @@ public class ForumController {
             forum.setForAuthor("李娜");
             forum.setForClick(1);
             forum.setForReply(0);
+            forum.setForForid(0);
             iForumServiceImp.save(forum);
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,7 +95,18 @@ public class ForumController {
         QueryWrapper queryWrapper=new QueryWrapper();
         queryWrapper.eq("forid",forid);
         Forum forum=iForumServiceImp.getOne(queryWrapper);
+        forum.setForClick(forum.getForClick()+1);
+        iForumServiceImp.updateone1(forum);
+        QueryWrapper queryWrapper1=new QueryWrapper();
+        queryWrapper1.eq("for_forid",forid);
+        List<Forum> list=iForumServiceImp.list(queryWrapper1);
+        if(list.size()>0){
+            for (int i =1; i <=list.size() ; i++) {
+                list.get(i).setForClick(i);
+            }
+        }
         model.addAttribute("forum",forum);
+        model.addAttribute("list",list);
         return "/forum/update";
     }
 
@@ -102,6 +116,38 @@ public class ForumController {
         queryWrapper.eq("forid",forid);
         iForumServiceImp.remove(queryWrapper);
         return "redirect:/forum/forum.html";
+    }
+
+    @RequestMapping("/set.do")
+    public String set(Integer forid,Model model){
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.eq("forid",forid);
+        model.addAttribute("forum",iForumServiceImp.getOne(queryWrapper));
+        return "/forum/set.html";
+    }
+
+    @PostMapping("/set1.do")
+    public String set1(Forum forum,Model model){
+        iForumServiceImp.updateone(forum);
+        return "redirect:/forum/forum.html";
+    }
+
+    @RequestMapping("/update1.do")
+    public String update1(Forum forum,Model model){
+        forum.setForAuthor("安娜");
+        forum.setForDate(new Date());
+        Forum forum1=new Forum();
+        forum1.setForid(forum.getForForid());
+        forum1.setForFinally(new Date());
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.eq("forid",forum.getForForid());
+        Forum forum2=iForumServiceImp.getOne(queryWrapper);
+        forum1.setForReply(forum2.getForReply()+1);
+        boolean b=iForumServiceImp.save(forum);
+        if(b){
+            iForumServiceImp.updateone2(forum1);
+        }
+        return "redirect:/forum/update.do?forid="+forum.getForForid();
     }
 
 

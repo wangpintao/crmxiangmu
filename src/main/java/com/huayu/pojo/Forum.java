@@ -103,6 +103,12 @@ public class Forum extends Model<Forum> {
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
     private Date forFinally;
 
+    /**
+     * 所属帖子id
+     */
+    @TableField("for_forid")
+    private Integer forForid;
+
 
     @Override
     protected Serializable pkVal() {
@@ -213,6 +219,14 @@ public class Forum extends Model<Forum> {
         this.forFinally = forFinally;
     }
 
+    public Integer getForForid() {
+        return forForid;
+    }
+
+    public void setForForid(Integer forForid) {
+        this.forForid = forForid;
+    }
+
     @Override
     public String toString() {
         return "Forum{" +
@@ -229,6 +243,7 @@ public class Forum extends Model<Forum> {
                 ", forRevert='" + forRevert + '\'' +
                 ", forContent='" + forContent + '\'' +
                 ", forFinally=" + forFinally +
+                ", forForid=" + forForid +
                 '}';
     }
 }
