@@ -44,5 +44,52 @@ public interface DocumentaryMapper extends BaseMapper<Documentary> {
     @Update("update commercial set com_staid=#{comStaid} where coid=#{coid}")
     public int commercialupdate(Commercial commercial);
 
+    //本周跟单机数
+    @Select("SELECT COUNT(doc_date) FROM documentary WHERE YEARWEEK(DATE_FORMAT(doc_date,'%Y-%m-%d')) = YEARWEEK(NOW())")
+    Integer DocWeek();
+    @Select("SELECT COUNT(*) FROM documentary WHERE YEARWEEK(DATE_FORMAT(doc_date,'%Y-%m-%d'),1) = YEARWEEK(NOW(),1) AND doc_staid =1")
+    Integer StateDocWeek();
+
+    //上周跟单数
+    @Select("SELECT COUNT(doc_date) FROM documentary WHERE YEARWEEK(DATE_FORMAT(doc_date,'%Y-%m-%d')) = YEARWEEK(NOW())-1")
+    Integer DocLaerWeek();
+    @Select("SELECT COUNT(doc_date) FROM documentary WHERE YEARWEEK(DATE_FORMAT(doc_date,'%Y-%m-%d')) = YEARWEEK(NOW())-1 AND doc_staid =1")
+    Integer StateDocLaerWeek();
+
+    //本月跟单数
+    @Select("SELECT COUNT(doc_date) FROM documentary WHERE DATE_FORMAT( doc_date, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )")
+    Integer DocMonth();
+    @Select("SELECT COUNT(doc_date) FROM documentary WHERE DATE_FORMAT( doc_date, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' ) AND doc_staid =1")
+    Integer StateDocMonth();
+
+    //上月跟单数
+    @Select("SELECT COUNT(doc_date) FROM documentary WHERE PERIOD_DIFF( DATE_FORMAT( NOW( ) , '%Y%m' ) , DATE_FORMAT( doc_date, '%Y%m' ) ) =1")
+    Integer DocLaerMonth();
+    @Select("SELECT COUNT(doc_date) FROM documentary WHERE PERIOD_DIFF( DATE_FORMAT( NOW( ) , '%Y%m' ) , DATE_FORMAT( doc_date, '%Y%m' ) ) =1 AND doc_staid =1")
+    Integer StateDocLaerMonth();
+
+    //本季跟单数
+    @Select("SELECT COUNT(doc_date) FROM documentary WHERE QUARTER(doc_date)=QUARTER(NOW())")
+    Integer DocSeason();
+    @Select("SELECT COUNT(doc_date) FROM documentary WHERE QUARTER(doc_date)=QUARTER(NOW()) AND doc_staid =1")
+    Integer StateDocSeason();
+
+    //上季跟单数
+    @Select("SELECT COUNT(doc_date) FROM documentary WHERE QUARTER(doc_date)=QUARTER(DATE_SUB(NOW(),INTERVAL 1 QUARTER))")
+    Integer DocLaerSeason();
+    @Select("SELECT COUNT(doc_date) FROM documentary WHERE QUARTER(doc_date)=QUARTER(DATE_SUB(NOW(),INTERVAL 1 QUARTER)) AND doc_staid =1")
+    Integer StateDocLaerSeason();
+
+    //本年跟单数
+    @Select("SELECT COUNT(doc_date) FROM documentary WHERE YEAR(doc_date)=YEAR(NOW())")
+    Integer DocYear();
+    @Select("SELECT COUNT(doc_date) FROM documentary WHERE YEAR(doc_date)=YEAR(NOW()) AND doc_staid =1")
+    Integer StateDocYear();
+
+    //去年跟单数
+    @Select("SELECT COUNT(doc_date) FROM documentary WHERE YEAR(doc_date)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR))")
+    Integer DocLaerYear();
+    @Select("SELECT COUNT(doc_date) FROM documentary WHERE YEAR(doc_date)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR)) AND doc_staid =1")
+    Integer StateDocLaerYear();
 
 }

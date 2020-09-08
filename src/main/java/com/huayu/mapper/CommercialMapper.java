@@ -16,34 +16,52 @@ public interface CommercialMapper extends BaseMapper<Commercial> {
  //本周商机数
  @Select("SELECT COUNT(com_thisdate) FROM commercial WHERE YEARWEEK(DATE_FORMAT(com_thisdate,'%Y-%m-%d')) = YEARWEEK(NOW())")
  Integer ComWeek();
+ //用户周商机数
+ @Select("SELECT COUNT(com_thisdate) FROM commercial WHERE YEARWEEK(DATE_FORMAT(com_thisdate,'%Y-%m-%d')) = YEARWEEK(NOW()) AND com_uid=#{comuid}")
+ Integer UserComWeek(Integer comuid);
 
 //上周商机数
  @Select("SELECT COUNT(com_thisdate) FROM commercial WHERE YEARWEEK(DATE_FORMAT(com_thisdate,'%Y-%m-%d')) = YEARWEEK(NOW())-1")
  Integer ComLaerWeek();
+ @Select("SELECT COUNT(com_thisdate) FROM commercial WHERE YEARWEEK(DATE_FORMAT(com_thisdate,'%Y-%m-%d')) = YEARWEEK(NOW())-1 AND com_uid=#{comuid}")
+ Integer UserComLaerWeek(Integer comuid);
 
  //本月商机数
  @Select("SELECT COUNT(com_thisdate) FROM commercial WHERE DATE_FORMAT( com_thisdate, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )")
  Integer ComMonth();
+ @Select("SELECT COUNT(com_thisdate) FROM commercial WHERE DATE_FORMAT( com_thisdate, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' ) AND com_uid=#{comuid}")
+ Integer UserComMonth(Integer comuid);
 
  //上月商机数
  @Select("SELECT COUNT(com_thisdate) FROM commercial WHERE PERIOD_DIFF( DATE_FORMAT( NOW( ) , '%Y%m' ) , DATE_FORMAT( com_thisdate, '%Y%m' ) ) =1")
  Integer ComLaerMonth();
+ @Select("SELECT COUNT(com_thisdate) FROM commercial WHERE PERIOD_DIFF( DATE_FORMAT( NOW( ) , '%Y%m' ) , DATE_FORMAT( com_thisdate, '%Y%m' ) ) =1 AND com_uid=#{comuid}")
+ Integer UserComLaerMonth(Integer comuid);
 
  //本季商机数
  @Select("SELECT COUNT(com_thisdate) FROM commercial WHERE QUARTER(com_thisdate)=QUARTER(NOW())")
  Integer ComSeason();
+ //用户本季商机数
+ @Select("SELECT COUNT(com_thisdate) FROM commercial WHERE QUARTER(com_thisdate)=QUARTER(NOW()) AND com_uid=#{comuid}")
+ Integer UserComSeason(Integer comuid);
 
  //上季商机数
  @Select("SELECT COUNT(com_thisdate) FROM commercial WHERE QUARTER(com_thisdate)=QUARTER(DATE_SUB(NOW(),INTERVAL 1 QUARTER))")
  Integer ComLaerSeason();
+ @Select("SELECT COUNT(com_thisdate) FROM commercial WHERE QUARTER(com_thisdate)=QUARTER(DATE_SUB(NOW(),INTERVAL 1 QUARTER)) AND com_uid=#{comuid}")
+ Integer UserComLaerSeason(Integer comuid);
 
  //本年商机数
  @Select("SELECT COUNT(com_thisdate) FROM commercial WHERE YEAR(com_thisdate)=YEAR(NOW())")
  Integer ComYear();
+ @Select("SELECT COUNT(com_thisdate) FROM commercial WHERE YEAR(com_thisdate)=YEAR(NOW()) AND com_uid=#{comuid}")
+ Integer UserComYear(Integer comuid);
 
  //去年商机数
  @Select("SELECT COUNT(com_thisdate) FROM commercial WHERE YEAR(com_thisdate)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR))")
  Integer ComLaerYear();
+ @Select("SELECT COUNT(com_thisdate) FROM commercial WHERE YEAR(com_thisdate)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR)) AND com_uid=#{comuid}")
+ Integer UserComLaerYear(Integer comuid);
 
 
 

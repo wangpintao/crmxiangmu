@@ -78,8 +78,10 @@ public class Documentary extends Model<Documentary> {
     @TableField("doc_user")
     private Integer docuser;
 
+    @TableField(exist = false)
     private User user;
 
+    @TableField(exist = false)
     private DocClassify docClassify;
 
     @Override
