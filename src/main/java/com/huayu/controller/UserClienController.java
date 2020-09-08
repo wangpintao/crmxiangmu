@@ -116,15 +116,8 @@ public List<CliKind> selectKind(){
  @RequestMapping("/clientid.do")
  @ResponseBody
  public Stulayui clientid(Integer page, Integer limit, String clientid ,String keys){
-  Stulayui stulayui=new Stulayui();
-  List<ClientBo>  list= iUserClienServiceImp.queryMany(page,limit,clientid,keys);
-  PageInfo<ClientBo> pageInfo = new PageInfo<ClientBo>(list);
-  System.out.println(list);
-  stulayui.setMsg("查询成功");
-  stulayui.setCode(0);
-  stulayui.setCount(Integer.valueOf(String.valueOf(pageInfo.getTotal())));
-  stulayui.setData(list);
-  return stulayui;
+  System.out.println(clientid+"||"+keys);
+  return iUserClienServiceImp.queryMany(page,limit,clientid,keys);
  }
 
  @RequestMapping("/clients.do")

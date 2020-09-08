@@ -1,6 +1,7 @@
 package com.huayu.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.huayu.bo.CommercialBo;
 import com.huayu.mapper.CommercialMapper;
 import com.huayu.mapper.ContractMapper;
 import com.huayu.pojo.Commercial;
@@ -10,6 +11,9 @@ import com.huayu.service.imp.IContractServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -21,5 +25,16 @@ public class CommercialService extends ServiceImpl<CommercialMapper, Commercial>
  @Override
  public boolean updatec(Commercial commercial) {
   return commercialMapper.updatec(commercial);
+ }
+ public List<CommercialBo> queryCom(Commercial commercial){
+  CommercialBo commercialBo=new CommercialBo();
+  List<CommercialBo>  commercialBoList=new ArrayList<>();
+  List<Commercial> commercials=commercialMapper.selectList(null);
+  for(Commercial com:commercials){
+   commercialBo.setConameCliNname(com.getConameCliNname());
+
+
+  }
+ return commercialBoList;
  }
 }

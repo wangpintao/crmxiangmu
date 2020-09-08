@@ -33,6 +33,13 @@ public class Commercial extends Model<Commercial> {
     @TableField("coname_cliname")
     private String conameCliNname;
 
+
+    /*用户外键
+     * */
+    @TableField("com_uid")
+    private Integer comuid;
+
+
     /**
      * 商机名称
      */
@@ -170,6 +177,14 @@ public class Commercial extends Model<Commercial> {
     @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date comThisdate;
+
+    public Integer getComuid() {
+        return comuid;
+    }
+
+    public void setComuid(Integer comuid) {
+        this.comuid = comuid;
+    }
 
     @Override
     protected Serializable pkVal() {

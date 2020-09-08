@@ -16,14 +16,20 @@ import java.util.Date;
 
 public class CommercialBo {
 
- @TableField(exist = false)
+ /*@TableField(exist = false)
  private Commercial commercial;
 
  @TableField(exist = false)
  private Documentary documentary;
 
  @TableField(exist = false)
- private Forum forum;
+ private Forum forum;*/
+
+ /*
+  * 客户商机名称
+  * */
+ @TableField("coname_cliname")
+ private String conameCliNname;
 
  /**
   * 商机状态（取跟单的状态）
@@ -55,6 +61,44 @@ public class CommercialBo {
 * 讨论版
 * */
 
+ public String getConameCliNname() {
+  return conameCliNname;
+ }
 
+ public void setConameCliNname(String conameCliNname) {
+  this.conameCliNname = conameCliNname;
+ }
+
+ public Integer getComStaid() {
+  return comStaid;
+ }
+
+ public void setComStaid(Integer comStaid) {
+  this.comStaid = comStaid;
+ }
+
+ public Long getComSum() {
+  return comSum;
+ }
+
+ public void setComSum(Long comSum) {
+  this.comSum = comSum;
+ }
+
+ public String getComUname() {
+  return comUname;
+ }
+
+ public void setComUname(String comUname) {
+  this.comUname = comUname;
+ }
+
+ public Date getDocDate() {
+  return docDate;
+ }
+
+ public void setDocDate(Date docDate) {
+  this.docDate = docDate;
+ }
 
 }

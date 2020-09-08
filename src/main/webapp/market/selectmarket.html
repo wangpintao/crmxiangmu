@@ -13,34 +13,101 @@
     <legend>商机管理</legend>
 </fieldset>
 </div>
-<br>
 <div id="main" style="width:100%;">
-
-        <div id="test7"></div>
+    <div id="left" style="width:15%;float:left;">
+        <div id="test7">
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            所有分类&nbsp;<span></span><br><br>
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            <a href="#"  onclick=tableRerole(1) style="color:#00FFFF" >我负责的商机</a>&nbsp;<span id="label0"></span><br><br>
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            <a href="#"  onclick=tableRerole(2) style="color: #00FFFF">我参与的商机</a>&nbsp;<span id="label1"></span><br><br>
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            <a href="#"  onclick=tableRerole(3) style="color: #00FFFF">我关注的商机</a>&nbsp;<span id="label2"></span><br><br>
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            <a href="#"  onclick=tableRerole(1) style="color:#00FFFF" >7天未跟单</a>&nbsp;<span id="label0"></span><br><br>
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            <a href="#"  onclick=tableRerole(2) style="color: #00FFFF">30天未跟单</a>&nbsp;<span id="label1"></span><br><br>
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            <a href="#"  onclick=tableRerole(3) style="color: #00FFFF">90天未跟单</a>&nbsp;<span id="label2"></span><br>
+            <hr>
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            <a href="#"  onclick=tableRerole(1) style="color:#00FFFF" >本周新增</a>&nbsp;<span id="label0"></span><br><br>
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            <a href="#"  onclick=tableRerole(2) style="color: #00FFFF">上周新增</a>&nbsp;<span id="label1"></span><br><br>
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            <a href="#"  onclick=tableRerole(3) style="color: #00FFFF">本月新增</a>&nbsp;<span id="label2"></span><br><br>
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            <a href="#"  onclick=tableRerole(1) style="color:#00FFFF" >上月新增</a>&nbsp;<span id="label0"></span><br><br>
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            <a href="#"  onclick=tableRerole(2) style="color: #00FFFF">本季新增</a>&nbsp;<span id="label1"></span><br><br>
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            <a href="#"  onclick=tableRerole(3) style="color: #00FFFF">上季新增</a>&nbsp;<span id="label2"></span><br>
+            <hr>
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            <a href="#"  onclick=tableRerole(1) style="color:#00FFFF" >已成交商机</a>&nbsp;<span id="label0"></span><br><br>
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            <a href="#"  onclick=tableRerole(2) style="color: #00FFFF">已丢弃商机</a>&nbsp;<span id="label1"></span><br><br>
+            <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
+            <a href="#"  onclick=tableRerole(3) style="color: #00FFFF">已搁置商机</a>&nbsp;<span id="label2"></span><br><br>
+            <hr>
+        </div>
     </div>
 
-    <div id="right" style="width:85%;float:left;">
-        <form class="layui-form"  action="/userClien/clientid.do">
 
-            <div class="layui-form-item"  align="left">
+    <div id="right" style="width:85%;float:left;">
+        <form class="layui-form"  action="/userClien/clientid.do" style="border:1px solid #c2c2c2;" >
+           <br>
+            <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label">请选择查找</label>
-                    <div class="layui-input-block" style="width: 200px;height: 40px">
-                        <select  name="clientid"  lay-filter="test">
-                            <option >请选择</option>
-                            <option value="1">按客户名称</option>
-                            <option value="2">按拼音</option>
-                            <option value="3">按联系人</option>
-                        </select>
+                    <label class="layui-form-label">商机全称</label>
+                    <div class="layui-input-block">
+                        <input type="text"   id="city"     autocomplete="off" class="layui-input" style="width: 300px;height: 40px">
                     </div>
                 </div>
                 <div class="layui-inline">
-                        <input type="text" name="keys"  placeholder="请输入关键字查找" id="business"   autocomplete="off" class="layui-input" style="width: 300px;height: 40px">
+                    <label class="layui-form-label">商机阶段</label>
+                    <div class="layui-input-block">
+                        <input type="text"   id="pin"   autocomplete="off" class="layui-input" style="width: 300px;height: 40px">
+                    </div>
                 </div>
-                <button class="layui-btn" lay-submit lay-filter="formDemo"><i class="layui-icon layui-icon-search"></i> 查找</button>
+                <div class="layui-inline">
+                    <label class="layui-form-label">商机负责人</label>
+                    <div class="layui-input-block">
+                        <input type="text"   id="pin"    autocomplete="off" class="layui-input" style="width: 300px;height: 40px">
+                    </div>
+                </div>
+            </div>
 
-              </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">所属部门</label>
+                    <div class="layui-input-block">
+                        <input type="text"   id="city"     autocomplete="off" class="layui-input" style="width: 300px;height: 40px">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">预计成交金额</label>
+                    <div class="layui-input-block">
+                        <input type="text"   id="pin"   autocomplete="off" class="layui-input" style="width: 300px;height: 40px">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">预计结单日期</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="comDate" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" style="width: 300px;height: 40px" class="layui-input">
+                    </div>
+                </div>
+            </div>
 
+            <div class="layui-form-item" style="text-align: center;">
+            <div class="layui-inline">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo" style="width: 250px;height: 40px" >立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary" style="width: 250px;height: 40px">重置</button>
+                </div>
+            </div>
+            </div>
         </form>
 
         <script type="text/html" id="toolbarDemo">
@@ -68,14 +135,18 @@
 <script src="/static/js/jquery-3.3.1.min.js"></script>
 <script src="/static/layui/layui.js"></script>
 <script>
-    layui.use(['table','form','jquery','tree'], function(){
+    layui.use(['table','form','jquery','tree','laydate'], function(){
         var table = layui.table;
         var form=layui.form;
         var $=layui.jquery;//异步
         var layer = layui.layer;//弹出层
         var tree = layui.tree;
+        var laydate = layui.laydate;
 
-
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
 
 
         //第一个实例   var a=table.render表格重载第二种方式
@@ -88,9 +159,12 @@
             ,limit:2
             ,limits:[1,2,10,30]
             ,cols: [[ //表头
-                {field: 'coname', title: '用户名', width:120 , templet:'#coids' }
-                ,{field: 'comClibusname', title: '性别', width:80, sort: true}
-                ,{field: 'comSouid', title: '年龄', width:80}
+                {field: 'coname', title: '商机名称', width:220, templet:'#coids' }
+                ,{field: 'comClibusname', title: '商机阶段', width:220}
+                ,{field: 'comSouid', title: '预计成交金额', width:220}
+                ,{field: 'comSouid', title: '商机负责人', width:220}
+                ,{field: 'comSouid', title: '最后跟单', width:220}
+                ,{field: 'comSouid', title: '讨论版', width:220}
             ]]
         });
 

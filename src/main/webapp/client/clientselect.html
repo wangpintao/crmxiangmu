@@ -18,13 +18,13 @@
     <div id="left" style="width:15%;float:left;">
         <div id="test7">
             <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-            <a href="#"  onclick=tableRerole("queryAll")>所有分类</a>&nbsp;<span></span><br><br><br>
+             所有分类&nbsp;<span></span><br><br><br>
             <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-            <a href="#"  onclick=tableRerole(1)>处理中服务</a>&nbsp;<span id="label0"></span><br><br><br>
+            <a href="#"  onclick=tableRerole(1) style="color: #00FFFF">普通客户</a>&nbsp;<span id="label0"></span><br><br><br>
             <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-            <a href="#"  onclick=tableRerole(2)>已结束服务</a>&nbsp;<span id="label1"></span><br><br><br>
+            <a href="#"  onclick=tableRerole(2) style="color: #00FFFF">VIP客户</a>&nbsp;<span id="label1"></span><br><br><br>
             <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-            <a href="#"  onclick=tableRerole(3)>以搁置服务</a>&nbsp;<span id="label2"></span><br><br><br>
+            <a href="#"  onclick=tableRerole(3) style="color: #00FFFF">SVIP客户</a>&nbsp;<span id="label2"></span><br><br><br>
             <hr>
 
         </div>
@@ -51,8 +51,6 @@
                 <button class="layui-btn" lay-submit lay-filter="formDemo"><i class="layui-icon layui-icon-search"></i> 查找</button>
 
               </div>
-
-
         </form>
 
         <script type="text/html" id="toolbarDemo">
@@ -69,8 +67,6 @@
         </script>
 
         <script type="text/html" id="barDemo">
-            <a class="layui-btn layui-btn-xs" lay-event="detail"><i class="layui-icon layui-icon-search"></i>查看</a>
-            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
         </script>
 
@@ -116,10 +112,16 @@
 
         //监听提交
         form.on('submit(formDemo)', function(data){
-            var index= parent.layer.getFrameIndex(window.name);
-            parent.layer.close(index);
+            console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+            a.reload('demo', {
+                url: '/userClien/clientid.do'
+                ,where: {
+                    clientid:data.field.clientid,
+                    keys:data.field.keys
+                } //设定异步数据接口的额外参数
+            });
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
-
 
 
 

@@ -49,6 +49,7 @@ public class CommercialController {
  @RequestMapping("/addCommercial.do")
  public String addCommercial(Commercial commercial){
   commercial.setComThisdate(new Date());
+  commercial.setComStaid(4);
   iCommercialServiceImp.save(commercial);
   return "redirect:/market/selectmarket.html";
  }

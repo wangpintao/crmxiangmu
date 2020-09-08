@@ -2,8 +2,8 @@ package com.huayu.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.huayu.bo.ClientBo;
 import com.huayu.layuiUtils.Stulayui;
@@ -46,18 +46,20 @@ public class UserClienService extends ServiceImpl<UserClienMapper,UserClien> imp
  /*客户联和
  * */
  @Override
- public List<ClientBo> queryMany(Integer page,Integer limit,String clientid ,String keys) {
+ public Stulayui queryMany(Integer page,Integer limit,String clientid ,String keys) {
+   Stulayui stulayui=new Stulayui();
    List<ClientBo> clientBoList=new ArrayList<>();
-  Page page1 = PageHelper.startPage(page,limit,true);
-   QueryWrapper wrapper5=new QueryWrapper();
-   if(StringUtils.isEmpty(clientid) || StringUtils.isEmpty(keys)){
-    wrapper5=null;
-   }else if (!StringUtils.isEmpty(clientid) && !StringUtils.isEmpty(keys)){
-    wrapper5.like(clientid,keys);
+   //Page page1 = PageHelper.startPage(page,limit);
+   if(page==null){
+    page=1;
    }
-   List<UserClien> list=userClienMapper.queryAll(page1);
-   /*System.out.println("集合"+list.getRecords());*/
-   List<UserClien> clienList= list;
+   IPage<UserClien> page1=new Page(page,limit);
+   QueryWrapper wrapper5=new QueryWrapper();
+     if (!StringUtils.isEmpty(clientid) && !StringUtils.isEmpty(keys)){
+     wrapper5.like(clientid,keys);
+    }
+   IPage iPage= userClienMapper.selectPage(page1,wrapper5);
+   List<UserClien> clienList=iPage.getRecords();
    for(UserClien cli:clienList){
     ClientBo clientBo=new ClientBo();
     Integer ucid= cli.getUcid();
@@ -110,7 +112,11 @@ public class UserClienService extends ServiceImpl<UserClienMapper,UserClien> imp
     clientBo.setAftScore(aftcs);
     clientBoList.add(clientBo);
    }
-  return clientBoList;
+  stulayui.setMsg("查询成功");
+  stulayui.setCode(0);
+  stulayui.setCount(Integer.valueOf(String.valueOf(page1.getTotal())));
+  stulayui.setData(clientBoList);
+  return stulayui;
  }
 
  @Override
