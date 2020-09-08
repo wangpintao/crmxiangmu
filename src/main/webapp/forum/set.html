@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>帖子设置</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+</head>
+<script src="/static/layui/layui.js"></script>
+<body >
+<br>
+<div style="margin:0 auto; width:80%;height:auto;">
+    <form class="layui-form" method="post" action="/forum/set1.do" >
+        <div class="layui-inline" style="float: left">
+            <input align="left" readonly type="text" th:value="${forum.forTheme}" style="border:0px;font-size:20px"/>
+        </div>
+        <div class="layui-inline"style="float: right">
+            <a href="javascript:window.opener=null;window.open('','_self');window.close()"
+               class="layui-btn layui-icon layui-icon-return">返回</a>
+        </div>
+
+        <br><br><hr class="layui-bg-black"><br>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">分类</label>
+                <div class="layui-input-block" style="width: 400px;height: 40px">
+                    <input type="hidden" name="forid" th:value="${forum.forid}"/>
+                    <select name="forClassify" lay-verify="forClassify">
+                        <option value="0">请选择</option>
+                        <option th:if="${forum.forClassify=='合理化建议'}" selected value="合理化建议">合理化建议</option>
+                        <option th:if="${forum.forClassify!='合理化建议'}" value="合理化建议">合理化建议</option>
+                        <option th:if="${forum.forClassify=='技术交流'}" selected value="技术交流">技术交流</option>
+                        <option th:if="${forum.forClassify!='技术交流'}" value="技术交流">技术交流</option>
+                        <option th:if="${forum.forClassify=='企业文化'}" selected value="企业文化">企业文化</option>
+                        <option th:if="${forum.forClassify!='企业文化'}" value="企业文化">企业文化</option>
+                        <option th:if="${forum.forClassify=='生活娱乐'}" selected value="生活娱乐">生活娱乐</option>
+                        <option th:if="${forum.forClassify!='生活娱乐'}" value="生活娱乐">生活娱乐</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+
+        <div style="text-align: center;">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button lay-submit="" class="layui-btn layui-btn-radius layui-btn-normal">确定</button>
+                    <a href="javascript:window.opener=null;window.open('','_self');window.close()" class="layui-btn layui-btn-radius layui-btn-normal">取消</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    layui.use(['form','layer'], function(){
+        var form = layui.form;
+        var layer = layui.layer;
+
+        form.verify({
+            forClassify:function (value,item) {
+                if(value==0){
+                    return '请选择分类';
+                }
+            }
+        });
+
+    });
+</script>
+</body>
+</html>
