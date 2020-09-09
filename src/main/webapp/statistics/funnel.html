@@ -56,6 +56,7 @@
 <script src="/static/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+<div style="text-align:center">
 <div style="padding: 20px; background-color: #F2F2F2;">
     <div class="layui-col-md4">
         <div class="layui-card">
@@ -166,28 +167,20 @@
 
         option = {
             title: {
-                text: '漏斗图',
-                subtext: '纯属虚构'
+                text: '所有商机漏斗图',
             },
             tooltip: {
                 trigger: 'item',
                 formatter: "{a} <br/>{b} : {c}%"
             },
-            toolbox: {
-                feature: {
-                    dataView: {readOnly: false},
-                    restore: {},
-                    saveAsImage: {}
-                }
-            },
             legend: {
-                data: ['展现', '点击', '访问', '咨询', '订单']
+                data: []
             },
-
+            calculable: true,
             series: [
                 {
-                    name: '漏斗图',
-                    type: 'funnel',
+                    name:'漏斗图',
+                    type:'funnel',
                     left: '10%',
                     top: 60,
                     //x2: 80,
@@ -221,46 +214,264 @@
                         }
                     },
                     data: [
-                        {value: 60, name: '成交'},
+                        {value: 60, name: '竞标投标'},
                         {value: 40, name: '商务谈判'},
-                        {value: 20, name: '竞标'},
-                        {value: 80, name: '报价方案'},
-                        {value: 100, name: '初期谈判'}
+                        {value: 20, name: '成交'},
+                        {value: 80, name: '方案报价'},
+                        {value: 100, name: '初次访问'}
                     ]
                 }
             ]
         };
-    });
-    $.ajax({
-        type : "post",
-        async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-        url : "/statistics/funnel.do",    //请求发送到TestServlet处
-        data : {},
-        dataType : "json",        //返回数据形式为json
-        success : function(result) {
-            //请求成功时执行该函数内容，result即为服务器返回的json对象
-            var fun=window.document.getElementById("funnel");
-            var content="<tr><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>";
-            if (result) {
-                var con=result[result.length-1].count;
-                var su=result[result.length-1].sum;
-                for(var i=result.length-1;i>=0;i--){
-                    var str=Number((result[i].count / con)*100).toFixed(2)+"%";
-                    var str2=Number((result[i].sum / su)*100).toFixed(2)+"%";
-                    content+="<tr><td>"+result[i].count+"</td><td>"+str+"</td><td>"+result[i].sum+"</td><td>"+str2+"</td></tr>";
+        $.ajax({
+            type : "post",
+            async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+            url : "/statistics/funnel.do",    //请求发送到TestServlet处
+            data : {},
+            dataType : "json",        //返回数据形式为json
+            success : function(result) {
+                //请求成功时执行该函数内容，result即为服务器返回的json对象
+                var fun=window.document.getElementById("funnel");
+                var content="<tr><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>";
+                if (result) {
+                    var counthe =0;
+                    var sumhe =0;
+                    for (var i=result.length-1;i>=0;i--){
+                        counthe += result[i].count;
+                        sumhe += result[i].sum;
+                    }
+                    var con=result[result.length-1].count;
+                    var su=result[result.length-1].sum;
+                    for(var i=result.length-1;i>=0;i--){
+                        var str=Number((result[i].count / counthe)*100).toFixed(2)+"%";
+                        var str2=Number((result[i].sum / sumhe)*100).toFixed(2)+"%";
+                        content+="<tr><td>"+result[i].count+"</td><td>"+str+"</td><td>"+result[i].sum+"</td><td>"+str2+"</td></tr>";
+                    }
                 }
+                window.document.getElementById("funnelTable").innerHTML=content;
+                // 基于准备好的容器(这里的容器是id为chart1的div)，初始化echarts实例
+                var fun = echarts.init(document.getElementById('funnel'));
+                fun.setOption(option);
+            },
+            error : function(errorMsg) {
+                console.log("请求数据失败!")
+                //请求失败时执行该函数
+                //alert("请求数据失败!");
+                //myChart.hideLoading();s
             }
-            window.document.getElementById("funnelTable").innerHTML=content;
-            var fun = echarts.init(document.getElementById('funnel'));
-            fun.setOption(option);
-        },
-        error : function(errorMsg) {
-            console.log("请求数据失败!")
-            //请求失败时执行该函数
-            //alert("请求数据失败!");
-            //myChart.hideLoading();s
-        }
+        });
+        $.ajax({
+            type : "post",
+            async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+            url : "/statistics/funnelSeason.do",    //请求发送到TestServlet处
+            data : {},
+            dataType : "json",        //返回数据形式为json
+            success : function(result) {
+                //请求成功时执行该函数内容，result即为服务器返回的json对象
+                var fun=window.document.getElementById("funnel2");
+                var content="<tr><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>";
+                if (result) {
+                    var counthe =0;
+                    var sumhe =0;
+                    for (var i=result.length-1;i>=0;i--){
+                        counthe += result[i].count;
+                        sumhe += result[i].sum;
+                    }
+                    var con=result[result.length-1].count;
+                    var su=result[result.length-1].sum;
+                    for(var i=result.length-1;i>=0;i--){
+                        var str=Number((result[i].count / counthe)*100).toFixed(2)+"%";
+                        var str2=Number((result[i].sum / sumhe)*100).toFixed(2)+"%";
+                        content+="<tr><td>"+result[i].count+"</td><td>"+str+"</td><td>"+result[i].sum+"</td><td>"+str2+"</td></tr>";
+                    }
+                }
+                window.document.getElementById("funnelTable2").innerHTML=content;
+                // 基于准备好的容器(这里的容器是id为chart1的div)，初始化echarts实例
+                var fun = echarts.init(document.getElementById('funnel2'));
+                fun.setOption(option);
+                fun.setOption({
+                    title: {
+                        text: '本季度商机漏斗图'
+                    },
+                });
+            },
+            error : function(errorMsg) {
+                console.log("请求数据失败!")
+                //请求失败时执行该函数
+                //alert("请求数据失败!");
+                //myChart.hideLoading();s
+            }
+        });
+
+        $.ajax({
+            type : "post",
+            async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+            url : "/statistics/funnelSeason.do",    //请求发送到TestServlet处
+            data : {},
+            dataType : "json",        //返回数据形式为json
+            success : function(result) {
+                //请求成功时执行该函数内容，result即为服务器返回的json对象
+                var fun=window.document.getElementById("funnel2");
+                var content="<tr><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>";
+                if (result) {
+                    var counthe =0;
+                    var sumhe =0;
+                    for (var i=result.length-1;i>=0;i--){
+                        counthe += result[i].count;
+                        sumhe += result[i].sum;
+                    }
+                    var con=result[result.length-1].count;
+                    var su=result[result.length-1].sum;
+                    for(var i=result.length-1;i>=0;i--){
+                        var str=Number((result[i].count / counthe)*100).toFixed(2)+"%";
+                        var str2=Number((result[i].sum / sumhe)*100).toFixed(2)+"%";
+                        content+="<tr><td>"+result[i].count+"</td><td>"+str+"</td><td>"+result[i].sum+"</td><td>"+str2+"</td></tr>";
+                    }
+                }
+                window.document.getElementById("funnelTable2").innerHTML=content;
+                // 基于准备好的容器(这里的容器是id为chart1的div)，初始化echarts实例
+                var fun = echarts.init(document.getElementById('funnel2'));
+                fun.setOption(option);
+                fun.setOption({
+                    title: {
+                        text: '上季度商机漏斗图'
+                    },
+                });
+            },
+            error : function(errorMsg) {
+                console.log("请求数据失败!")
+                //请求失败时执行该函数
+                //alert("请求数据失败!");
+                //myChart.hideLoading();s
+            }
+        });
+
+        $.ajax({
+            type : "post",
+            async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+            url : "/statistics/funnelLaerSeason.do",    //请求发送到TestServlet处
+            data : {},
+            dataType : "json",        //返回数据形式为json
+            success : function(result) {
+                //请求成功时执行该函数内容，result即为服务器返回的json对象
+                var fun=window.document.getElementById("funnel3");
+                var content="<tr><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>";
+                if (result) {
+                    var counthe =0;
+                    var sumhe =0;
+                    for (var i=result.length-1;i>=0;i--){
+                        counthe += result[i].count;
+                        sumhe += result[i].sum;
+                    }
+                    var con=result[result.length-1].count;
+                    var su=result[result.length-1].sum;
+                    for(var i=result.length-1;i>=0;i--){
+                        var str=Number((result[i].count / counthe)*100).toFixed(2)+"%";
+                        var str2=Number((result[i].sum / sumhe)*100).toFixed(2)+"%";
+                        content+="<tr><td>"+result[i].count+"</td><td>"+str+"</td><td>"+result[i].sum+"</td><td>"+str2+"</td></tr>";
+                    }
+                }
+                window.document.getElementById("funnelTable3").innerHTML=content;
+                // 基于准备好的容器(这里的容器是id为chart1的div)，初始化echarts实例
+                var fun = echarts.init(document.getElementById('funnel3'));
+                fun.setOption(option);
+                fun.setOption({
+                    title: {
+                        text: '年度商机漏斗图'
+                    },
+                });
+            },
+            error : function(errorMsg) {
+                console.log("请求数据失败!")
+                //请求失败时执行该函数
+                //alert("请求数据失败!");
+                //myChart.hideLoading();s
+            }
+        });
+
+        $.ajax({
+            type : "post",
+            async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+            url : "/statistics/funnelYear.do",    //请求发送到TestServlet处
+            data : {},
+            dataType : "json",        //返回数据形式为json
+            success : function(result) {
+                //请求成功时执行该函数内容，result即为服务器返回的json对象
+                var fun=window.document.getElementById("funnel4");
+                var content="<tr><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>";
+                if (result) {
+                    var counthe =0;
+                    var sumhe =0;
+                    for (var i=result.length-1;i>=0;i--){
+                        counthe += result[i].count;
+                        sumhe += result[i].sum;
+                    }
+                    var con=result[result.length-1].count;
+                    var su=result[result.length-1].sum;
+                    for(var i=result.length-1;i>=0;i--){
+                        var str=Number((result[i].count / counthe)*100).toFixed(2)+"%";
+                        var str2=Number((result[i].sum / sumhe)*100).toFixed(2)+"%";
+                        content+="<tr><td>"+result[i].count+"</td><td>"+str+"</td><td>"+result[i].sum+"</td><td>"+str2+"</td></tr>";
+                    }
+                }
+                window.document.getElementById("funnelTable4").innerHTML=content;
+                // 基于准备好的容器(这里的容器是id为chart1的div)，初始化echarts实例
+                var fun = echarts.init(document.getElementById('funnel4'));
+                fun.setOption(option);
+            },
+            error : function(errorMsg) {
+                console.log("请求数据失败!")
+                //请求失败时执行该函数
+                //alert("请求数据失败!");
+                //myChart.hideLoading();s
+            }
+        });
+
+        $.ajax({
+            type : "post",
+            async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+            url : "/statistics/funnelLaerYear.do",    //请求发送到TestServlet处
+            data : {},
+            dataType : "json",        //返回数据形式为json
+            success : function(result) {
+                //请求成功时执行该函数内容，result即为服务器返回的json对象
+                var fun=window.document.getElementById("funnel5");
+                var content="<tr><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>";
+                if (result) {
+                    var counthe =0;
+                    var sumhe =0;
+                    for (var i=result.length-1;i>=0;i--){
+                        counthe += result[i].count;
+                        sumhe += result[i].sum;
+                    }
+                    var con=result[result.length-1].count;
+                    var su=result[result.length-1].sum;
+                    for(var i=result.length-1;i>=0;i--){
+                        var str=Number((result[i].count / counthe)*100).toFixed(2)+"%";
+                        var str2=Number((result[i].sum / sumhe)*100).toFixed(2)+"%";
+                        content+="<tr><td>"+result[i].count+"</td><td>"+str+"</td><td>"+result[i].sum+"</td><td>"+str2+"</td></tr>";
+                    }
+                }
+                window.document.getElementById("funnelTable5").innerHTML=content;
+                // 基于准备好的容器(这里的容器是id为chart1的div)，初始化echarts实例
+                var fun = echarts.init(document.getElementById('funnel5'));
+                fun.setOption(option);
+                fun.setOption({
+                    title: {
+                        text: '上年商机漏斗图'
+                    },
+                });
+            },
+            error : function(errorMsg) {
+                console.log("请求数据失败!")
+                //请求失败时执行该函数
+                //alert("请求数据失败!");
+                //myChart.hideLoading();s
+            }
+        });
     });
+
+
 </script>
 </body>
 </html>

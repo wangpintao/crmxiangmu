@@ -8,6 +8,7 @@ public class FunnelStatisticsBo {
     //成交总金额
     private Integer sum;
 
+
     public String getTypeName() {
         return typeName;
     }

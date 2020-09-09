@@ -66,10 +66,24 @@ public interface CommercialMapper extends BaseMapper<Commercial> {
 
  //漏斗
  @Select("SELECT * FROM (SELECT d.staname typeName ,COUNT(b.coid) COUNT,IFNULL(SUM(b.com_sum),0) SUM FROM doc_status d LEFT JOIN commercial b ON b.com_staid=d.staid GROUP BY b.com_staid) a ORDER BY a.count")
- public List<FunnelStatisticsBo> funnel();
+ List<FunnelStatisticsBo> funnel();
  //商机金额总和
- @Select("SELECT COUNT(*) COUNT,SUM(com_sum) SUM FROM commercial")
- public FunnelStatisticsBo funnelCount();
+/* @Select("SELECT COUNT(*) COUNT,SUM(com_sum) SUM FROM commercial")
+ FunnelStatisticsBo funnelCount();*/
+//本季
+@Select("SELECT * FROM (SELECT d.staname typeName ,COUNT(b.coid) COUNT,IFNULL(SUM(b.com_sum),0) SUM FROM doc_status d LEFT JOIN commercial b ON b.com_staid=d.staid WHERE QUARTER(com_thisdate)=QUARTER(NOW()) GROUP BY b.com_staid) a ORDER BY a.count")
+List<FunnelStatisticsBo> funnelSeason();
+//上季
+@Select("SELECT * FROM (SELECT d.staname typeName ,COUNT(b.coid) COUNT,IFNULL(SUM(b.com_sum),0) SUM FROM doc_status d LEFT JOIN commercial b ON b.com_staid=d.staid  WHERE QUARTER(com_thisdate)=QUARTER(DATE_SUB(NOW(),INTERVAL 1 QUARTER)) GROUP BY b.com_staid) a ORDER BY a.count")
+List<FunnelStatisticsBo> funnelLaerSeason();
+//本年
+ @Select("SELECT * FROM (SELECT d.staname typeName ,COUNT(b.coid) COUNT,IFNULL(SUM(b.com_sum),0) SUM FROM doc_status d LEFT JOIN commercial b ON b.com_staid=d.staid WHERE YEAR(com_thisdate)=YEAR(NOW()) GROUP BY b.com_staid) a ORDER BY a.count")
+ List<FunnelStatisticsBo> funnelYear();
+ //上年
+ @Select("SELECT * FROM (SELECT d.staname typeName ,COUNT(b.coid) COUNT,IFNULL(SUM(b.com_sum),0) SUM FROM doc_status d LEFT JOIN commercial b ON b.com_staid=d.staid WHERE YEAR(com_thisdate)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR)) GROUP BY b.com_staid) a ORDER BY a.count")
+ List<FunnelStatisticsBo> funnelLaerYar();
+
+
 
 
 

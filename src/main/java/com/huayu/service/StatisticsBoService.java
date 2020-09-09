@@ -80,8 +80,30 @@ public class StatisticsBoService {
      */
     public List<FunnelStatisticsBo> funnel(){
         List<FunnelStatisticsBo> list=commercialMapper.funnel();
-        FunnelStatisticsBo bo=commercialMapper.funnelCount();
+        FunnelStatisticsBo bo= new FunnelStatisticsBo();
         bo.setTypeName("所有商机");
+        System.out.println(bo);
         return list;
+    }
+
+    //本季
+    public List<FunnelStatisticsBo> funnelSeason(){
+        List<FunnelStatisticsBo> list=commercialMapper.funnelSeason();
+        return list;
+    }
+    //上季
+    public List<FunnelStatisticsBo> funnelLaerSeason(){
+        List<FunnelStatisticsBo> list =commercialMapper.funnelLaerSeason();
+        return list;
+    }
+
+    //本年
+    public List<FunnelStatisticsBo> funnelYear(){
+        return commercialMapper.funnelYear();
+    }
+
+    //上年
+    public List<FunnelStatisticsBo> funnelLaerYear(){
+       return commercialMapper.funnelLaerYar();
     }
 }

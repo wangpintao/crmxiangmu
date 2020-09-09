@@ -5,6 +5,7 @@ import com.huayu.bo.StatisticsBo;
 import com.huayu.mapper.CommercialMapper;
 import com.huayu.pojo.User;
 import com.huayu.service.StatisticsBoService;
+import jdk.nashorn.internal.runtime.linker.LinkerCallSite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,5 +47,26 @@ public class StatisticsController {
     @ResponseBody
     public List<FunnelStatisticsBo> funnel(){
         return statisticsBoService.funnel();
+    }
+    @RequestMapping("/funnelSeason.do")
+    @ResponseBody
+    public List<FunnelStatisticsBo> funnelSeason(){
+        return statisticsBoService.funnelSeason();
+    }
+    @RequestMapping("/funnelLaerSeason.do")
+    @ResponseBody
+    public List<FunnelStatisticsBo> funnelLaerSeason(){
+        return statisticsBoService.funnelLaerSeason();
+    }
+
+    @RequestMapping("/funnelYear.do")
+    @ResponseBody
+    public List<FunnelStatisticsBo> funnelYear(){
+        return statisticsBoService.funnelYear();
+    }
+    @RequestMapping("/funnelLaerYear.do")
+    @ResponseBody
+    public List<FunnelStatisticsBo> funnelLaerYear(){
+        return statisticsBoService.funnelLaerYear();
     }
 }
