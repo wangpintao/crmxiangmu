@@ -13,17 +13,17 @@
                     <i class="layui-icon layui-icon-layer" style="font-size:30px;color: #1E9FFF;">全部讨论帖子</i>
                 </div>
                 <div class="layui-inline">
-                    <select name="docid">
+                    <select name="forid">
                         <option value="0">请选择</option>
                         <option value="1">按主题</option>
                         <option value="2">按作者</option>
                         <option value="3">按标签</option>
-                        <option value="3">按点击</option>
-                        <option value="3">按回复</option>
+                        <option value="4">按点击</option>
+                        <option value="5">按回复</option>
                     </select>
                 </div>
                 <div class="layui-inline">
-                    <input type="text" name="docDetails" style="width:350px;" placeholder="请输入关键字" autocomplete="off"
+                    <input type="text" name="forClassify" style="width:350px;" placeholder="请输入关键字" autocomplete="off"
                            class="layui-input">
                 </div>
                 <div class="layui-inline">
@@ -70,7 +70,7 @@
                 , {field: 'forComname', title: '所属商机', width:395,align: 'center'}
                 , {field: 'forClick', title: '点击', width:100,sort: true, align: 'center'}
                 , {field: 'forReply', title: '回复', width:100,sort: true, align: 'center'}
-                , {field: 'docFile', title: '最后回复', width:200, align: 'center'}
+                , {field: 'forFinally', title: '最后回复', width:200, align: 'center'}
             ]]
         });
 
@@ -78,8 +78,8 @@
             table.reload('demo', {
                 url:'/forum/queryall.do'
                 ,where:{
-                    docid:data.field.docid
-                    ,docDetails: data.field.docDetails
+                    forid:data.field.forid
+                    ,forClassify: data.field.forClassify
                 }
             });
             return false;

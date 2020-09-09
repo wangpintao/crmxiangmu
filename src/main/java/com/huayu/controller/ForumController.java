@@ -2,6 +2,7 @@ package com.huayu.controller;
 
 import com.alibaba.druid.sql.visitor.functions.If;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.huayu.layuiUtils.Stulayui;
 import com.huayu.pojo.Commercial;
 import com.huayu.pojo.DocClassify;
@@ -36,11 +37,11 @@ public class ForumController {
 
     @RequestMapping("/queryall.do")
     @ResponseBody
-    public Stulayui queryall(){
+    public Stulayui queryall(Integer page,Integer limit,Forum forum){
         Stulayui stulayui=new Stulayui();
-        QueryWrapper queryWrapper=new QueryWrapper();
-        queryWrapper.eq("for_forid",0);
-        List<Forum> list=iForumServiceImp.list(queryWrapper);
+        Page<Forum> page1=new Page<>(page,limit);
+        forum.setForForid(0);
+        List<Forum> list=iForumServiceImp.queryall(page1,forum);
         if(list.size()>0){
             stulayui.setCode(0);
             stulayui.setMsg("查询成功");
@@ -101,8 +102,8 @@ public class ForumController {
         queryWrapper1.eq("for_forid",forid);
         List<Forum> list=iForumServiceImp.list(queryWrapper1);
         if(list.size()>0){
-            for (int i =1; i <=list.size() ; i++) {
-                list.get(i).setForClick(i);
+            for (int i =0; i <list.size() ; i++) {
+                list.get(i).setForClick(i+1);
             }
         }
         model.addAttribute("forum",forum);

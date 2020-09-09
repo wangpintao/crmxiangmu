@@ -25,8 +25,6 @@ public class DocumentarySelectProvider {
                     buffer.append(" and doc_Date=#{docu.docDetails}");
                 }else if(documentary.getDocid()==2){
                     buffer.append(" and theme=#{docu.docDetails}");
-                }else if(documentary.getDocid()==3){
-                    buffer.append(" and doc_user=#{docu.docDetails}");
                 }
             }
         }

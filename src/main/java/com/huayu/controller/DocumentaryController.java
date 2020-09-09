@@ -18,10 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/documentary")
@@ -130,6 +128,7 @@ public class DocumentaryController {
             DocClassify docClassify=iDocClassifyServiceImp.getById(documentary.getDocClaid());
             documentary.setTheme(documentary.getTheme()+docClassify.getClaname());
             documentary.setDocDate(new Date());
+            documentary.setDocStaid(4);
             iDocumentaryServiceImp.save(documentary);
         } catch (IOException e) {
             e.printStackTrace();
@@ -155,6 +154,7 @@ public class DocumentaryController {
             DocClassify docClassify=iDocClassifyServiceImp.getById(documentary.getDocClaid());
             documentary.setTheme(documentary.getTheme()+docClassify.getClaname());
             documentary.setDocDate(new Date());
+            documentary.setDocStaid(4);
             iDocumentaryServiceImp.save(documentary);
         } catch (IOException e) {
             e.printStackTrace();
