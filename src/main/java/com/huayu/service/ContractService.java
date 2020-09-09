@@ -18,7 +18,7 @@ public class ContractService extends ServiceImpl<ContractMapper, Contract> imple
     @Autowired
     private ContractMapper contractMapper;
 
-    //根据合同编号来查询合同信息
+    //根据合同编号来查询合同信息。
     @Override
     public Contract queryByConId(String serial) {
         return contractMapper.queryByConId(serial);

@@ -20,7 +20,7 @@ public interface ContractMapper extends BaseMapper<Contract> {
     @Select("select * from contract where serial =#{serial}")
     Contract queryByConId(String serial);
 
-    //本周合同机数
+    //本周合同机数。
     @Select("SELECT COUNT(con_startdate) FROM contract WHERE YEARWEEK(DATE_FORMAT(con_startdate,'%Y-%m-%d')) = YEARWEEK(NOW())")
     Integer ConWeek();
 

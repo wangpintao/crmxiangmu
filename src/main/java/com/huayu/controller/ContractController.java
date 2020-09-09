@@ -16,6 +16,8 @@ import java.util.List;
 public class ContractController {
     @Autowired
     private IContractServiceImp iContractServiceImp;
+
+    //查询
     @RequestMapping("/queryall.do")
     @ResponseBody
     public List<Contract> queryall(){
