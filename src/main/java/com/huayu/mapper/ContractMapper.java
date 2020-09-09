@@ -1,11 +1,12 @@
 package com.huayu.mapper;
-
-
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.huayu.comment.ContractSelectProvider;
+import org.apache.ibatis.annotations.*;
 import com.huayu.pojo.Contract;
-import com.huayu.pojo.DocStatus;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -40,16 +41,7 @@ public interface ContractMapper extends BaseMapper<Contract> {
     @Select("SELECT COUNT(con_startdate) FROM contract WHERE QUARTER(con_startdate)=QUARTER(NOW())")
     Integer ConSeason();
 
-    //上季合同数
-    @Select("SELECT COUNT(con_startdate) FROM contract WHERE QUARTER(con_startdate)=QUARTER(DATE_SUB(NOW(),INTERVAL 1 QUARTER))")
-    Integer ConLaerSeason();
-
-    //本年合同数
-    @Select("SELECT COUNT(con_startdate) FROM contract WHERE YEAR(con_startdate)=YEAR(NOW())")
-    Integer ConYear();
-
-    //去年合同数
-    @Select("SELECT COUNT(con_startdate) FROM contract WHERE YEAR(con_startdate)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR))")
-    Integer ConLaerYear();
+    @SelectProvider(type = ContractSelectProvider.class,method ="queryall")
+    public List<Contract> queryall(@Param("page") IPage<Contract> page, @Param("con") Contract contract);
 
 }

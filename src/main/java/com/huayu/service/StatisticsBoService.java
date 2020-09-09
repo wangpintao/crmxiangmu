@@ -33,15 +33,6 @@ public class StatisticsBoService {
         map.put("com_last_quarter", commercialMapper.ComLaerSeason());
         map.put("com_year", commercialMapper.ComYear());
         map.put("com_last_year", commercialMapper.ComLaerYear());
-        //contract 合同数
-        map.put("con_week", contractMapper.ConWeek());
-        map.put("con_last_week", contractMapper.ConLaerWeek());
-        map.put("con_month", contractMapper.ConMonth());
-        map.put("con_last_month", contractMapper.ConLaerMonth());
-        map.put("con_quarter", contractMapper.ConSeason());
-        map.put("con_last_quarter", contractMapper.ConLaerSeason());
-        map.put("con_year", contractMapper.ConYear());
-        map.put("con_last_year", contractMapper.ConLaerYear());
         //documentary 跟单数
         map.put("doc_week", documentaryMapper.DocWeek());
         map.put("doc_last_week", documentaryMapper.DocLaerWeek());

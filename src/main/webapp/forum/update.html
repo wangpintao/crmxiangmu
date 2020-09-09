@@ -44,7 +44,7 @@
                       style="width:923px;height:50px;font-size:20px;">
                     &nbsp; [[${forum.forContent}]] <br>
                     <div style="text-align: right">
-                        <button type="button" onclick="aaa()" class="layui-btn layui-btn-radius layui-btn-primary" style="color:blue;text-align:right">回复</button>
+                        <button type="button" th:onclick="aaa([[${forum.forAuthor}]])" class="layui-btn layui-btn-radius layui-btn-primary" style="color:blue;text-align:right">回复</button>
                     </div>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                      style="width:923px;height:50px;font-size:20px;">
                     &nbsp; [[${a.forContent}]] <br>
                     <div style="text-align: right">
-                        <button type="button" onclick="aaa()" class="layui-btn layui-btn-radius layui-btn-primary" style="color:blue;text-align:right">回复</button>
+                        <button type="button" th:onclick="aaa([[${a.forAuthor}]])" class="layui-btn layui-btn-radius layui-btn-primary" style="color:blue;text-align:right">回复</button>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">发表回复</label>
                     <div class="layui-input-block">
-                        <input type="hidden" name="forRevert" th:value="${forum.forAuthor}"/>
+                        <input type="hidden" id="forRevert" name="forRevert"/>
                         <input type="hidden" name="forForid" th:value="${forum.forid}"/>
                         <textarea  placeholder="请输入内容" lay-verify="forContent" name="forContent" class="layui-textarea" style="width:923px;height:200px"></textarea>
                     </div>
@@ -103,10 +103,11 @@
         window.location.href="/forum/set.do?forid="+b;
     }
 
-    var aaa=function(){
+    var aaa=function(b){
         var a=$("[name='d']").css("display");
         if(a=="none"){
             $("[name='d']").show();
+            $("#forRevert").val(b)
         }else{
             $("[name='d']").hide();
         }
