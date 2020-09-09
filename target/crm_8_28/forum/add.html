@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新增帖子</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+</head>
+<script src="/static/layui/layui.js"></script>
+<body >
+<br>
+<div style="margin:0 auto; width:80%;height:auto;">
+    <form class="layui-form" method="post" action="/forum/add1.do" enctype="multipart/form-data">
+        <div class="layui-inline" style="float: left">
+            <input align="left" type="text" value="新增帖子" style="border:0px;font-size:20px"/>
+        </div>
+        <div class="layui-inline"style="float: right">
+            <a href="javascript:window.opener=null;window.open('','_self');window.close()"
+               class="layui-btn layui-icon layui-icon-return">返回</a>
+            <a href="javascript:;" id="flush" class="layui-btn layui-icon layui-icon-refresh">刷新</a>
+        </div>
+
+        <br><br><hr class="layui-bg-black"><br>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">商机名称</label>
+            <div class="layui-input-block" style="height:30px;width:150px;">
+                <select name="forComname" lay-verify="forComname">
+                    <option value="0">请选择</option>
+                    <option th:each="s:${shang}" th:value="${s.coname}" th:text="${s.coname}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label"><span style="color:#FF0000;">*</span>帖子分类</label>
+                <div class="layui-input-block" style="width: 400px;height: 40px">
+                    <select name="forClassify" lay-verify="forClassify">
+                        <option value="0">请选择</option>
+                        <option value="合理化建议">合理化建议</option>
+                        <option value="技术交流">技术交流</option>
+                        <option value="企业文化">企业文化</option>
+                        <option value="生活娱乐">生活娱乐</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">帖子标签</label>
+                <div class="layui-input-block">
+                    <input type="text" lay-verify="forLabel" placeholder="请输入帖子标签" name="forLabel" autocomplete="off" class="layui-input" style="width: 400px;height: 40px">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">帖子主题</label>
+                <div class="layui-input-block">
+                    <input type="text" lay-verify="forTheme" placeholder="请输入帖子主题" name="forTheme" autocomplete="off" class="layui-input" style="width:923px;height:40px">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">相关附件</label>
+                <div class="layui-input-block">
+                    <input type="file" name="file">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <div class="layui-inline">
+                <label class="layui-form-label">发帖内容</label>
+                <div class="layui-input-block">
+                    <textarea  placeholder="请输入内容" lay-verify="forContent" name="forContent" class="layui-textarea" style="width:923px;height:200px"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button lay-submit="" class="layui-btn layui-btn-radius layui-btn-normal">提交</button>
+                    <a href="javascript:window.opener=null;window.open('','_self');window.close()" class="layui-btn layui-btn-radius layui-btn-normal">取消</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    layui.use(['form','upload','jquery','laydate'], function(){
+        var form = layui.form;
+        var $=layui.jquery;//异步
+        var upload=layui.upload;
+        var laydate = layui.laydate;
+
+        form.verify({
+            forComname:function (value,item) {
+                if(value==0){
+                    return '请选择商机名称';
+                }
+            },
+            forClassify:function (value,item) {
+                if(value==0){
+                    return '请选择帖子分类';
+                }
+            },
+            forLabel:function (value,item) {
+                if(value.length==0){
+                    return '请输入帖子标签';
+                }
+            },
+            forTheme:function (value,item) {
+                if(value.length==0){
+                    return '请输入帖子主题';
+                }
+            },
+            forContent:function (value,item) {
+                if(value.length==0){
+                    return '请输入发帖内容';
+                }
+            }
+        });
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="layui-card">
+    <div class="layui-card-body">
+        <table border="1"  class="layui-table">
+            <thead>
+            <tr>
+                <td rowspan="2">姓名</td>
+                <td colspan="2">商机数</td>
+                <td colspan="2">成交数</td >
+                <td colspan="2">跟单数</td>
+                <td colspan="2">合同数</td>
+            </tr>
+            <tr>
+                <td>本周</td>
+                <td>上周</td>
+                <td>本周</td>
+                <td>上周</td>
+                <td>本周</td>
+                <td>上周</td>
+                <td>本周</td>
+                <td>上周</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${userAll.username}">
+                <td th:text="${userAll.com_count}">
+                <td th:text="${userAll.com_last_coutn}">
+            </tr>
+            </tbody>
+        </table>
+
+        <!--<table class="layui-hide" id="test" lay-filter="test"></table>-->
+    </div>
+</div>
+</div>
+<script src="/static/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+</body>
+</html>

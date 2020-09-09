@@ -41,6 +41,18 @@ public interface ContractMapper extends BaseMapper<Contract> {
     @Select("SELECT COUNT(con_startdate) FROM contract WHERE QUARTER(con_startdate)=QUARTER(NOW())")
     Integer ConSeason();
 
+    //上季合同数
+    @Select("SELECT COUNT(con_startdate) FROM contract WHERE QUARTER(con_startdate)=QUARTER(DATE_SUB(NOW(),INTERVAL 1 QUARTER))")
+    Integer ConLaerSeason();
+
+    //本年合同数
+    @Select("SELECT COUNT(con_startdate) FROM contract WHERE YEAR(con_startdate)=YEAR(NOW())")
+    Integer ConYear();
+
+    //去年合同数
+    @Select("SELECT COUNT(con_startdate) FROM contract WHERE YEAR(con_startdate)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR))")
+    Integer ConLaerYear();
+
     @SelectProvider(type = ContractSelectProvider.class,method ="queryall")
     public List<Contract> queryall(@Param("page") IPage<Contract> page, @Param("con") Contract contract);
 
