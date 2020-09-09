@@ -62,11 +62,12 @@
             <button class="layui-btn" lay-submit lay-filter="formDemo"><i class="layui-icon layui-icon-search"
                                                                           style="color: #1E9FFF;">查找</i>
             </button>
+            <button type="reset" class="layui-btn"><i class="layui-icon">重置</i></button>
         </div>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <div class="layui-inline" align="right">
             <button type="button" onclick="add()" class="layui-btn"><i class="layui-icon layui-icon-add-1">新增跟单</i></button>
-            <button type="reset" class="layui-btn"><i class="layui-icon layui-icon-refresh-3">刷新</i></button>
+            <button type="button" onclick="flush()" class="layui-btn"><i class="layui-icon layui-icon-refresh-3">刷新</i></button>
         </div>
     </form>
     </center>
@@ -116,14 +117,6 @@
         </div>
     </div>
 </div>
-<script id="toolbarDemo" type="text/html">
-    <div class="layui-btn-container">
-        <a href="../business/business.html"><button class="layui-btn layui-btn-sm" lay-event="reflush" >刷新</button></a>
-    </div>
-</script>
-<script type=" text/html" id="titleTpl">
-    <a href="/after/toupdate.do?aftid={{d.aftid}}" class="layui-table-link"  target="blank" >{{d.aftTheme}}</a>
-</script>
 
 <script type="text/html" id="getname">
     {{#  if(d.data==null){ }}
@@ -131,12 +124,18 @@
     {{d.data.type_name}}
     {{#  } }}
 </script>
+<script type="text/html" id="theme">
+    <a class="layui-table-link" target="blank" href="/contract/update.do?conid={{d.conid}}&conUcid={{d.conUcid}}&conUid={{d.conUid}}">{{d.conname}}</a>
+</script>
 <script src="/static/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
     var add=function(){
         window.location.href="/contract/add.do";
+    }
+    var flush=function(){
+        window.location.href="/contract/contract.html";
     }
 
     layui.use(['element', 'layer', 'table', 'util','form'], function () {
@@ -162,12 +161,12 @@
             , limits:[5,10,15,20]
             , cols: [[
                 {type: 'numbers', title: '序列', width:100, sort: true, align: 'center'}
-                , {field: 'conname', title: '合同全称', width:270, align: 'center'}
+                , {field: 'conname', title: '合同全称', width:270, align: 'center',toolbar:'#theme'}
                 , {field: 'serial', title: '合同编号', width:120, align: 'center'}
                 , {field: 'conSum', title: '合同金额(元)', width:150,sort: true,align: 'center'}
                 , {field: 'forClick', title: '回款额(元)', width:130,sort: true, align: 'center'}
                 , {field: 'forReply', title: '开票额(元)', width:130,sort: true, align: 'center'}
-                , {field: 'conPredate', title: '签约日期', width:200, align: 'center'}
+                , {field: 'conStartdate', title: '签约日期', width:200, align: 'center'}
             ]]
         });
 
