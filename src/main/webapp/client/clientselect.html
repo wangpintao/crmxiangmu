@@ -26,6 +26,12 @@
             <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
             <a href="#"  onclick=tableRerole(3) style="color: #00FFFF">SVIP客户</a>&nbsp;<span id="label2"></span><br><br><br>
             <hr>
+                * 一个客户通常对应着多个商机。可以在本模块中新增客户
+                ，然后在新增商机时下拉选取；更方便的做法是，
+                在新增商机时登记新客户的信息，系统将自动新增客户到本模块中<br>
+             <font style="color: deepskyblue ">
+                * 如果一个客户已经包含有商机、合同或售后服务信息，
+                请不要修改其名称、也不要删除它*</font>
 
         </div>
     </div>
@@ -107,6 +113,7 @@
                 ,{field: 'conSum', title: '合同金额', width:180 }
                 ,{field: 'aftCount', title: '售后服务数', width:180  }
                 ,{field: 'aftScore', title: '服务评分', width:180 }
+
             ]]
         });
 
@@ -122,6 +129,8 @@
             });
             return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
+
+
 
 
 

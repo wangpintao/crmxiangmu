@@ -56,7 +56,7 @@
 
 
     <div id="right" style="width:85%;float:left;">
-        <form class="layui-form"  action="/userClien/clientid.do" style="border:1px solid #c2c2c2;" >
+        <form class="layui-form"   style="border:1px solid #c2c2c2;" >
            <br>
             <div class="layui-form-item">
                 <div class="layui-inline">
@@ -159,11 +159,11 @@
             ,limit:2
             ,limits:[1,2,10,30]
             ,cols: [[ //表头
-                {field: 'coname', title: '商机名称', width:220, templet:'#coids' }
-                ,{field: 'comClibusname', title: '商机阶段', width:220}
-                ,{field: 'comSouid', title: '预计成交金额', width:220}
-                ,{field: 'comSouid', title: '商机负责人', width:220}
-                ,{field: 'comSouid', title: '最后跟单', width:220}
+                {field: 'conameCliNname', title: '客户商机', width:220}
+                ,{field: 'staname', title: '商机阶段', width:220}
+                ,{field: 'comSum', title: '预计成交金额', width:220}
+                ,{field: 'comUname', title: '商机负责人', width:220}
+                ,{field: 'docDate', title: '最后跟单', width:220}
                 ,{field: 'comSouid', title: '讨论版', width:220}
             ]]
         });

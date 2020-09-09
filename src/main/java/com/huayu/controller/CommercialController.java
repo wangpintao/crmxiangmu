@@ -6,6 +6,7 @@ package com.huayu.controller;/*
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.huayu.JsonUtils.StulayuiJson;
+import com.huayu.bo.CommercialBo;
 import com.huayu.dateUtils.MyConvert;
 import com.huayu.layuiUtils.Stulayui;
 import com.huayu.pojo.*;
@@ -75,13 +76,13 @@ public String updatecs(Commercial commercial){
 }
 
 /*
-* 查询商机
+* 查询商机 联合
 * */
  @RequestMapping("/commercial.do")
  @ResponseBody
  public Stulayui clients(){
   Stulayui stulayui=new Stulayui();
-  List<Commercial> list= iCommercialServiceImp.list();
+  List<CommercialBo> list= iCommercialServiceImp.queryCom();
   stulayui.setCode(0);
   stulayui.setMsg("查询成功");
   stulayui.setCount(list.size());

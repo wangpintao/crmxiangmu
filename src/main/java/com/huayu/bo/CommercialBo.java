@@ -5,6 +5,7 @@ package com.huayu.bo;/*
  */
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.huayu.pojo.Commercial;
 import com.huayu.pojo.Documentary;
@@ -13,7 +14,7 @@ import com.huayu.pojo.UserClien;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
-
+@TableName("commercial")
 public class CommercialBo {
 
  /*@TableField(exist = false)
@@ -32,10 +33,9 @@ public class CommercialBo {
  private String conameCliNname;
 
  /**
-  * 商机状态（取跟单的状态）
+  * 跟单状态 商机状态（取跟单的状态）
   */
- @TableField("com_staid")
- private Integer comStaid;
+ private String staname;
 
  /**
   * 商机成交金额
@@ -61,6 +61,7 @@ public class CommercialBo {
 * 讨论版
 * */
 
+
  public String getConameCliNname() {
   return conameCliNname;
  }
@@ -69,12 +70,12 @@ public class CommercialBo {
   this.conameCliNname = conameCliNname;
  }
 
- public Integer getComStaid() {
-  return comStaid;
+ public String getStaname() {
+  return staname;
  }
 
- public void setComStaid(Integer comStaid) {
-  this.comStaid = comStaid;
+ public void setStaname(String staname) {
+  this.staname = staname;
  }
 
  public Long getComSum() {

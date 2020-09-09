@@ -8,6 +8,7 @@ import com.huayu.pojo.Commercial;
 import com.huayu.pojo.Contract;
 import com.huayu.service.imp.ICommercialServiceImp;
 import com.huayu.service.imp.IContractServiceImp;
+import org.apache.poi.util.SystemOutLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,15 +27,16 @@ public class CommercialService extends ServiceImpl<CommercialMapper, Commercial>
  public boolean updatec(Commercial commercial) {
   return commercialMapper.updatec(commercial);
  }
- public List<CommercialBo> queryCom(Commercial commercial){
-  CommercialBo commercialBo=new CommercialBo();
+ public List<CommercialBo> queryCom(){
+/*  CommercialBo commercialBo=new CommercialBo();
   List<CommercialBo>  commercialBoList=new ArrayList<>();
-  List<Commercial> commercials=commercialMapper.selectList(null);
-  for(Commercial com:commercials){
-   commercialBo.setConameCliNname(com.getConameCliNname());
-
-
+  List<Commercial> commercials=commercialMapper.selectList(null);*/
+  List<CommercialBo> commercialBoList= commercialMapper.queryComm();
+  for ( CommercialBo commercialBo :commercialBoList ){
+   System.out.println(commercialBo.getConameCliNname());
+   System.out.println(commercialBo.getComUname());
   }
+
  return commercialBoList;
  }
 }

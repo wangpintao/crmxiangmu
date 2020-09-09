@@ -1,15 +1,26 @@
 package com.huayu.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.huayu.bo.CommercialBo;
 import com.huayu.bo.FunnelStatisticsBo;
 import com.huayu.pojo.Commercial;
 import com.huayu.pojo.UserClien;
+import com.huayu.sqlUtils.ClientSql;
+import com.huayu.sqlUtils.salesql;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
 @Mapper
 public interface CommercialMapper extends BaseMapper<Commercial> {
+
+ @SelectProvider(type = ClientSql.class,method = "queryCom")
+ List<CommercialBo> queryComm();
+
+
+
+
+
 
  @Update("update commercial set coname_cliname=#{conameCliNname},coname=#{coname}, com_sum=#{comSum},com_date=#{comDate} , com_file=#{comFile},com_text=#{comText}, com_depid=#{comDepid},com_uname=#{comUname} , com_participant=#{comParticipant},com_follower=#{comFollower} where coid=#{coid}")
  public boolean updatec(Commercial commercial);
@@ -82,6 +93,7 @@ List<FunnelStatisticsBo> funnelLaerSeason();
  //上年
  @Select("SELECT * FROM (SELECT d.staname typeName ,COUNT(b.coid) COUNT,IFNULL(SUM(b.com_sum),0) SUM FROM doc_status d LEFT JOIN commercial b ON b.com_staid=d.staid WHERE YEAR(com_thisdate)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR)) GROUP BY b.com_staid) a ORDER BY a.count")
  List<FunnelStatisticsBo> funnelLaerYar();
+
 
 
 

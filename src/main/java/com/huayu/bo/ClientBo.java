@@ -6,6 +6,8 @@ package com.huayu.bo;/*
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
 import com.huayu.pojo.AfterSale;
 import com.huayu.pojo.Commercial;
 import com.huayu.pojo.Contract;
@@ -13,6 +15,10 @@ import com.huayu.pojo.UserClien;
 
 
 public class ClientBo {
+
+/*客户id
+* */
+ private Integer ucid;
 
  /**
   * 客户名字
@@ -109,6 +115,14 @@ private Integer conCount;
 
  public void setAftScore(Float aftScore) {
   this.aftScore = aftScore;
+ }
+
+ public Integer getUcid() {
+  return ucid;
+ }
+
+ public void setUcid(Integer ucid) {
+  this.ucid = ucid;
  }
 
  @Override

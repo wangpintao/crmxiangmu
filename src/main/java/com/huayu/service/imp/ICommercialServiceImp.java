@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface ICommercialServiceImp extends IService<Commercial>{
  public boolean updatec(Commercial commercial);
- public List<CommercialBo> queryCom(Commercial commercial);
+ public List<CommercialBo> queryCom();
 }

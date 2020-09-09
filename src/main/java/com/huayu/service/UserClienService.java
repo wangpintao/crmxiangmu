@@ -63,6 +63,8 @@ public class UserClienService extends ServiceImpl<UserClienMapper,UserClien> imp
    for(UserClien cli:clienList){
     ClientBo clientBo=new ClientBo();
     Integer ucid= cli.getUcid();
+    //客户id
+    clientBo.setUcid(ucid);
     QueryWrapper wrapper=new QueryWrapper();
     wrapper.eq("ucid",ucid);
     UserClien userClien=userClienMapper.selectOne(wrapper);

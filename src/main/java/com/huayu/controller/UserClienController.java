@@ -4,6 +4,7 @@ package com.huayu.controller;/*
  *@Description:客户表
  */
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -11,10 +12,7 @@ import com.github.pagehelper.PageInfo;
 import com.huayu.bo.ClientBo;
 import com.huayu.layuiUtils.Stulayui;
 import com.huayu.pojo.*;
-import com.huayu.service.imp.ICliBusinessServiceImp;
-import com.huayu.service.imp.ICliKindServiceImp;
-import com.huayu.service.imp.ICliSourceServiceImp;
-import com.huayu.service.imp.IUserClienServiceImp;
+import com.huayu.service.imp.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,6 +39,9 @@ public class UserClienController {
 
  @Autowired
  private ICliSourceServiceImp iCliSourceServiceImp;
+
+ @Autowired
+ private ICommercialServiceImp iCommercialServiceImp;
 
 /*查询分类表
 * */
@@ -71,7 +72,7 @@ public List<CliKind> selectKind(){
  @RequestMapping("/addClient.do")
  public String addClient(UserClien userClien ){
    iUserClienServiceImp.save(userClien);
-   return "/client/clientselect.html";
+   return "redirect:/client/clientselect.html";
  }
 
 
@@ -130,6 +131,29 @@ public List<CliKind> selectKind(){
   stulayui.setCount(list.size());
   stulayui.setData(list);
   return stulayui;
+ }
+/*删除之前
+* */
+@RequestMapping("/todels.do")
+@ResponseBody
+public List<Commercial>   todeletes(Integer ucid){
+ QueryWrapper wrapper=new QueryWrapper();
+ wrapper.eq("com_ucid",ucid);
+ List<Commercial> list=iCommercialServiceImp.list(wrapper);
+ return list;
+}
+
+
+ /*删除客户
+ * */
+ @RequestMapping("/dels.do")
+ @ResponseBody
+ public boolean deletes(Integer ucid){
+  QueryWrapper wrapper=new QueryWrapper();
+  wrapper.eq("ucid",ucid);
+ boolean b= iUserClienServiceImp.remove(wrapper);
+ System.out.println(b);
+ return b;
  }
 
 

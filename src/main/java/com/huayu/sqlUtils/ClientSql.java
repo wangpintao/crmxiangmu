@@ -21,6 +21,11 @@ public class ClientSql {
     }
 
 
+    public String queryCom(){
+        StringBuffer sql = new StringBuffer("select c.coname_cliname,d.staname,c.com_sum,c.com_uname,y.doc_date from commercial c ,doc_status d ,documentary y where c.com_staid=d.staid and c.coid=y.doc_comid GROUP BY c.coname ,y.doc_date  ORDER BY y.doc_date desc limit 0,1  ");
+        return sql.toString();
+    }
+
 
 
 
