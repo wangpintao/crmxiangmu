@@ -1,5 +1,6 @@
 package com.huayu.service;
 
+import com.huayu.bo.FunnelStatisticsBo;
 import com.huayu.bo.StatisticsBo;
 import com.huayu.mapper.CommercialMapper;
 import com.huayu.mapper.ContractMapper;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -73,4 +75,13 @@ public class StatisticsBoService {
         return statisticsBo;
     }
 
+    /**
+     * 所有商机
+     */
+    public List<FunnelStatisticsBo> funnel(){
+        List<FunnelStatisticsBo> list=commercialMapper.funnel();
+        FunnelStatisticsBo bo=commercialMapper.funnelCount();
+        bo.setTypeName("所有商机");
+        return list;
+    }
 }

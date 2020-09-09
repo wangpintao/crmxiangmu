@@ -3,79 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .divcss5-a{ line-height:22px}/* css 注释说明：设置行距行高22px */
+        .divcss5-b{ line-height:40px}/* 设置行距行高22px */
+        a:link {
+            color:#1E9FFF;
+        }
+        a:hover {
+            color:black;
+            text-decoration:none;
+        }
+        #funnel{
+            width: 400px;
+            height: 280PX;
+        }
+        #tab{
+            height: 280PX;
+        }
+        #funnel2{
+            width: 400px;
+            height: 280PX;
+        }
+        #tab2{
+            height: 280PX;
+        }
+        #funnel3{
+            width: 400px;
+            height: 280PX;
+        }
+        #tab3{
+            height: 280PX;
+        }
+        #funnel4{
+            width: 400px;
+            height: 280PX;
+        }
+        #tab4{
+            height: 280PX;
+        }
+        #funnel5{
+            width: 400px;
+            height: 280PX;
+        }
+        #tab5{
+            height: 280PX;
+        }
+    </style>
 </head>
+
 <body>
 <script src="/static/js/echarts.min.js"></script>
 <script src="/static/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
-<script>
-    option = {
-        title: {
-            text: '漏斗图',
-            subtext: '纯属虚构'
-        },
-        tooltip: {
-            trigger: 'item',
-            formatter: "{a} <br/>{b} : {c}%"
-        },
-        toolbox: {
-            feature: {
-                dataView: {readOnly: false},
-                restore: {},
-                saveAsImage: {}
-            }
-        },
-        legend: {
-            data: ['展现','点击','访问','咨询','订单']
-        },
+<div style="padding: 20px; background-color: #F2F2F2;">
+    <div class="layui-col-md4">
+        <div class="layui-card">
+            <!-- <div class="layui-card-header">所有商机</div>-->
+            <div class="layui-card-body" id="funnel">
+            </div>
+        </div>
+    </div>
+    <div class="layui-col-md5">
+        <div class="layui-card">
+            <!--<div class="layui-card-header">所有商机</div>-->
+            <div class="layui-card-body" id="tab">
+                <table id="funnelTable" border="1"  class="layui-table">
+                    <tr><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-        series: [
-            {
-                name:'漏斗图',
-                type:'funnel',
-                left: '10%',
-                top: 60,
-                //x2: 80,
-                bottom: 60,
-                width: '80%',
-                // height: {totalHeight} - y - y2,
-                min: 0,
-                max: 100,
-                minSize: '0%',
-                maxSize: '100%',
-                sort: 'descending',
-                gap: 2,
-                label: {
-                    show: true,
-                    position: 'inside'
-                },
-                labelLine: {
-                    length: 10,
-                    lineStyle: {
-                        width: 1,
-                        type: 'solid'
-                    }
-                },
-                itemStyle: {
-                    borderColor: '#fff',
-                    borderWidth: 1
-                },
-                emphasis: {
+<div style="padding: 20px; background-color: #F2F2F2;">
+    <div class="layui-col-md4">
+        <div class="layui-card">
+            <!-- <div class="layui-card-header">所有商机</div>-->
+            <div class="layui-card-body" id="funnel2">
+            </div>
+        </div>
+    </div>
+    <div class="layui-col-md5">
+        <div class="layui-card">
+            <!--<div class="layui-card-header">所有商机</div>-->
+            <div class="layui-card-body" id="tab2">
+                <table id="funnelTable2" border="1"  class="layui-table">
+                    <tr><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="padding: 20px; background-color: #F2F2F2;">
+    <div class="layui-col-md4">
+        <div class="layui-card">
+            <!-- <div class="layui-card-header">所有商机</div>-->
+            <div class="layui-card-body" id="funnel3">
+            </div>
+        </div>
+    </div>
+    <div class="layui-col-md5">
+        <div class="layui-card">
+            <!--<div class="layui-card-header">所有商机</div>-->
+            <div class="layui-card-body" id="tab3">
+                <table id="funnelTable3" border="1"  class="layui-table">
+                    <tr><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="padding: 20px; background-color: #F2F2F2;">
+    <div class="layui-col-md4">
+        <div class="layui-card">
+            <!-- <div class="layui-card-header">所有商机</div>-->
+            <div class="layui-card-body" id="funnel4">
+            </div>
+        </div>
+    </div>
+    <div class="layui-col-md5">
+        <div class="layui-card">
+            <!--<div class="layui-card-header">所有商机</div>-->
+            <div class="layui-card-body" id="tab4">
+                <table id="funnelTable4" border="1"  class="layui-table">
+                    <tr><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="padding: 20px; background-color: #F2F2F2;">
+    <div class="layui-col-md4">
+        <div class="layui-card">
+            <!-- <div class="layui-card-header">所有商机</div>-->
+            <div class="layui-card-body" id="funnel5">
+            </div>
+        </div>
+    </div>
+    <div class="layui-col-md5">
+        <div class="layui-card">
+            <!--<div class="layui-card-header">所有商机</div>-->
+            <div class="layui-card-body" id="tab5">
+                <table id="funnelTable5" border="1"  class="layui-table">
+                    <tr><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<script>
+    layui.use(['element', 'layer','table','util'], function() {
+        var element = layui.element;
+        var layer = layui.layer;
+        var table = layui.table;
+        var util = layui.util;
+
+        option = {
+            title: {
+                text: '漏斗图',
+                subtext: '纯属虚构'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c}%"
+            },
+            toolbox: {
+                feature: {
+                    dataView: {readOnly: false},
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            legend: {
+                data: ['展现', '点击', '访问', '咨询', '订单']
+            },
+
+            series: [
+                {
+                    name: '漏斗图',
+                    type: 'funnel',
+                    left: '10%',
+                    top: 60,
+                    //x2: 80,
+                    bottom: 60,
+                    width: '80%',
+                    // height: {totalHeight} - y - y2,
+                    min: 0,
+                    max: 100,
+                    minSize: '0%',
+                    maxSize: '100%',
+                    sort: 'descending',
+                    gap: 2,
                     label: {
-                        fontSize: 20
-                    }
-                },
-                data: [
-                    {value: 60, name: '访问'},
-                    {value: 40, name: '咨询'},
-                    {value: 20, name: '订单'},
-                    {value: 80, name: '点击'},
-                    {value: 100, name: '展现'}
-                ]
+                        show: true,
+                        position: 'inside'
+                    },
+                    labelLine: {
+                        length: 10,
+                        lineStyle: {
+                            width: 1,
+                            type: 'solid'
+                        }
+                    },
+                    itemStyle: {
+                        borderColor: '#fff',
+                        borderWidth: 1
+                    },
+                    emphasis: {
+                        label: {
+                            fontSize: 20
+                        }
+                    },
+                    data: [
+                        {value: 60, name: '成交'},
+                        {value: 40, name: '商务谈判'},
+                        {value: 20, name: '竞标'},
+                        {value: 80, name: '报价方案'},
+                        {value: 100, name: '初期谈判'}
+                    ]
+                }
+            ]
+        };
+    });
+    $.ajax({
+        type : "post",
+        async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url : "/statistics/funnel.do",    //请求发送到TestServlet处
+        data : {},
+        dataType : "json",        //返回数据形式为json
+        success : function(result) {
+            //请求成功时执行该函数内容，result即为服务器返回的json对象
+            var fun=window.document.getElementById("funnel");
+            var content="<tr><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>";
+            if (result) {
+                var con=result[result.length-1].count;
+                var su=result[result.length-1].sum;
+                for(var i=result.length-1;i>=0;i--){
+                    var str=Number((result[i].count / con)*100).toFixed(2)+"%";
+                    var str2=Number((result[i].sum / su)*100).toFixed(2)+"%";
+                    content+="<tr><td>"+result[i].count+"</td><td>"+str+"</td><td>"+result[i].sum+"</td><td>"+str2+"</td></tr>";
+                }
             }
-        ]
-    };
+            window.document.getElementById("funnelTable").innerHTML=content;
+            var fun = echarts.init(document.getElementById('funnel'));
+            fun.setOption(option);
+        },
+        error : function(errorMsg) {
+            console.log("请求数据失败!")
+            //请求失败时执行该函数
+            //alert("请求数据失败!");
+            //myChart.hideLoading();s
+        }
+    });
 </script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.huayu.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.huayu.bo.FunnelStatisticsBo;
 import com.huayu.pojo.Commercial;
 import com.huayu.pojo.UserClien;
 import org.apache.ibatis.annotations.*;
@@ -63,7 +64,12 @@ public interface CommercialMapper extends BaseMapper<Commercial> {
  @Select("SELECT COUNT(com_thisdate) FROM commercial WHERE YEAR(com_thisdate)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR)) AND com_uid=#{comuid}")
  Integer UserComLaerYear(Integer comuid);
 
-
+ //漏斗
+ @Select("SELECT * FROM (SELECT d.staname typeName ,COUNT(b.coid) COUNT,IFNULL(SUM(b.com_sum),0) SUM FROM doc_status d LEFT JOIN commercial b ON b.com_staid=d.staid GROUP BY b.com_staid) a ORDER BY a.count")
+ public List<FunnelStatisticsBo> funnel();
+ //商机金额总和
+ @Select("SELECT COUNT(*) COUNT,SUM(com_sum) SUM FROM commercial")
+ public FunnelStatisticsBo funnelCount();
 
 
 

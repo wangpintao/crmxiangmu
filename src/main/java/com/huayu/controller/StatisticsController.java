@@ -1,6 +1,8 @@
 package com.huayu.controller;
 
+import com.huayu.bo.FunnelStatisticsBo;
 import com.huayu.bo.StatisticsBo;
+import com.huayu.mapper.CommercialMapper;
 import com.huayu.pojo.User;
 import com.huayu.service.StatisticsBoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -17,6 +20,7 @@ public class StatisticsController {
 
     @Autowired
     private StatisticsBoService statisticsBoService;
+
 
     @RequestMapping("/querystat.do")
     @ResponseBody
@@ -35,5 +39,12 @@ public class StatisticsController {
         modelAndView.addObject("userAll",statisticsBoService.queryByWeek(user));
         modelAndView.setViewName("/statistics/week.html");
         return modelAndView;
+    }
+
+
+    @RequestMapping("/funnel.do")
+    @ResponseBody
+    public List<FunnelStatisticsBo> funnel(){
+        return statisticsBoService.funnel();
     }
 }
