@@ -41,7 +41,6 @@ public class AfterSaleController {
 
 
     @PostMapping("/add.do")
-    @ResponseBody
     public String add(AfterSale afterSale){
         iAfterSaleServiceImp.save(afterSale);
         return "redirect:/sale/saledisplay.html";

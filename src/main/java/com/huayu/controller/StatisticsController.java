@@ -5,6 +5,8 @@ import com.huayu.bo.StatisticsBo;
 import com.huayu.mapper.CommercialMapper;
 import com.huayu.pojo.User;
 import com.huayu.service.StatisticsBoService;
+import com.huayu.service.imp.ICliBusinessServiceImp;
+import com.huayu.service.imp.ICliSourceServiceImp;
 import jdk.nashorn.internal.runtime.linker.LinkerCallSite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,10 @@ public class StatisticsController {
 
     @Autowired
     private StatisticsBoService statisticsBoService;
+    @Autowired
+    private ICliBusinessServiceImp iCliBusinessServiceImp;
+    @Autowired
+    private ICliSourceServiceImp iCliSourceServiceImp;
 
 
     @RequestMapping("/querystat.do")
@@ -68,5 +74,32 @@ public class StatisticsController {
     @ResponseBody
     public List<FunnelStatisticsBo> funnelLaerYear(){
         return statisticsBoService.funnelLaerYear();
+    }
+
+    @RequestMapping("/queryIndustry.do")
+    @ResponseBody
+    public  ModelAndView queryIndustry(){
+        ModelAndView modelAndView =new ModelAndView();
+        modelAndView.addObject("industryList",iCliBusinessServiceImp.queryIndustry());
+        modelAndView.setViewName("/statistics/graph.html");
+        return modelAndView;
+    }
+    @RequestMapping("/Industry.do")
+    @ResponseBody
+    public  List<FunnelStatisticsBo> Industry(){
+      return  iCliBusinessServiceImp.queryIndustry();
+    }
+    @RequestMapping("/querySourceAll.do")
+    @ResponseBody
+    public  ModelAndView querySourceAll(){
+        ModelAndView modelAndView =new ModelAndView();
+        modelAndView.addObject("sourceList",iCliSourceServiceImp.querySource());
+        modelAndView.setViewName("/statistics/source.html");
+        return modelAndView;
+    }
+    @RequestMapping("/sourceAll.do")
+    @ResponseBody
+    public  List<FunnelStatisticsBo> sourceAll(){
+        return  iCliSourceServiceImp.querySource();
     }
 }

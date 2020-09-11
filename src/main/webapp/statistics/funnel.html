@@ -18,7 +18,7 @@
             height: 280PX;
         }
         #tab{
-            height: 280PX;
+            height: 300PX;
         }
         #funnel2{
             width: 400px;
@@ -76,7 +76,8 @@
         </div>
     </div>
 </div>
-
+<br><br>
+<br><br>
 <div style="padding: 20px; background-color: #F2F2F2;">
     <div class="layui-col-md4">
         <div class="layui-card">
@@ -240,6 +241,9 @@
                         counthe += result[i].count;
                         sumhe += result[i].sum;
                     }
+                    var str=Number((counthe / counthe)*100).toFixed(2)+"%";
+                    var str2=Number((sumhe / sumhe)*100).toFixed(2)+"%";
+                    content+="<tr><td>"+counthe+"</td><td>"+str+"</td><td>"+sumhe+"</td><td>"+str2+"</td></tr>";
                     var con=result[result.length-1].count;
                     var su=result[result.length-1].sum;
                     for(var i=result.length-1;i>=0;i--){
@@ -277,8 +281,10 @@
                         counthe += result[i].count;
                         sumhe += result[i].sum;
                     }
-                    var con=result[result.length-1].count;
-                    var su=result[result.length-1].sum;
+                    var str=Number((counthe / counthe)*100).toFixed(2)+"%";
+                    var str2=Number((sumhe / sumhe)*100).toFixed(2)+"%";
+                    content+="<tr><td>"+counthe+"</td><td>"+str+"</td><td>"+sumhe+"</td><td>"+str2+"</td></tr>";
+
                     for(var i=result.length-1;i>=0;i--){
                         var str=Number((result[i].count / counthe)*100).toFixed(2)+"%";
                         var str2=Number((result[i].sum / sumhe)*100).toFixed(2)+"%";
@@ -320,8 +326,9 @@
                         counthe += result[i].count;
                         sumhe += result[i].sum;
                     }
-                    var con=result[result.length-1].count;
-                    var su=result[result.length-1].sum;
+                    var str=Number((counthe / counthe)*100).toFixed(2)+"%";
+                    var str2=Number((sumhe / sumhe)*100).toFixed(2)+"%";
+                    content+="<tr><td>"+counthe+"</td><td>"+str+"</td><td>"+sumhe+"</td><td>"+str2+"</td></tr>";
                     for(var i=result.length-1;i>=0;i--){
                         var str=Number((result[i].count / counthe)*100).toFixed(2)+"%";
                         var str2=Number((result[i].sum / sumhe)*100).toFixed(2)+"%";
@@ -363,8 +370,9 @@
                         counthe += result[i].count;
                         sumhe += result[i].sum;
                     }
-                    var con=result[result.length-1].count;
-                    var su=result[result.length-1].sum;
+                    var str=Number((counthe / counthe)*100).toFixed(2)+"%";
+                    var str2=Number((sumhe / sumhe)*100).toFixed(2)+"%";
+                    content+="<tr><td>"+counthe+"</td><td>"+str+"</td><td>"+sumhe+"</td><td>"+str2+"</td></tr>";
                     for(var i=result.length-1;i>=0;i--){
                         var str=Number((result[i].count / counthe)*100).toFixed(2)+"%";
                         var str2=Number((result[i].sum / sumhe)*100).toFixed(2)+"%";
@@ -406,8 +414,9 @@
                         counthe += result[i].count;
                         sumhe += result[i].sum;
                     }
-                    var con=result[result.length-1].count;
-                    var su=result[result.length-1].sum;
+                    var str=Number((counthe / counthe)*100).toFixed(2)+"%";
+                    var str2=Number((sumhe / sumhe)*100).toFixed(2)+"%";
+                    content+="<tr><td>"+counthe+"</td><td>"+str+"</td><td>"+sumhe+"</td><td>"+str2+"</td></tr>";
                     for(var i=result.length-1;i>=0;i--){
                         var str=Number((result[i].count / counthe)*100).toFixed(2)+"%";
                         var str2=Number((result[i].sum / sumhe)*100).toFixed(2)+"%";
@@ -444,8 +453,9 @@
                         counthe += result[i].count;
                         sumhe += result[i].sum;
                     }
-                    var con=result[result.length-1].count;
-                    var su=result[result.length-1].sum;
+                    var str=Number((counthe / counthe)*100).toFixed(2)+"%";
+                    var str2=Number((sumhe / sumhe)*100).toFixed(2)+"%";
+                    content+="<tr><td>"+counthe+"</td><td>"+str+"</td><td>"+sumhe+"</td><td>"+str2+"</td></tr>";
                     for(var i=result.length-1;i>=0;i--){
                         var str=Number((result[i].count / counthe)*100).toFixed(2)+"%";
                         var str2=Number((result[i].sum / sumhe)*100).toFixed(2)+"%";

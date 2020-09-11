@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="../fonts/css/font-awesome.min.css">
     <link rel="stylesheet" href="/layui/css/layui.css" media="all">
 </head>
-<script src="/js/jquery-1.12.3.min.js"></script>
-<script src="/layui/layui.js" charset="utf-8"></script>
-<!-- 引入 echarts.js -->
-<script src="/echarts/echarts.min.js"></script>
+<script src="/static/js/echarts.min.js"></script>
+<script src="/static/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
 <body layadmin-themealias="default">
 
 <div class="layui-fluid">
@@ -91,113 +91,111 @@
     </div>
 </div>
 <script>
+    var names=[];    //类别数组（实际用来盛放X轴坐标值）
+    var pie=[];  //y轴 成交数组（实际用来盛放Y坐标值）
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('myEcharts'));
     // 指定图表的配置项和数据
-    option = {
-        /*为图表配置标题：*/
-        title: {
-            text: '不同状态商机的预计成交额',
-            x: 'left'
+    myChart.setOption({
+        title : {
+            text: '行业分布 成交数量 （单）',
+            subtext: '饼图',
+            x:'center'
         },
-        /*配置提示信息：*/
-        tooltip: {
+        tooltip : {
             trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
+            formatter: "{b} <br/>{c} : {d} %"      //a 系列名称，b 数据项名称，c 数值，d 百分比
         },
-        color: ['#CD5C5C', '#00CED1', '#9ACD32', '#FFC0CB'],
-        stillShowZeroSum: false,
-        /*每个系列通过 type 决定自己的图表类型:*/
-        series: [
-            {
-                name: '客户',// 系列名称
-                type: 'pie',// 系列图表类型
-                radius: '55%',//饼图的半径，外半径为可视区尺寸（容器高宽中较小一项）的 55% 长度。
-                center: ['60%', '60%'],
-                data: [
-                    {value: 1, name: '已搁置'},
-                    {value: 3, name: '进行中'},
-                    {value: 7, name: '已成交'},
-                    {value: 4, name: '已丢单'},
-                ],// 系列中的数据内容
-                itemStyle: {
-                    normal: {
-                        shadowBlur: 20,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(128, 128, 128, 0.5)'
+        legend: {
+            orient : 'vertical',
+            x : 'left',
+            data:names
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {
+                    show: true,
+                    type: ['pie', 'funnel'],
+                    option: {
+                        funnel: {
+                            x: '25%',
+                            width: '50%',
+                            funnelAlign: 'left',
+                            max: 1548
+                        }
                     }
-                }
+                },
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        series : [
+            {
+                name:'点击量',
+                type:'pie',
+                radius : '55%',//饼图的半径大小
+                center: ['50%', '60%'],//饼图的位置
+                //饼图显示数据
+                label: {
+                    normal: {
+                        show: true,
+                        formatter: '{b}: {c}({d}%)'
+                    }
+                },
+                data:pie
             }
         ]
-    };
+    });
+    $.ajax({
+        type : "post",
+        async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url : "/statistics/sourceAll.do",    //请求发送到TestServlet处
+        data : {},
+        dataType : "json",        //返回数据形式为json
+        success : function(result) {
+            //请求成功时执行该函数内容，result即为服务器返回的json对象
+            if (result) {
+                for(var i=0;i<result.length;i++){
+                    names.push(result[i].typeName);    //挨个取出类别并填入类别数组
+                    nums.push(result[i].count);    //挨个取出销量并填入销量数组
+                }
+                for(var i=0;i<result.length;i++){
+                    //传入字符串（new String）
+                    var obj=new Object();
+                    //传入数字（new Number）
+                    var obj2=new Object();
+                    obj.name=result[i].typeName;
+                    obj.value=result[i].count;
+                    pie[i]=obj;
+                }
+                myChart.hideLoading();    //隐藏加载动画
+                myChart.setOption({        //加载数据图表
+                    xAxis: {
+                        data: names
+                    },
+                    series: [{
+                        // 根据名字对应到相应的系列
+                        name: '成交数量',
+                        data: nums
+                    }]
+                });
+            }
+        },
+        error : function(errorMsg) {
+            //请求失败时执行该函数
+            alert("图表请求数据失败!");
+            myChart.hideLoading();
+        }
+    });
     console.log(option)
     // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
+
 
 
 </script>
-<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<!--<div id="main" style="width: 600px;"></div>
-<script type="text/javascript">
-    // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('main'));
-
-    // 指定图表的配置项和数据
-    var option = {
-        title: {
-            text: '第一个 ECharts 实例'
-        },
-        tooltip: {},
-        legend: {
-            data:['销量']
-        },
-        xAxis: {
-            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-        },
-        yAxis: {},
-        series: [{
-            name: '销量',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
-        }]
-    };
-
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
-</script>-->
-
-<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<!--<div id="main" style="width: 600px;height:400px;"></div>
-<script type="text/javascript">
-    // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('main'));
-
-    // 指定图表的配置项和数据
-    var option = {
-        series : [
-            {
-                name: '访问来源',
-                type: 'pie',
-                radius: '55%',
-                data:[
-                    {value:235, name:'视频广告'},
-                    {value:274, name:'联盟广告'},
-                    {value:310, name:'邮件营销'},
-                    {value:335, name:'直接访问'},
-                    {value:400, name:'搜索引擎'}
-                ],
-                itemStyle: {
-                    normal: {
-                        shadowBlur: 200,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
-            }
-        ]
-    };
-
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
-</script>-->
 </body>
 </html>

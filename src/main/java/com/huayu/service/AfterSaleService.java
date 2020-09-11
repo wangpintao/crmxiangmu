@@ -37,6 +37,8 @@ public class AfterSaleService extends ServiceImpl<AfterSaleMapper, AfterSale> im
         Page page1 = PageHelper.startPage(page,limit);
         List<AfterSale> list =new ArrayList<>();
         QueryWrapper queryWrapper =new QueryWrapper();
+        System.out.println(calssType);
+        System.out.println(key);
         if(!StringUtils.isEmpty(calssType)&&!StringUtils.isEmpty(key)){
             queryWrapper.like(calssType,key);
         }
@@ -55,9 +57,7 @@ public class AfterSaleService extends ServiceImpl<AfterSaleMapper, AfterSale> im
                     list = afterSaleMapper.newSeason();
                 } else if (afterSale.getAftStatus().equals("lastQuarter")) {
                     list = afterSaleMapper.beforeSeason();
-                } else if (afterSale.getAftStatus().equals("queryAll")){
-                    list = afterSaleMapper.selectList(null);
-                } else {
+                }  else {
                     //查询状态
                     queryWrapper.eq("aft_status", afterSale.getAftStatus());
                     list = afterSaleMapper.selectList(queryWrapper);

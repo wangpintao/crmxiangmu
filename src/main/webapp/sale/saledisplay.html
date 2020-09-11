@@ -99,8 +99,8 @@
                         <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1"><span class="layui-icon layui-icon-search">搜索</span></button>
                         <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                         <div class="divcss5-right">
-                            <button class="layui-btn layui-btn-sm" lay-event="add" ><span class="layui-icon layui-icon-add-1">添加</span></button>
-                            <a class="layui-btn layui-btn-sm" href="/after_sale/query.html" lay-event="refresh" ><span class="layui-icon layui-icon-refresh-1">刷新</span></a>
+                            <a class="layui-btn layui-btn-sm" href="/sale/addsaledisply.html" lay-event="refresh" ><span class="layui-icon layui-icon-refresh-1">添加</span></a>
+                            <a class="layui-btn layui-btn-sm" href="#" lay-event="refresh" ><span class="layui-icon layui-icon-refresh-1">刷新</span></a>
                         </div>
                         </form>
 
@@ -163,8 +163,6 @@
             , limit: 3
             , limits: [3, 5, 10]
         });
-
-
 
 
         form.on('submit(demo1)', function (data) {
