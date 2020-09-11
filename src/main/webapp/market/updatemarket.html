@@ -248,8 +248,19 @@
             </div>
         </div>
     </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">当前状态</label>
+            <div class="layui-input-block" style="width: 925px;height: 40px">
+                <select name="comStaid">
+                    <option   th:each="li:${status}"  th:value="${li.staid}" th:selected="${li.staid==commercial.comStaid?true:false}">[[${li.staname}]]</option>
+                </select>
+            </div>
+        </div>
+    </div>
 
-
+    <br>
+    <br>
     <br>
     <div style="text-align: center;">
     <div class="layui-form-item">

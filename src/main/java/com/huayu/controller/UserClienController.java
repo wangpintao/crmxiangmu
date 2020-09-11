@@ -10,6 +10,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.huayu.bo.ClientBo;
+import com.huayu.bo.CommercialBo;
 import com.huayu.layuiUtils.Stulayui;
 import com.huayu.pojo.*;
 import com.huayu.service.imp.*;
@@ -158,5 +159,16 @@ public List<Commercial>   todeletes(Integer ucid){
  System.out.println(b);
  return b;
  }
+
+ /*查询商机数
+ * */
+ @RequestMapping("/selectmarket.do")
+ public String selectmarket(Integer comUcid ,Commercial commercial ,Model model){
+  List<CommercialBo> list=iUserClienServiceImp.querycom(comUcid,commercial);
+  model.addAttribute("listbo",list);
+  return"/client/selectsmarket.html";
+ }
+
+
 
 }

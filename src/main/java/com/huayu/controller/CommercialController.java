@@ -9,6 +9,7 @@ import com.huayu.JsonUtils.StulayuiJson;
 import com.huayu.bo.CommercialBo;
 import com.huayu.dateUtils.MyConvert;
 import com.huayu.layuiUtils.Stulayui;
+import com.huayu.mapper.DocStatusMapper;
 import com.huayu.pojo.*;
 import com.huayu.service.imp.*;
 import org.apache.poi.util.SystemOutLogger;
@@ -35,6 +36,9 @@ public class CommercialController {
 
  @Autowired
  private ICommercialServiceImp iCommercialServiceImp;
+
+ @Autowired
+ private IDocStatusServiceImp iDocStatusServiceImp;
 
  /*根据id查询客户信息
   * */
@@ -63,7 +67,13 @@ public String toc(Integer coid,Integer ucid, Model model){
  QueryWrapper wrapper=new QueryWrapper();
  wrapper.eq("coid",coid);
  Commercial commercial= iCommercialServiceImp.getOne(wrapper);
+ System.out.println(commercial.getComStaid());
  model.addAttribute("commercial",commercial);
+ List<DocStatus> docStatuse= iDocStatusServiceImp.list();
+ for(DocStatus doc:docStatuse){
+  System.out.println(doc.getStaname());
+ }
+ model.addAttribute("status",iDocStatusServiceImp.list());
  return "/market/updatemarket.html";
 }
 
@@ -71,6 +81,7 @@ public String toc(Integer coid,Integer ucid, Model model){
 * */
 @RequestMapping("/updatec.do")
 public String updatecs(Commercial commercial){
+ System.out.println(commercial.getComStaid()+"状态");
  boolean b = iCommercialServiceImp.updatec(commercial);
  return "redirect:/market/selectmarket.html";
 }

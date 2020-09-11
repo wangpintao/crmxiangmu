@@ -51,7 +51,7 @@ public class Commercial extends Model<Commercial> {
     @TableField("com_busid")
     private Integer comBusid;
 
-    /*客户所属行业名称
+    /*客户所属行业名称 也用作主页分类的字段
      * */
     @TableField("com_busname")
     private String comBusname;
@@ -178,6 +178,8 @@ public class Commercial extends Model<Commercial> {
     @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date comThisdate;
+
+
 
     public Integer getComuid() {
         return comuid;

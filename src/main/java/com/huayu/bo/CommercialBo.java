@@ -131,4 +131,17 @@ public class CommercialBo {
  public void setComUcid(Integer comUcid) {
   this.comUcid = comUcid;
  }
+
+ @Override
+ public String toString() {
+  return "CommercialBo{" +
+          "comUcid=" + comUcid +
+          ", coid=" + coid +
+          ", conname='" + conname + '\'' +
+          ", staname='" + staname + '\'' +
+          ", comSum=" + comSum +
+          ", comUname='" + comUname + '\'' +
+          ", docDates=" + docDates +
+          '}';
+ }
 }

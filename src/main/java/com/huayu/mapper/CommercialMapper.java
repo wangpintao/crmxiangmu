@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.pagehelper.Page;
 import com.huayu.bo.CommercialBo;
 import com.huayu.bo.FunnelStatisticsBo;
+import com.huayu.pojo.AfterSale;
 import com.huayu.pojo.Commercial;
 import com.huayu.pojo.UserClien;
 import com.huayu.sqlUtils.ClientSql;
@@ -14,15 +15,39 @@ import java.util.List;
 
 @Mapper
 public interface CommercialMapper extends BaseMapper<Commercial> {
-
+//主页联合查询商机
  @SelectProvider(type = ClientSql.class,method = "queryCom")
  public  List<CommercialBo> queryComm(Page page,@Param("commercial")Commercial commercial);
 
-
-
-
- @Update("update commercial set coname_cliname=#{conameCliNname},coname=#{coname}, com_sum=#{comSum},com_date=#{comDate} , com_file=#{comFile},com_text=#{comText}, com_depid=#{comDepid},com_uname=#{comUname} , com_participant=#{comParticipant},com_follower=#{comFollower} where coid=#{coid}")
+ //修改商机
+ @Update("update commercial set coname_cliname=#{conameCliNname},coname=#{coname},com_staid=#{comStaid}, com_sum=#{comSum},com_date=#{comDate} , com_file=#{comFile},com_text=#{comText}, com_depid=#{comDepid},com_uname=#{comUname} , com_participant=#{comParticipant},com_follower=#{comFollower} where coid=#{coid}")
  public boolean updatec(Commercial commercial);
+
+ //每周
+ @Select("SELECT * FROM after_sale WHERE YEARWEEK(DATE_FORMAT(aft_startdate,'%Y-%m-%d'),1) = YEARWEEK(NOW(),1)")
+ List<AfterSale> newWeek();
+
+ //上周
+ @Select("SELECT * FROM after_sale WHERE YEARWEEK(DATE_FORMAT(aft_startdate,'%Y-%m-%d')) = YEARWEEK(NOW())-1")
+ List<AfterSale> beforeWeek();
+
+ //每月
+ @Select("SELECT * FROM after_sale WHERE DATE_FORMAT(aft_startdate,'%Y-%m')=DATE_FORMAT(NOW(),'%Y-%m')")
+ List<AfterSale> newMonth();
+
+ //上月
+ @Select("SELECT * FROM after_sale WHERE PERIOD_DIFF( DATE_FORMAT( NOW( ) , '%Y%m' ) , DATE_FORMAT( aft_startdate, '%Y%m' ) ) =1")
+ List<AfterSale> beforeMonth();
+
+ //本季
+ @Select("SELECT * FROM after_sale WHERE QUARTER(aft_startdate)=QUARTER(NOW())")
+ List<AfterSale> newSeason();
+
+ //上季
+ @Select("SELECT * FROM after_sale WHERE QUARTER(aft_startdate)=QUARTER(DATE_SUB(NOW(),INTERVAL 1 QUARTER))")
+ List<AfterSale> beforeSeason();
+
+
 
  //本周商机数
  @Select("SELECT COUNT(com_thisdate) FROM commercial WHERE YEARWEEK(DATE_FORMAT(com_thisdate,'%Y-%m-%d')) = YEARWEEK(NOW())")

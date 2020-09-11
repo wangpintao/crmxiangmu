@@ -45,11 +45,11 @@
             <a href="#"  onclick=tableRerole('lastQuarter') style="color: #00FFFF">上季新增</a>&nbsp;<span id="label2"></span><br>
             <hr>
             <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-            <a href="#"  onclick=tableRerole("success") style="color:#00FFFF" >已成交商机</a>&nbsp;<span id="label3"></span><br><br>
+            <a href="#"  onclick=tableRerole("1") style="color:#00FFFF" >已成交商机</a>&nbsp;<span id="label3"></span><br><br>
             <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-            <a href="#"  onclick=tableRerole("discard") style="color: #00FFFF">已丢弃商机</a>&nbsp;<span id="label4"></span><br><br>
+            <a href="#"  onclick=tableRerole("2") style="color: #00FFFF">已丢弃商机</a>&nbsp;<span id="label4"></span><br><br>
             <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-            <a href="#"  onclick=tableRerole("layup") style="color: #00FFFF">已搁置商机</a>&nbsp;<span id="label5"></span><br><br>
+            <a href="#"  onclick=tableRerole("5") style="color: #00FFFF">已搁置商机</a>&nbsp;<span id="label5"></span><br><br>
             <hr>
         </div>
     </div>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">商机阶段</label>
-                    <div class="layui-input-block" style="width: 200px;height: 40px">
+                    <div class="layui-input-block" style="width: 300px;height: 40px">
                         <select  name="comStaid"   lay-filter="test">
                             <option value="0">请选择</option>
                             <option value="1">成交</option>
@@ -137,6 +137,11 @@
         <script type="text/html" id="coids">
             <a href= "/commercial/toc.do?coid={{d.coid}}&ucid={{d.comUcid}}" class="layui-table-link"  target="blank" >{{d.conname}}</a>
         </script>
+
+        <script type="text/html" id="zhgd">
+            <a href= "/commercial/toc.do?coid={{d.coid}}&ucid={{d.comUcid}}" class="layui-table-link"  target="blank" >{{d.docDates}}</a>
+        </script>
+
     </div>
 </div>
 
@@ -172,7 +177,7 @@
                 ,{field: 'staname', title: '商机阶段', width:220}
                 ,{field: 'comSum', title: '预计成交金额', width:220}
                 ,{field: 'comUname', title: '商机负责人', width:220}
-                ,{field: 'docDates', title: '最后跟单', width:220}
+                ,{field: 'docDates', title: '最后跟单', width:220 , templet:'#zhgd'}
                 ,{field: 'comSouid', title: '讨论版', width:220}
             ]]
         });
@@ -201,7 +206,7 @@
             table.reload('demo',{
                 url:'/userClien/clientid.do'
                 ,where:{
-                    "kid": value
+                    "comBusname": value
                 }
             });
         };

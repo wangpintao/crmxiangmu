@@ -3,6 +3,7 @@ package com.huayu.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.pagehelper.Page;
+import com.huayu.bo.CommercialBo;
 import com.huayu.pojo.*;
 import com.huayu.sqlUtils.ClientSql;
 import com.huayu.sqlUtils.salesql;
@@ -53,13 +54,15 @@ public List<UserClien> listUser();
  @Update("update user_clien set cli_name=#{cliName} , cli_pinyin=#{ cliPinyin}, kinid=#{kinid}, souid=#{souid} ,busid=#{busid}, curl=#{curl} , cstate=#{cstate} , city=#{city}, csite=#{csite}, cli_mail=#{cliMail} , cli_fax=#{cliFax} , cli_contacts=#{cliContacts} , cli_department=#{cliDepartment} , cli_job=#{cliJob} , cli_offphone=#{cliOffphone} , cli_qq=#{cliqq} , cli_phone=#{cliPhone} , cli_legalperson=#{cliLegalperson} ,cli_amount=#{cliAmount} , cli_text=#{cliText} where ucid=#{ucid}")
  public boolean updatecl(UserClien userClien);
 
-
-
-
  @Select("select * from user_clien")
  List<UserClien> queryAll(Page page);
 //查询客户数
  @Select("SELECT COUNT(*) AS cliCount FROM user_clien")
  Integer CliSum();
+
+ //查询商机数
+ @SelectProvider(type = ClientSql.class,method = "querybo")
+ List<CommercialBo>  querybo(@Param("comUcid") Integer comUcid,@Param("commercial")Commercial commercial);
+
 
 }

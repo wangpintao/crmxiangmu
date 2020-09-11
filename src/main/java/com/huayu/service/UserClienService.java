@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.huayu.bo.ClientBo;
+import com.huayu.bo.CommercialBo;
 import com.huayu.layuiUtils.Stulayui;
 import com.huayu.mapper.*;
 import com.huayu.pojo.*;
@@ -121,6 +122,13 @@ public class UserClienService extends ServiceImpl<UserClienMapper, UserClien> im
   stulayui.setData(clientBoList);
   return stulayui;
  }
+ //查询商机数
+
+ @Override
+ public List<CommercialBo> querycom(Integer comUcid, Commercial commercial) {
+  List<CommercialBo> list= userClienMapper.querybo(comUcid,commercial);
+  return list;
+ }
 
  @Override
  public UserClien queryByid(Integer ucid) {
@@ -131,4 +139,5 @@ public class UserClienService extends ServiceImpl<UserClienMapper, UserClien> im
  public boolean updatecl(UserClien userClien) {
   return userClienMapper.updatecl(userClien);
  }
+
 }
