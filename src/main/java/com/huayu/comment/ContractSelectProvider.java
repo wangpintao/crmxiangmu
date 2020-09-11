@@ -13,7 +13,7 @@ import org.springframework.util.StringUtils;
  * @date 2020/9/1 8:39
  */
 public class ContractSelectProvider {
-    public String queryall(@Param("page") IPage<Contract> page, @Param("con") Contract contract){
+    public String queryall(@Param("con") Contract contract){
         StringBuffer buffer=new StringBuffer("select * from contract where 1=1");
         if(!StringUtils.isEmpty(contract)){
             /*if(!StringUtils.isEmpty(forum.getForForid())){

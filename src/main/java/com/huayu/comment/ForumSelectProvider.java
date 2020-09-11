@@ -13,7 +13,7 @@ import org.springframework.util.StringUtils;
  * @date 2020/9/1 8:39
  */
 public class ForumSelectProvider {
-    public String queryall(@Param("page") IPage<Forum> page,@Param("fo") Forum forum){
+    public String queryall(@Param("fo") Forum forum){
         StringBuffer buffer=new StringBuffer("select * from forum where 1=1");
         if(!StringUtils.isEmpty(forum)){
             if(!StringUtils.isEmpty(forum.getForForid())){

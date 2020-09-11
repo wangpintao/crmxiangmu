@@ -34,5 +34,5 @@ public interface ForumMapper extends BaseMapper<Forum> {
     public Integer updateone2(Forum forum);
 
     @SelectProvider(type = ForumSelectProvider.class,method ="queryall")
-    public List<Forum> queryall(@Param("page") IPage<Forum> page,@Param("fo") Forum forum);
+    public List<Forum> queryall(@Param("fo") Forum forum);
 }

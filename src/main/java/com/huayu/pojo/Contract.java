@@ -131,6 +131,12 @@ public class Contract extends Model<Contract> {
     @TableField("con_uname")
     private String conUname;
 
+    /**
+     * 合同状态
+     */
+    @TableField("con_state")
+    private Integer conState;
+
     @Override
     protected Serializable pkVal() {
         return this.conid;
@@ -284,6 +290,14 @@ public class Contract extends Model<Contract> {
         this.conUname = conUname;
     }
 
+    public Integer getConState() {
+        return conState;
+    }
+
+    public void setConState(Integer conState) {
+        this.conState = conState;
+    }
+
     @Override
     public String toString() {
         return "Contract{" +
@@ -305,6 +319,7 @@ public class Contract extends Model<Contract> {
                 ", conUcid=" + conUcid +
                 ", conDocid=" + conDocid +
                 ", conUname='" + conUname + '\'' +
+                ", conState=" + conState +
                 '}';
     }
 }

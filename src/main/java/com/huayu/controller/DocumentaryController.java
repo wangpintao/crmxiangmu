@@ -1,7 +1,8 @@
 package com.huayu.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.huayu.layuiUtils.Stulayui;
 import com.huayu.pojo.*;
 import com.huayu.service.imp.*;
@@ -40,52 +41,13 @@ public class DocumentaryController {
     @RequestMapping("/queryall.do")
     @ResponseBody
     public Stulayui queryall(Integer page, Integer limit, Documentary documentary) {
-        documentary.setDocuser(1);
-        Stulayui stulayui = new Stulayui();
-        Page<Documentary> page1 = new Page<>(page, limit);
-        List<Documentary> list = iDocumentaryServiceImp.queryall(page1, documentary);
-        if (list.size() > 0) {
-            stulayui.setCode(0);
-            stulayui.setMsg("查询成功");
-            stulayui.setCount(list.size());
-            stulayui.setData(list);
-        } else {
-            stulayui.setCode(1);
-            stulayui.setMsg("无数据");
-            stulayui.setCount(list.size());
-            stulayui.setData(list);
-        }
-        return stulayui;
+        return iDocumentaryServiceImp.queryall(page,limit,documentary);
     }
 
     @RequestMapping("/queryall1.do")
     @ResponseBody
     public Stulayui queryall1(Integer page, Integer limit, Documentary documentary) {
-        Stulayui stulayui = new Stulayui();
-        Page<Documentary> page1 = new Page<>(page, limit);
-        if (documentary.getDocid() != null) {
-            if (documentary.getDocid() == 3) {
-                QueryWrapper queryWrapper = new QueryWrapper();
-                queryWrapper.eq("uname", documentary.getDocDetails());
-                User user = iUserServiceImp.getOne(queryWrapper);
-                if (user != null) {
-                    documentary.setDocDetails(String.valueOf(user.getUid()));
-                }
-            }
-        }
-        List<Documentary> list = iDocumentaryServiceImp.queryall2(page1, documentary);
-        if (list.size() > 0) {
-            stulayui.setCode(0);
-            stulayui.setMsg("查询成功");
-            stulayui.setCount(list.size());
-            stulayui.setData(list);
-        } else {
-            stulayui.setCode(1);
-            stulayui.setMsg("无数据");
-            stulayui.setCount(list.size());
-            stulayui.setData(list);
-        }
-        return stulayui;
+        return iDocumentaryServiceImp.queryall2(page,limit,documentary);
     }
 
     @RequestMapping("/add.do")

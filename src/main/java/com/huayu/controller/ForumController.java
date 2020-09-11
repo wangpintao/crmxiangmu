@@ -1,15 +1,12 @@
 package com.huayu.controller;
 
-import com.alibaba.druid.sql.visitor.functions.If;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.huayu.layuiUtils.Stulayui;
 import com.huayu.pojo.Commercial;
-import com.huayu.pojo.DocClassify;
-import com.huayu.pojo.Documentary;
 import com.huayu.pojo.Forum;
 import com.huayu.service.imp.ICommercialServiceImp;
-import com.huayu.service.imp.IDocumentaryServiceImp;
 import com.huayu.service.imp.IForumServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -38,22 +34,7 @@ public class ForumController {
     @RequestMapping("/queryall.do")
     @ResponseBody
     public Stulayui queryall(Integer page,Integer limit,Forum forum){
-        Stulayui stulayui=new Stulayui();
-        Page<Forum> page1=new Page<>(page,limit);
-        forum.setForForid(0);
-        List<Forum> list=iForumServiceImp.queryall(page1,forum);
-        if(list.size()>0){
-            stulayui.setCode(0);
-            stulayui.setMsg("查询成功");
-            stulayui.setCount(list.size());
-            stulayui.setData(list);
-        }else{
-            stulayui.setCode(1);
-            stulayui.setMsg("无数据");
-            stulayui.setCount(list.size());
-            stulayui.setData(list);
-        }
-        return stulayui;
+        return iForumServiceImp.queryall(page,limit,forum);
     }
 
     @RequestMapping("/add.do")
