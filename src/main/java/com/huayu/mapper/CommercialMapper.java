@@ -92,8 +92,9 @@ List<FunnelStatisticsBo> funnelLaerSeason();
  //上年
  @Select("SELECT * FROM (SELECT d.staname typeName ,COUNT(b.coid) COUNT,IFNULL(SUM(b.com_sum),0) SUM FROM doc_status d LEFT JOIN commercial b ON b.com_staid=d.staid WHERE YEAR(com_thisdate)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR)) GROUP BY b.com_staid) a ORDER BY a.count")
  List<FunnelStatisticsBo> funnelLaerYar();
-
-
+ //查询商机数
+ @Select("SELECT COUNT(*) AS comCount FROM commercial")
+ Integer ComSum();
 
 
 

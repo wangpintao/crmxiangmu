@@ -58,5 +58,8 @@ public List<UserClien> listUser();
 
  @Select("select * from user_clien")
  List<UserClien> queryAll(Page page);
+//查询客户数
+ @Select("SELECT COUNT(*) AS cliCount FROM user_clien")
+ Integer CliSum();
 
 }

@@ -1,11 +1,11 @@
 package com.huayu.service;
 
+import com.huayu.bo.AllNumberBo;
 import com.huayu.bo.FunnelStatisticsBo;
 import com.huayu.bo.StatisticsBo;
-import com.huayu.mapper.CommercialMapper;
-import com.huayu.mapper.ContractMapper;
-import com.huayu.mapper.DocumentaryMapper;
+import com.huayu.mapper.*;
 import com.huayu.pojo.User;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +21,11 @@ public class StatisticsBoService {
     private DocumentaryMapper documentaryMapper;
     @Autowired
     private ContractMapper contractMapper;
+    @Autowired
+    private UserClienMapper userClienMapper;
+    @Autowired
+    private DocStatusMapper docStatusMapper;
+
 
     public Map<String,Integer> statistics() {
         Map<String, Integer> map = new HashMap<>();
@@ -105,5 +110,17 @@ public class StatisticsBoService {
     //上年
     public List<FunnelStatisticsBo> funnelLaerYear(){
        return commercialMapper.funnelLaerYar();
+    }
+
+    public AllNumberBo queryAllSum(){
+        AllNumberBo allNumberBo =new AllNumberBo();
+        allNumberBo.setCliCount(userClienMapper.CliSum());
+        allNumberBo.setComCount(commercialMapper.ComSum());
+        allNumberBo.setConCount(contractMapper.ConSum());
+        return allNumberBo;
+    }
+    //查询状态下的商机数和金额
+    public List<FunnelStatisticsBo> queryStatus() {
+        return docStatusMapper.queryStatus();
     }
 }

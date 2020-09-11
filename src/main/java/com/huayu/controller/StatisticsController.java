@@ -1,5 +1,6 @@
 package com.huayu.controller;
 
+import com.huayu.bo.AllNumberBo;
 import com.huayu.bo.FunnelStatisticsBo;
 import com.huayu.bo.StatisticsBo;
 import com.huayu.mapper.CommercialMapper;
@@ -101,5 +102,16 @@ public class StatisticsController {
     @ResponseBody
     public  List<FunnelStatisticsBo> sourceAll(){
         return  iCliSourceServiceImp.querySource();
+    }
+    @RequestMapping("/queryAllSum.do")
+    @ResponseBody
+    public AllNumberBo queryAllSum(){
+        return statisticsBoService.queryAllSum();
+    }
+
+    @RequestMapping("/queryStatus.do")
+    @ResponseBody
+    public List<FunnelStatisticsBo> queryStatus(){
+        return statisticsBoService.queryStatus();
     }
 }

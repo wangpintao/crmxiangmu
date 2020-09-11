@@ -52,6 +52,9 @@ public interface ContractMapper extends BaseMapper<Contract> {
     //去年合同数
     @Select("SELECT COUNT(con_startdate) FROM contract WHERE YEAR(con_startdate)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR))")
     Integer ConLaerYear();
+    //查询合同
+    @Select("SELECT COUNT(*) AS conCount FROM contract")
+    Integer ConSum();
 
     @SelectProvider(type = ContractSelectProvider.class,method ="queryall")
     public List<Contract> queryall(@Param("page") IPage<Contract> page, @Param("con") Contract contract);
