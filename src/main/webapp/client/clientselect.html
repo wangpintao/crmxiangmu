@@ -45,9 +45,9 @@
                     <div class="layui-input-block" style="width: 200px;height: 40px">
                         <select  name="clientid"  lay-filter="test">
                             <option >请选择</option>
-                            <option value="cliName">按客户名称</option>
-                            <option value="cliPinyin">按拼音</option>
-                            <option value="cliContacts">按联系人</option>
+                            <option value="cli_name">按客户名称</option>
+                            <option value="cli_pinyin">按拼音</option>
+                            <option value="cli_contacts">按联系人</option>
                         </select>
                     </div>
                 </div>
@@ -81,6 +81,17 @@
         <script type="text/html" id="ucids">
             <a href= "/userClien/toupdate.do?ucid={{d.ucid}}" class="layui-table-link"  target="blank" >{{d.cliName}}</a>
         </script>
+        <script type="text/html" id="sjs">
+            <a href= "/userClien/toupdate.do?ucid={{d.ucid}}" class="layui-table-link"  target="blank" >{{d.csum}}</a>
+        </script>
+        <script type="text/html" id="hts">
+            <a href= "/userClien/toupdate.do?ucid={{d.ucid}}" class="layui-table-link"  target="blank" >{{d.conCount}}</a>
+        </script>
+        <script type="text/html" id="shs">
+            <a href= "/userClien/toupdate.do?ucid={{d.ucid}}" class="layui-table-link"  target="blank" >{{d.aftCount}}</a>
+        </script>
+
+
     </div>
 </div>
 
@@ -99,7 +110,6 @@
         //第一个实例   var a=table.render表格重载第二种方式
         table.render({
             elem: '#demo'
-            ,toolbar:'#toolbarDemo'
             ,height: 500
             ,url: '/userClien/clientid.do' //数据接口
             ,page: true //开启分页
@@ -107,11 +117,11 @@
             ,limits:[1,2,10,30]
             ,cols: [[ //表头
                 {field: 'cliName', title: '客户名称', width:180 , templet:'#ucids' }
-                ,{field: 'csum', title: '商机数', width:180  }
+                ,{field: 'csum', title: '商机数', width:180 , templet:'#sjs' }
                 ,{field: 'comSum', title: '预计成交金额', width:180 }
-                ,{field: 'conCount', title: '合同数', width:180  }
+                ,{field: 'conCount', title: '合同数', width:180  , templet:'#hts'  }
                 ,{field: 'conSum', title: '合同金额', width:180 }
-                ,{field: 'aftCount', title: '售后服务数', width:180  }
+                ,{field: 'aftCount', title: '售后服务数', width:180  , templet:'#shs'  }
                 ,{field: 'aftScore', title: '服务评分', width:180 }
 
             ]]
@@ -120,15 +130,26 @@
         //监听提交
         form.on('submit(formDemo)', function(data){
             console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
-            a.reload('demo', {
+            table.reload('demo', {
                 url: '/userClien/clientid.do'
                 ,where: {
                     clientid:data.field.clientid,
-                    keys:data.field.keys
+                    keys:data.field.keys,
                 } //设定异步数据接口的额外参数
             });
             return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
+
+      //左边菜单查询
+        window.tableRerole=function (value) {
+            console.log(value);
+            table.reload('demo',{
+                url:'/userClien/clientid.do'
+                ,where:{
+                    "kid": value
+                }
+            });
+        };
 
 
 

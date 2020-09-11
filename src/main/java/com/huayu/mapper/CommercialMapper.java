@@ -1,6 +1,7 @@
 package com.huayu.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.github.pagehelper.Page;
 import com.huayu.bo.CommercialBo;
 import com.huayu.bo.FunnelStatisticsBo;
 import com.huayu.pojo.Commercial;
@@ -15,9 +16,7 @@ import java.util.List;
 public interface CommercialMapper extends BaseMapper<Commercial> {
 
  @SelectProvider(type = ClientSql.class,method = "queryCom")
- List<CommercialBo> queryComm();
-
-
+ public  List<CommercialBo> queryComm(Page page,@Param("commercial")Commercial commercial);
 
 
 

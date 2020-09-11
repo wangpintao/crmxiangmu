@@ -80,14 +80,9 @@ public String updatecs(Commercial commercial){
 * */
  @RequestMapping("/commercial.do")
  @ResponseBody
- public Stulayui clients(){
-  Stulayui stulayui=new Stulayui();
-  List<CommercialBo> list= iCommercialServiceImp.queryCom();
-  stulayui.setCode(0);
-  stulayui.setMsg("查询成功");
-  stulayui.setCount(list.size());
-  stulayui.setData(list);
-  return stulayui;
+ public Stulayui clients( Integer page, Integer limit,Commercial commercial){
+  System.out.println(page +"\\"+limit);
+  return iCommercialServiceImp.queryCom(page,limit,commercial);
  }
 
 

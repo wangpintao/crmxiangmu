@@ -37,10 +37,9 @@
         var kid=$("#khid").val();
         //查询客户信息表
         $.get("/userClien/dels.do?ucid="+kid ,function (data){
-            alert(data);
-           if(date){
+           if(data){
                alert("删除成功");
-
+               window.location.href="/client/clientselect.html";
            }
         });
 

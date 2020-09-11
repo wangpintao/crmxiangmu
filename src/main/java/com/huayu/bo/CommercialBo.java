@@ -14,10 +14,10 @@ import com.huayu.pojo.UserClien;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
-@TableName("commercial")
+
 public class CommercialBo {
 
- /*@TableField(exist = false)
+/* @TableField(exist = false)
  private Commercial commercial;
 
  @TableField(exist = false)
@@ -26,11 +26,26 @@ public class CommercialBo {
  @TableField(exist = false)
  private Forum forum;*/
 
+
+ /**
+  * 客户外键
+  */
+ @TableField("com_ucid")
+ private Integer comUcid;
+
+
+
+ /*商機id
+ * */
+ private Integer coid;
+
+
+
+
  /*
   * 客户商机名称
   * */
- @TableField("coname_cliname")
- private String conameCliNname;
+ private String conname;
 
  /**
   * 跟单状态 商机状态（取跟单的状态）
@@ -55,19 +70,26 @@ public class CommercialBo {
  @TableField("doc_date")
  @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
  @DateTimeFormat(pattern="yyyy-MM-dd")
- private Date docDate;
+ private Date docDates;
 
 /*
 * 讨论版
 * */
 
-
- public String getConameCliNname() {
-  return conameCliNname;
+ public Integer getCoid() {
+  return coid;
  }
 
- public void setConameCliNname(String conameCliNname) {
-  this.conameCliNname = conameCliNname;
+ public void setCoid(Integer coid) {
+  this.coid = coid;
+ }
+
+ public String getConname() {
+  return conname;
+ }
+
+ public void setConname(String conname) {
+  this.conname = conname;
  }
 
  public String getStaname() {
@@ -94,12 +116,19 @@ public class CommercialBo {
   this.comUname = comUname;
  }
 
- public Date getDocDate() {
-  return docDate;
+ public Date getDocDates() {
+  return docDates;
  }
 
- public void setDocDate(Date docDate) {
-  this.docDate = docDate;
+ public void setDocDates(Date docDates) {
+  this.docDates = docDates;
  }
 
+ public Integer getComUcid() {
+  return comUcid;
+ }
+
+ public void setComUcid(Integer comUcid) {
+  this.comUcid = comUcid;
+ }
 }

@@ -116,10 +116,12 @@ public List<CliKind> selectKind(){
   * */
  @RequestMapping("/clientid.do")
  @ResponseBody
- public Stulayui clientid(Integer page, Integer limit, String clientid ,String keys){
+ public Stulayui clientid(Integer page, Integer limit, String clientid ,String keys ,Integer kid){
   System.out.println(clientid+"||"+keys);
-  return iUserClienServiceImp.queryMany(page,limit,clientid,keys);
+  return iUserClienServiceImp.queryMany(page,limit,clientid,keys,kid);
  }
+
+
 
  @RequestMapping("/clients.do")
  @ResponseBody
@@ -132,6 +134,7 @@ public List<CliKind> selectKind(){
   stulayui.setData(list);
   return stulayui;
  }
+
 /*删除之前
 * */
 @RequestMapping("/todels.do")
@@ -155,7 +158,5 @@ public List<Commercial>   todeletes(Integer ucid){
  System.out.println(b);
  return b;
  }
-
-
 
 }
