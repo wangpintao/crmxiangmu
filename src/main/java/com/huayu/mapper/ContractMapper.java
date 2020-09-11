@@ -1,6 +1,7 @@
 package com.huayu.mapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.huayu.comment.ContractSelectProvider;
+import com.huayu.pojo.AfterSale;
 import org.apache.ibatis.annotations.*;
 import com.huayu.pojo.Contract;
 import org.apache.ibatis.annotations.SelectProvider;
@@ -53,7 +54,31 @@ public interface ContractMapper extends BaseMapper<Contract> {
     @Select("SELECT COUNT(con_startdate) FROM contract WHERE YEAR(con_startdate)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR))")
     Integer ConLaerYear();
 
-    @SelectProvider(type = ContractSelectProvider.class,method ="queryall")
-    public List<Contract> queryall(@Param("page") IPage<Contract> page, @Param("con") Contract contract);
+    @Update("update contract set conname=#{conname},serial=#{serial},con_sum=#{conSum},con_startdate=#{conStartdate},con_predate=#{conPredate},con_enddate=#{conEnddate},con_contacts=#{conContacts},con_offphone=#{conOffphone},con_phone=#{conPhone},con_mail=#{conMail},technical=#{technical},clause=#{clause},con_file=#{conFile},con_uid=#{conUid},con_ucid=#{conUcid},con_uname=#{conUname},con_state=#{conState} where conid=#{conid}")
+    public Integer updateone(Contract contract);
+
+    //每周
+    @Select("SELECT * FROM contract WHERE YEARWEEK(DATE_FORMAT(con_startdate,'%Y-%m-%d'),1) = YEARWEEK(NOW(),1)")
+    List<Contract> newWeek();
+
+    //上周
+    @Select("SELECT * FROM contract WHERE YEARWEEK(DATE_FORMAT(con_startdate,'%Y-%m-%d')) = YEARWEEK(NOW())-1")
+    List<Contract> beforeWeek();
+
+    //每月
+    @Select("SELECT * FROM contract WHERE DATE_FORMAT(con_startdate,'%Y-%m')=DATE_FORMAT(NOW(),'%Y-%m')")
+    List<Contract> newMonth();
+
+    //上月
+    @Select("SELECT * FROM contract WHERE PERIOD_DIFF( DATE_FORMAT( NOW( ) , '%Y%m' ) , DATE_FORMAT( con_startdate, '%Y%m' ) ) =1")
+    List<Contract> beforeMonth();
+
+    //本季
+    @Select("SELECT * FROM contract WHERE QUARTER(con_startdate)=QUARTER(NOW())")
+    List<Contract> newSeason();
+
+    //上季
+    @Select("SELECT * FROM contract WHERE QUARTER(con_startdate)=QUARTER(DATE_SUB(NOW(),INTERVAL 1 QUARTER))")
+    List<Contract> beforeSeason();
 
 }

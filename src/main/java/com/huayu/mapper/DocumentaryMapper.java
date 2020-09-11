@@ -23,12 +23,12 @@ public interface DocumentaryMapper extends BaseMapper<Documentary> {
     @Results({@Result(column = "doc_user", property = "user",one = @One(select = "userqueryone",fetchType= FetchType.EAGER)),
             @Result(column = "doc_claid", property = "docClassify",one = @One(select = "docClassifyqueryone",fetchType= FetchType.EAGER))})
     @SelectProvider(type = DocumentarySelectProvider.class,method ="queryall")
-    public List<Documentary> queryall(@Param("page") IPage<Documentary> page,@Param("docu") Documentary documentary);
+    public List<Documentary> queryall(@Param("docu") Documentary documentary);
 
     @Results({@Result(column = "doc_user", property = "user",one = @One(select = "userqueryone",fetchType= FetchType.EAGER)),
             @Result(column = "doc_claid", property = "docClassify",one = @One(select = "docClassifyqueryone",fetchType= FetchType.EAGER))})
     @SelectProvider(type = DocumentarySelectProvider.class,method ="queryall1")
-    public List<Documentary> queryall2(@Param("page") IPage<Documentary> page,@Param("docu") Documentary documentary);
+    public List<Documentary> queryall2(@Param("docu") Documentary documentary);
 
     @Results({@Result(column = "doc_user", property = "user",one = @One(select = "userqueryone",fetchType= FetchType.EAGER)),
             @Result(column = "doc_claid", property = "docClassify",one = @One(select = "docClassifyqueryone",fetchType= FetchType.EAGER))})

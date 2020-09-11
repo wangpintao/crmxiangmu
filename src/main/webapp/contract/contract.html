@@ -44,14 +44,14 @@
         </div>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <div class="layui-inline">
-            <select name="conid" class="layui-select" >
+            <select name="serial" class="layui-select" >
                 <option value="0">请选择</option>
-                <option value="1">按合同全称</option>
-                <option value="2">按合同编号</option>
+                <option value="conname">按合同全称</option>
+                <option value="serial">按合同编号</option>
                 <option value="3">按合同所属部门</option>
-                <option value="4">按关联人员</option>
-                <option value="5">按合同金额</option>
-                <option value="6">按签约日期</option>
+                <option value="con_uname">按关联人员</option>
+                <option value="con_sum">按合同金额</option>
+                <option value="con_startdate">按签约日期</option>
             </select>
         </div>
         <div class="layui-inline">
@@ -89,7 +89,7 @@
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
                         <a href="#"  onclick=tableRerole(3)>已撤除的合同</a>&nbsp;<span id="label2"></span><br>
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#"  onclick=tableRerole(3)>已搁置的合同</a>&nbsp;<span id="label3"></span><br>
+                        <a href="#"  onclick=tableRerole(4)>已搁置的合同</a>&nbsp;<span id="label3"></span><br>
                         <hr>
                     </div>
                     <div class="divcss5-b">
@@ -174,7 +174,7 @@
             table.reload('test',{
                 url:'/contract/queryall.do'
                 ,where:{
-                    conid:data.field.conid
+                    serial:data.field.serial
                     ,conname: data.field.conname
                 }
             });
@@ -182,14 +182,41 @@
         });
 
         window.tableRerole=function (value) {
-            console.log(value);
             table.reload('test',{
-                url:'/after/queryBya.do'
+                url:'/contract/queryBya.do'
                 ,where:{
-                    "aftStatus": value
+                    "clause":value
                 }
             });
         };
+
+        $.ajax({
+            type:"get",
+            url:"/contract/queryCount.do",
+            data:{},
+            success: function (data) {
+                for(var i=0;i<data.length;i++){
+                    var count="label"+i;
+                    window.document.getElementById(count).innerHTML=" <span style='font-size:20px;'> "+data[i]+" </span>";
+                }
+            }
+        });
+
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'update') {
+                layer.open({
+                    type: 2,
+                    title: "修改",
+                    area: ['500px', '500px'],
+                    offset: '100px',
+                    content: '?bid=' + data.bid, //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                    end: function (index) {
+                        table.reload('test', {});
+                    }
+                });
+            }
+        });
     });
 
 

@@ -1,7 +1,8 @@
 package com.huayu.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.huayu.JsonUtils.StulayuiJson;
 import com.huayu.layuiUtils.Stulayui;
 import com.huayu.pojo.Contract;
@@ -39,21 +40,7 @@ public class ContractController {
     @RequestMapping("/queryall.do")
     @ResponseBody
     public Stulayui queryall(Integer page, Integer limit, Contract contract) {
-        Stulayui stulayui = new Stulayui();
-        Page<Contract> page1 = new Page<>(page, limit);
-        List<Contract> list = iContractServiceImp.queryall(page1, contract);
-        if (list.size() > 0) {
-            stulayui.setCode(0);
-            stulayui.setMsg("查询成功");
-            stulayui.setCount(list.size());
-            stulayui.setData(list);
-        } else {
-            stulayui.setCode(1);
-            stulayui.setMsg("无数据");
-            stulayui.setCount(list.size());
-            stulayui.setData(list);
-        }
-        return stulayui;
+        return iContractServiceImp.queryall(page,limit,contract);
     }
 
     @RequestMapping("/add.do")
@@ -85,6 +72,7 @@ public class ContractController {
             } else {
                 contract.setConFile("无附件");
             }
+            contract.setConState(1);
             iContractServiceImp.save(contract);
         } catch (IOException e) {
             e.printStackTrace();
@@ -97,9 +85,7 @@ public class ContractController {
         QueryWrapper queryWrapper=new QueryWrapper();
         queryWrapper.eq("conid",contract.getConid());
         model.addAttribute("con",iContractServiceImp.getOne(queryWrapper));
-        QueryWrapper queryWrapper1=new QueryWrapper();
-        queryWrapper1.eq("ucid",contract.getConUcid());
-        model.addAttribute("user",iUserClienServiceImp.getOne(queryWrapper1));
+        model.addAttribute("user",iUserClienServiceImp.selectId(contract.getConUcid()));
         QueryWrapper queryWrapper2=new QueryWrapper();
         queryWrapper2.eq("uid",contract.getConUid());
         User user=iUserServiceImp.getOne(queryWrapper2);
@@ -109,4 +95,40 @@ public class ContractController {
         model.addAttribute("d",iUserDepartmentServiceImp.getOne(queryWrapper3));
         return "/contract/update.html";
     }
+
+    @RequestMapping("/update1.do")
+    public String update1(@RequestParam("file") MultipartFile docfile,Contract contract,HttpServletRequest request) {
+        try {
+            String oriName = docfile.getOriginalFilename();
+            if (oriName.length()!=0) {
+                String path = request.getServletContext().getRealPath("/upload");
+                File file = new File(path);
+                if (!file.exists()) {
+                    file.mkdirs();
+                }
+                docfile.transferTo(new File(path, oriName));
+                contract.setConFile(oriName);
+            } else {
+                contract.setConFile("无附件");
+            }
+            iContractServiceImp.updateone(contract);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/contract/contract.html";
+    }
+
+    @RequestMapping("/queryBya.do")
+    @ResponseBody
+    public Stulayui queryBya(Integer page,Integer limit,Contract contract) {
+        return iContractServiceImp.queryBya(page,limit,contract);
+    }
+
+    @RequestMapping("/queryCount.do")
+    @ResponseBody
+    public List<Integer> queryCount(){
+        return iContractServiceImp.queryCount();
+    }
+
+
 }
