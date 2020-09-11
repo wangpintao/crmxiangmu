@@ -7,18 +7,20 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.util.StringUtil;
 import com.huayu.layuiUtils.Stulayui;
-import com.huayu.mapper.ContractMapper;
-import com.huayu.mapper.DocClassifyMapper;
-import com.huayu.pojo.Contract;
-import com.huayu.pojo.DocClassify;
-import com.huayu.pojo.Forum;
+import com.huayu.mapper.*;
+import com.huayu.pojo.*;
 import com.huayu.service.imp.IContractServiceImp;
 import com.huayu.service.imp.IDocClassifyServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -26,6 +28,16 @@ import java.util.List;
 public class ContractService extends ServiceImpl<ContractMapper, Contract> implements IContractServiceImp {
     @Autowired
     private ContractMapper contractMapper;
+    @Autowired
+    private RegisterMapper registerMapper;
+    @Autowired
+    private MinvoiceMapper minvoiceMapper;
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private UserDepartmentMapper userDepartmentMapper;
+    @Autowired
+    private UserClienMapper userClienMapper;
 
     //根据合同编号来查询合同信息。
     @Override
@@ -164,5 +176,105 @@ public class ContractService extends ServiceImpl<ContractMapper, Contract> imple
         count.add(contractMapper.newSeason().size());
         count.add(contractMapper.beforeSeason().size());
         return count;
+    }
+
+    @Override
+    public Integer add(MultipartFile docfile, Contract contract, HttpServletRequest request) {
+        int flag=0;
+        try {
+            String oriName = docfile.getOriginalFilename();
+            if (oriName.length()!=0) {
+                String path = request.getServletContext().getRealPath("/upload");
+                File file = new File(path);
+                if (!file.exists()) {
+                    file.mkdirs();
+                }
+                docfile.transferTo(new File(path, oriName));
+                contract.setConFile(oriName);
+            } else {
+                contract.setConFile("无附件");
+            }
+            contract.setConState(1);
+            if(contractMapper.insert(contract)>0){
+                flag=1;
+                Contract contract1=queryone();
+                Long l=Long.valueOf("0");
+                QueryWrapper queryWrapper=new QueryWrapper();
+                queryWrapper.eq("uid",contract1.getConUid());
+                User user=userMapper.selectOne(queryWrapper);
+
+                Register register=new Register();
+                //合同id
+                register.setrConid(contract1.getConid());
+                //客户id
+                register.setrUcid(contract1.getConUcid());
+                //用户id
+                register.setrUid(contract1.getConUid());
+                //收入日期
+                register.setrDate(new Date());
+                //收入金额
+                register.setrMoney(l);
+                //关联人员
+                register.setrName(contract1.getConUname());
+
+                Minvoice minvoice=new Minvoice();
+                //步骤
+                minvoice.setmStep("填单");
+                //用户id
+                minvoice.setmUid(contract1.getConUid());
+                //用户名
+                minvoice.setmName(contract1.getConname());
+                //申请金额
+                minvoice.setmMoney(l);
+                //申请时间
+                minvoice.setmApplydate(new Date());
+                //客户id
+                minvoice.setmUcid(contract1.getConUcid());
+                QueryWrapper queryWrapper2=new QueryWrapper();
+                queryWrapper2.eq("",contract1.getConUcid());
+                UserClien userClien=userClienMapper.selectOne(queryWrapper2);
+                //客户名称
+                minvoice.setmUcname(userClien.getCliName());
+
+                if(user!=null){
+                    if (user.getDepid()>0) {
+                        //关联部门
+                        register.setrDeptid(user.getDepid());
+                        QueryWrapper queryWrapper1=new QueryWrapper();
+                        queryWrapper1.eq("udid",user.getDepid());
+                        UserDepartment userDepartment=userDepartmentMapper.selectOne(queryWrapper1);
+                        //部门名称
+                        minvoice.setmDname(userDepartment.getUdname());
+                    }
+                }
+                if(registerMapper.insert(register)>0 && minvoiceMapper.insert(minvoice)>0){
+                    Register register1=rone();
+                    Minvoice minvoice1=mone();
+                    contract1.setConRid(register1.getRid());
+                    contract1.setConMid(minvoice1.getMid());
+                    contract1.setConRmoney(l);
+                    contract1.setConMmoney(l);
+                }
+                contractMapper.updateone(contract1);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    @Override
+    public Contract queryone() {
+        return contractMapper.queryone();
+    }
+
+    @Override
+    public Register rone() {
+        return contractMapper.rone();
+    }
+
+    @Override
+    public Minvoice mone() {
+        return contractMapper.mone();
     }
 }

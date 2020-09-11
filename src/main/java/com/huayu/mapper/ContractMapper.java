@@ -2,6 +2,8 @@ package com.huayu.mapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.huayu.comment.ContractSelectProvider;
 import com.huayu.pojo.AfterSale;
+import com.huayu.pojo.Minvoice;
+import com.huayu.pojo.Register;
 import org.apache.ibatis.annotations.*;
 import com.huayu.pojo.Contract;
 import org.apache.ibatis.annotations.SelectProvider;
@@ -57,7 +59,7 @@ public interface ContractMapper extends BaseMapper<Contract> {
     @Select("SELECT COUNT(*) AS conCount FROM contract")
     Integer ConSum();
 
-    @Update("update contract set conname=#{conname},serial=#{serial},con_sum=#{conSum},con_startdate=#{conStartdate},con_predate=#{conPredate},con_enddate=#{conEnddate},con_contacts=#{conContacts},con_offphone=#{conOffphone},con_phone=#{conPhone},con_mail=#{conMail},technical=#{technical},clause=#{clause},con_file=#{conFile},con_uid=#{conUid},con_ucid=#{conUcid},con_uname=#{conUname},con_state=#{conState} where conid=#{conid}")
+    @Update("update contract set conname=#{conname},serial=#{serial},con_sum=#{conSum},con_startdate=#{conStartdate},con_predate=#{conPredate},con_enddate=#{conEnddate},con_contacts=#{conContacts},con_offphone=#{conOffphone},con_phone=#{conPhone},con_mail=#{conMail},technical=#{technical},clause=#{clause},con_file=#{conFile},con_uid=#{conUid},con_ucid=#{conUcid},con_uname=#{conUname},con_rid=#{conRid},con_rmoney=#{conRmoney},con_mid=#{conMid},con_mmoney=#{conMmoney},con_state=#{conState} where conid=#{conid}")
     public Integer updateone(Contract contract);
 
     //每周
@@ -83,5 +85,17 @@ public interface ContractMapper extends BaseMapper<Contract> {
     //上季
     @Select("SELECT * FROM contract WHERE QUARTER(con_startdate)=QUARTER(DATE_SUB(NOW(),INTERVAL 1 QUARTER))")
     List<Contract> beforeSeason();
+
+    //查询最后一条合同
+    @Select("SELECT * FROM contract order by conid desc limit 0,1")
+    Contract queryone();
+
+    //查询最后一条合同
+    @Select("SELECT * FROM register order by conid desc limit 0,1")
+    Register rone();
+
+    //查询最后一条合同
+    @Select("SELECT * FROM minvoice order by conid desc limit 0,1")
+    Minvoice mone();
 
 }

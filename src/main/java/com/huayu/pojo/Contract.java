@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.extension.api.R;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -130,6 +131,30 @@ public class Contract extends Model<Contract> {
      */
     @TableField("con_uname")
     private String conUname;
+
+    /**
+     * 收入登记id
+     */
+    @TableField("con_rid")
+    private Integer conRid;
+
+    /**
+     * 收入登记金额
+     */
+    @TableField("con_rmoney")
+    private Long conRmoney;
+
+    /**
+     * 开票申请id
+     */
+    @TableField("con_mid")
+    private Integer conMid;
+
+    /**
+     * 开票申请金额
+     */
+    @TableField("con_mmoney")
+    private Long conMmoney;
 
     /**
      * 合同状态
@@ -298,6 +323,38 @@ public class Contract extends Model<Contract> {
         this.conState = conState;
     }
 
+    public Integer getConRid() {
+        return conRid;
+    }
+
+    public void setConRid(Integer conRid) {
+        this.conRid = conRid;
+    }
+
+    public Integer getConMid() {
+        return conMid;
+    }
+
+    public void setConMid(Integer conMid) {
+        this.conMid = conMid;
+    }
+
+    public Long getConRmoney() {
+        return conRmoney;
+    }
+
+    public void setConRmoney(Long conRmoney) {
+        this.conRmoney = conRmoney;
+    }
+
+    public Long getConMmoney() {
+        return conMmoney;
+    }
+
+    public void setConMmoney(Long conMmoney) {
+        this.conMmoney = conMmoney;
+    }
+
     @Override
     public String toString() {
         return "Contract{" +
@@ -319,6 +376,10 @@ public class Contract extends Model<Contract> {
                 ", conUcid=" + conUcid +
                 ", conDocid=" + conDocid +
                 ", conUname='" + conUname + '\'' +
+                ", conRid=" + conRid +
+                ", conRmoney='" + conRmoney + '\'' +
+                ", conMid=" + conMid +
+                ", conMmoney='" + conMmoney + '\'' +
                 ", conState=" + conState +
                 '}';
     }

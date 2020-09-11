@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>收入登记</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+</head>
+<script src="/static/layui/layui.js"></script>
+<body>
+<br>
+<div style="margin:0 auto; width:80%;height:auto;">
+    <form class="layui-form"  action="">
+        <div class="layui-inline" style="float: left">
+                <input align="left" type="text" value="收入登记" readonly style="border:0px;font-size:20px"/>
+        </div>
+        <div class="layui-inline" style="float: right">
+            <a href="javascript:window.opener=null;window.open('','_self');window.close()"
+               class="layui-btn layui-ireg layui-ireg-return">返回</a>
+            <a href="javascript:;" id="flush" class="layui-btn layui-ireg layui-ireg-refresh">刷新</a>
+        </div>
+
+        <br><br><hr class="layui-bg-black"><br>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label"><span style="color:#FF0000;">*</span>收入日期</label>
+                <div class="layui-input-block" style="width: 400px;height: 40px">
+                    <input type="hidden" name="rid" th:value="${reg.rid}">
+                    <input type="text" id="rDate" lay-verify="rDate" th:value="${#dates.format(reg.rDate,'yyyy-MM-dd')}" name="rDate"
+                           placeholder="yyyy-MM-dd" class="layui-input"
+                           style="width: 400px;height: 40px">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label"><span style="color:#FF0000;">*</span>收入分类</label>
+                <div class="layui-input-block">
+                    <select name="rClassify" lay-verify="rClassify">
+                        <option value="0">请选择</option>
+                        <span th:if="${reg.rClassify==null}">
+                            <option value="1">利息收入</option>
+                            <option value="2">投资收益</option>
+                            <option value="3">主营业务收入</option>
+                            <option value="4">其他业务收入</option>
+                        </span>
+                        <span th:if="${reg.rClassify!=null}">
+                            <option th:if="${reg.rClassify==1}" selected value="1">利息收入</option>
+                            <option th:if="${reg.rClassify!=1}" value="1">利息收入</option>
+                            <option th:if="${reg.rClassify==2}" selected value="2">投资收益</option>
+                            <option th:if="${reg.rClassify!=2}" value="2">投资收益</option>
+                            <option th:if="${reg.rClassify==3}" selected value="3">主营业务收入</option>
+                            <option th:if="${reg.rClassify!=3}" value="3">主营业务收入</option>
+                            <option th:if="${reg.rClassify==4}" selected value="4">其他业务收入</option>
+                            <option th:if="${reg.rClassify!=4}" value="4">其他业务收入</option>
+                        </span>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label"><span style="color:#FF0000;">*</span>收入金额</label>
+                <div class="layui-input-block">
+                    <input type="text" th:value="${reg.rMoney}" lay-verify="rMoney" name="rMoney" autocomplete="off" class="layui-input"
+                           style="width: 400px;height: 40px">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label"><span style="color:#FF0000;">*</span>收款方式</label>
+                <div class="layui-input-block">
+                    <select name="rWay" lay-verify="rWay">
+                        <option value="0">请选择</option>
+                        <span th:if="${reg.rWay==null}">
+                            <option th:value="1">现金</option>
+                            <option th:value="2">银行转账</option>
+                        </span>
+                        <span th:if="${reg.rWay!=null}">
+                            <option th:if="${reg.rWay==1}" selected value="1">现金</option>
+                            <option th:if="${reg.rWay!=1}" value="1">现金</option>
+                            <option th:if="${reg.rWay==2}" selected value="2">银行转账</option>
+                            <option th:if="${reg.rWay!=2}" value="2">银行转账</option>
+                        </span>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">登记人</label>
+                <div class="layui-input-block">
+                    <input type="hidden" name="rUid" th:value="${reg.rUid}">
+                    <input type="text" readonly th:value="${user.uname}" autocomplete="off" class="layui-input"
+                           style="width: 400px;height: 40px">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">关联人员</label>
+                <div class="layui-input-block">
+                    <input type="text" name="rName" th:value="${reg.rName}" lay-verify="rName" autocomplete="off" class="layui-input"
+                           style="width: 400px;height: 40px">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">关联部门</label>
+                <div class="layui-input-block">
+                    <input type="hidden" name="rDeptid" th:value="${reg.rDeptid}">
+                    <input type="text" th:value="${dept.udname}" readonly autocomplete="off" class="layui-input"
+                           style="width: 400px;height: 40px">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">对方单位</label>
+                <div class="layui-input-block">
+                    <input type="hidden" name="rUcid" th:value="${reg.rUcid}">
+                    <input type="text" readonly th:value="${uc.cliName}" class="layui-input"
+                           style="width: 400px;height: 40px">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">关联合同</label>
+                <div class="layui-input-block">
+                    <input type="hidden" name="rConid" th:value="${reg.rConid}">
+                    <input type="text" th:value="${con.serial}" readonly class="layui-input" style="width: 400px;height: 40px">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <div class="layui-inline">
+                <label class="layui-form-label">收入说明</label>
+                <div class="layui-input-block">
+                    <textarea name="rExplain" th:value="${reg.rExplain}" placeholder="请输入收入说明"
+                              class="layui-textarea" style="width: 925px;height: 40px"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <div style="text-align: center;">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button lay-submit="" lay-filter="formDemo" class="layui-btn layui-btn-radius layui-btn-normal">确定</button>
+                    <a href="javascript:window.opener=null;window.open('','_self');window.close()"
+                       class="layui-btn layui-btn-radius layui-btn-normal">取消</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    layui.use(['form', 'upload', 'jquery', 'laydate'], function () {
+        var form = layui.form;
+        var $ = layui.jquery;//异步
+        var upload = layui.upload;
+        var laydate = layui.laydate;
+        form.render();
+
+        laydate.render({
+            elem: '#rDate'
+        });
+
+        form.on('submit(formDemo)', function(data){
+            $.ajax({
+                url: '/contract/rupdate1.do',
+                data: data.field,
+                success: function (data) {
+                    layer.msg("提交成功")
+                }
+            });
+        });
+
+
+        form.verify({
+            rDate: function (value, item) {
+                if (value.length == 0 || value.trim().length == 0) {
+                    return '请选择收入日期';
+                }
+            },
+            rClassify: function (value, item) {
+                if (value== 0) {
+                    return '请选择收入分类';
+                }
+            },
+            rMoney: function (value, item) {
+                if (value.length == 0 || value.trim().length == 0) {
+                    return '请输入收入金额';
+                }
+            },
+            rWay: function (value, item) {
+                if (value== 0) {
+                    return '请选择收款方式';
+                }
+            }
+        });
+
+    });
+</script>
+</body>
+</html>

@@ -1,14 +1,12 @@
 package com.huayu.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.huayu.JsonUtils.StulayuiJson;
 import com.huayu.layuiUtils.Stulayui;
-import com.huayu.pojo.Contract;
-import com.huayu.pojo.Forum;
-import com.huayu.pojo.User;
-import com.huayu.pojo.UserClien;
+import com.huayu.pojo.*;
 import com.huayu.service.imp.*;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +34,10 @@ public class ContractController {
     private IUserServiceImp iUserServiceImp;
     @Autowired
     private IUserDepartmentServiceImp iUserDepartmentServiceImp;
+    @Autowired
+    private IRegisterServiceImp iRegisterServiceImp;
+    @Autowired
+    private IMinvoiceServiceImp iMinvoiceServiceImp;
 
     @RequestMapping("/queryall.do")
     @ResponseBody
@@ -43,10 +45,22 @@ public class ContractController {
         return iContractServiceImp.queryall(page,limit,contract);
     }
 
+    @RequestMapping("/queryalls.do")
+    @ResponseBody
+    public Stulayui queryalls(Integer page, Integer limit, Contract contract) {
+        return iContractServiceImp.queryalls(page,limit,contract);
+    }
+
     @RequestMapping("/add.do")
     public String add(Model model) {
         model.addAttribute("list", iUserClienServiceImp.list());
         return "/contract/add.html";
+    }
+
+    @RequestMapping("/adds.do")
+    public String adds(Model model) {
+        model.addAttribute("list", iUserClienServiceImp.list());
+        return "/contract/add1.html";
     }
 
     @PostMapping("/user.do")
@@ -59,25 +73,14 @@ public class ContractController {
 
     @RequestMapping("/add1.do")
     public String add1(@RequestParam("file") MultipartFile docfile, Contract contract, HttpServletRequest request) {
-        try {
-            String oriName = docfile.getOriginalFilename();
-            if (oriName.length()!=0) {
-                String path = request.getServletContext().getRealPath("/upload");
-                File file = new File(path);
-                if (!file.exists()) {
-                    file.mkdirs();
-                }
-                docfile.transferTo(new File(path, oriName));
-                contract.setConFile(oriName);
-            } else {
-                contract.setConFile("无附件");
-            }
-            contract.setConState(1);
-            iContractServiceImp.save(contract);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        iContractServiceImp.add(docfile,contract,request);
         return "redirect:/contract/contract.html";
+    }
+
+    @RequestMapping("/add1s.do")
+    public String add1s(@RequestParam("file") MultipartFile docfile, Contract contract, HttpServletRequest request) {
+        iContractServiceImp.add(docfile,contract,request);
+        return "redirect:/contract/contracts.html";
     }
 
     @RequestMapping("/update.do")
@@ -94,6 +97,22 @@ public class ContractController {
         queryWrapper3.eq("udid",user.getDepid());
         model.addAttribute("d",iUserDepartmentServiceImp.getOne(queryWrapper3));
         return "/contract/update.html";
+    }
+
+    @RequestMapping("/updates.do")
+    public String updates(Contract contract,Model model) {
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.eq("conid",contract.getConid());
+        model.addAttribute("con",iContractServiceImp.getOne(queryWrapper));
+        model.addAttribute("user",iUserClienServiceImp.selectId(contract.getConUcid()));
+        QueryWrapper queryWrapper2=new QueryWrapper();
+        queryWrapper2.eq("uid",contract.getConUid());
+        User user=iUserServiceImp.getOne(queryWrapper2);
+        model.addAttribute("u",user);
+        QueryWrapper queryWrapper3=new QueryWrapper();
+        queryWrapper3.eq("udid",user.getDepid());
+        model.addAttribute("d",iUserDepartmentServiceImp.getOne(queryWrapper3));
+        return "/contract/update1.html";
     }
 
     @RequestMapping("/update1.do")
@@ -118,6 +137,28 @@ public class ContractController {
         return "redirect:/contract/contract.html";
     }
 
+    @RequestMapping("/update1s.do")
+    public String update1s(@RequestParam("file") MultipartFile docfile,Contract contract,HttpServletRequest request) {
+        try {
+            String oriName = docfile.getOriginalFilename();
+            if (oriName.length()!=0) {
+                String path = request.getServletContext().getRealPath("/upload");
+                File file = new File(path);
+                if (!file.exists()) {
+                    file.mkdirs();
+                }
+                docfile.transferTo(new File(path, oriName));
+                contract.setConFile(oriName);
+            } else {
+                contract.setConFile("无附件");
+            }
+            iContractServiceImp.updateone(contract);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/contract/contracts.html";
+    }
+
     @RequestMapping("/queryBya.do")
     @ResponseBody
     public Stulayui queryBya(Integer page,Integer limit,Contract contract) {
@@ -128,6 +169,43 @@ public class ContractController {
     @ResponseBody
     public List<Integer> queryCount(){
         return iContractServiceImp.queryCount();
+    }
+
+    @RequestMapping("/rupdate.do")
+    public String rupdate(Contract contract,Model model) {
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.eq("rid",contract.getConRid());
+        Register register=iRegisterServiceImp.getOne(queryWrapper);
+        model.addAttribute("reg",register);
+        System.out.println(register);
+        QueryWrapper queryWrapper2=new QueryWrapper();
+        queryWrapper2.eq("uid",register.getrUid());
+        model.addAttribute("user",iUserServiceImp.getOne(queryWrapper2));
+        QueryWrapper queryWrapper3=new QueryWrapper();
+        queryWrapper3.eq("udid",register.getrDeptid());
+        model.addAttribute("dept",iUserDepartmentServiceImp.getOne(queryWrapper3));
+        QueryWrapper queryWrapper4=new QueryWrapper();
+        queryWrapper4.eq("ucid",register.getrUcid());
+        model.addAttribute("uc",iUserClienServiceImp.getOne(queryWrapper4));
+        QueryWrapper queryWrapper5=new QueryWrapper();
+        queryWrapper5.eq("conid",register.getrConid());
+        model.addAttribute("con",iContractServiceImp.getOne(queryWrapper5));
+        return "/contract/register.html";
+    }
+
+    @RequestMapping("/rupdate1.do")
+    @ResponseBody
+    public String rupdate1(Register register) {
+        System.out.println(register);
+        return "redirect:/contract/contract.html";
+    }
+
+    @RequestMapping("/mupdate.do")
+    public String add1s(Contract contract,Model model) {
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.eq("mid",contract.getConMid());
+        model.addAttribute("min",iMinvoiceServiceImp.getOne(queryWrapper));
+        return "/contract/minvoice.html";
     }
 
 
