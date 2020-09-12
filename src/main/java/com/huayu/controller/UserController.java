@@ -107,6 +107,19 @@ public class UserController {
         return stulayuiJson;
     }
 
+    /**
+     * 登出
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/logout.do")
+    public String logout() throws Exception{
+        Subject subject = SecurityUtils.getSubject();
+        if(subject.isAuthenticated()){
+            subject.logout();
+        }
+        return "redirect:/login.html";
+    }
 
     @GetMapping("/querytext.do")
     @ResponseBody
