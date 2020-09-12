@@ -44,27 +44,29 @@
 
 <body>
 <!-- 左侧菜单 - 开始 -->
-<div class="frameMenu">
+<div class="frameMenu" >
     <div class="logo">
         <div class="logoText">
             <h1>CRM客户关系管理系统</h1>
             <div class="logo1">
-                <!--<img style="width: 50px;height: 30px;" src="/image/favicon.png"/>-->
+               <!-- <img style="width: 50px;height: 30px;" src="/image/favicon.png"/>-->
                 <div class="logoText1">
-                    <h1><span th:text="${session.user.getUsername()}"></span></h1>
-                    <p>探索管理之道</p>
+                    <h1 > 欢迎<span  style="color: #00FFFF"  th:text="${session.user.getUsername()}"></span> 登录</h1>
+                    <br>
                 </div>
             </div>
         </div>
+
     </div>
+
     <div class="menu">
-        <ul>
+        <ul >
             <li>
                 <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('/html/mydesktop.html',this)"><i
                         class="iconfont icon-zhishi left"></i>我的桌面</a>
             </li>
             <li>
-                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('/layulview/eee.html',this)"><i
+                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('/client/clientselect.html',this)"><i
                         class="iconfont icon-huojian left"></i>客户管理</a>
             </li>
             <li>
@@ -72,27 +74,27 @@
                         class="iconfont icon-zhishi left"></i>我的商机</a>
             </li>
             <li>
-                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('/layulview/eee.html',this)"><i
+                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('/market/selectmarket.html',this)"><i
                         class="iconfont icon-huojian left"></i>全部商机</a>
             </li>
             <li>
-                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('/layulview/ttt.html',this)"><i
+                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('/documentary/documentary.html',this)"><i
                         class="iconfont icon-zhishi left"></i>我的跟单</a>
             </li>
             <li>
-                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('/layulview/ttt.html',this)"><i
+                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('/documentary/documentarys.html',this)"><i
                         class="iconfont icon-huojian left"></i>全部跟单</a>
             </li>
             <li>
-                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('/layulview/post.html',this)"><i
+                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('/forum/forum.html',this)"><i
                         class="iconfont icon-zhishi left"></i>全部讨论帖子</a>
             </li>
             <li>
-                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('/layulview/post.html',this)"><i
+                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('/contract/contract.html',this)"><i
                         class="iconfont icon-huojian left"></i>我的合同</a>
             </li>
             <li>
-                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('/layulview/post.html',this)"><i
+                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('/contract/contracts.html',this)"><i
                         class="iconfont icon-zhishi left"></i>全部合同</a>
             </li>
             <li>

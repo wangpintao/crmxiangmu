@@ -15,7 +15,7 @@
     <div class="loginForm">
         <form>
             <div class="logoHead">
-                <!--<h2 style="margin-top: 15px">房产销售平台管理系统</h2>-->
+                <h2 style="margin-top: 15px">CRM客户关系管理系统</h2>
             </div>
             <div class="usernameWrapDiv">
                 <div class="usernameLabel">
@@ -50,7 +50,7 @@
             </div>
             <div class="usernameWrapDiv">
                 <div class="submitLabel">
-                    <label>没有账号？<a href="#" id="loginRegister">点击注册</a></label>
+                    <label>没有账号？<a href="#" id="loginRegister" style="color: aqua">点击注册</a></label>
                 </div>
                 <div class="submitDiv">
                     <input id="loginBtn" type="button" class="submit layui-btn layui-btn-primary" value="登录"></input>
@@ -63,7 +63,7 @@
 
 <div class="registerPage">
     <div class="registerDiv">
-        <form>
+        <form >
             <div class="usernameWrapDiv">
                 <div class="usernameLabel">
                     <label>用户名:</label>
@@ -210,13 +210,13 @@
                     if (data){
                         layer.msg("登陆成功")
                         window.location.href="/html/admin.html";
+                    }else {
+                        layer.msg("登录失败", {icon: 5});
+                        $('#loginBtn').val("登录");
                     }
                     if ( data === '1' || data===1) {
                         window.location.href='crm/user/saveName.do?name='+loginUsername;
                         //window.location.href = '1.html?usern='+loginUsername;
-                    } else {
-                        layer.msg("登录失败", {icon: 5});
-                        $('#loginBtn').val("登录");
                     }
                 },
                 error: function () {
