@@ -12,8 +12,8 @@
                 <div class="layui-inline" align="left">
                     <i class="layui-icon layui-icon-layer" style="font-size:30px;color: #1E9FFF;">全部跟单</i>
                 </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <div class="layui-inline">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="layui-inline" style="width:150px;">
                     <select name="docid">
                         <option value="0">请选择</option>
                         <option value="1">按跟单时间</option>
@@ -22,16 +22,17 @@
                     </select>
                 </div>
                 <div class="layui-inline">
-                    <input type="text" name="docDetails" style="width:350px;" placeholder="请输入关键字" autocomplete="off"
+                    <input type="text" name="docDetails" style="width:240px;" placeholder="请输入关键字" autocomplete="off"
                            class="layui-input">
                 </div>
+                &nbsp;
                 <div class="layui-inline">
                     <button class="layui-btn" lay-submit lay-filter="formDemo"><i class="layui-icon layui-icon-search"
                                                                                   style="color: #1E9FFF;">查找</i>
                     </button>
                     <button type="reset" class="layui-btn"><i class="layui-icon">重置</i></button>
                 </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <div class="layui-inline" align="right">
                     <button type="button" onclick="add()" class="layui-btn"><i class="layui-icon layui-icon-add-1">新增跟单</i></button>
                     <button type="button" onclick="flush()" class="layui-btn"><i class="layui-icon layui-icon-refresh-3">刷新</i></button>
@@ -51,11 +52,12 @@
     var flush=function(){
         window.location.href="/documentary/documentarys.html";
     }
-    layui.use(['table', 'layer', 'form', 'tree'], function () {
+    layui.use(['table', 'layer', 'util','form', 'tree'], function () {
         var table = layui.table;
         var form = layui.form;
         var layer = layui.layer;
         var $ = layui.jquery;
+        var util = layui.util;
         var tree = layui.tree;
 
         //第一个实例
@@ -67,12 +69,11 @@
             , limit: 10
             , limits: [5, 10, 15, 20]
             , cols: [[ //表头
-                {type: 'numbers', title: '序列', width:100, sort: true, align: 'center'}
-                , {field: 'docDate', title: '跟单时间', width:200, align: 'center'/*,templet:function(d){return util.toDateString(d.docDate,"yyyy-MM-dd");}*/}
-                , {field: 'theme', title: '跟单主题', width:356, align: 'center',toolbar:'#theme'}
+                {field: 'docDate', title: '跟单时间', width:110, align: 'center',templet:function(d){return util.toDateString(d.docDate,"yyyy-MM-dd");}}
+                , {field: 'theme', title: '跟单主题', width:300, align: 'center',toolbar:'#theme'}
                 , {field: 'user', title: '跟单人', width:100, align: 'center', templet: '<div>{{d.user.uname}}<div>'}
                 , {field: 'docDetails', title: '详细内容', width:400, align: 'center'}
-                , {field: 'docFile', title: '附件', width:200, align: 'center'}
+                , {field: 'docFile', title: '附件', width:195, align: 'center'}
             ]]
         });
 
