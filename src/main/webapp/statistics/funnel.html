@@ -91,7 +91,7 @@
             <!--<div class="layui-card-header">所有商机</div>-->
             <div class="layui-card-body" id="tab2">
                 <table id="funnelTable2" border="1"  class="layui-table">
-                    <tr><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>
+                    <tr><td>状态</td><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>
                 </table>
             </div>
         </div>
@@ -111,7 +111,7 @@
             <!--<div class="layui-card-header">所有商机</div>-->
             <div class="layui-card-body" id="tab3">
                 <table id="funnelTable3" border="1"  class="layui-table">
-                    <tr><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>
+                    <tr><td>状态</td><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>
                 </table>
             </div>
         </div>
@@ -131,7 +131,7 @@
             <!--<div class="layui-card-header">所有商机</div>-->
             <div class="layui-card-body" id="tab4">
                 <table id="funnelTable4" border="1"  class="layui-table">
-                    <tr><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>
+                    <tr><td>状态</td><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>
                 </table>
             </div>
         </div>
@@ -151,7 +151,7 @@
             <!--<div class="layui-card-header">所有商机</div>-->
             <div class="layui-card-body" id="tab5">
                 <table id="funnelTable5" border="1"  class="layui-table">
-                    <tr><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>
+                    <tr><td>状态</td><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>
                 </table>
             </div>
         </div>
@@ -160,24 +160,29 @@
 
 </div>
 <script>
-    layui.use(['element', 'layer','table','util'], function() {
-        var element = layui.element;
-        var layer = layui.layer;
-        var table = layui.table;
-        var util = layui.util;
-
+        var names=[];    //类别数组（实际用来盛放X轴坐标值）
+        var pie=[];
+        var pie2=[];
         option = {
             title: {
-                text: '所有商机漏斗图',
+                text: '漏斗图',
+                subtext: '纯属虚构'
             },
             tooltip: {
                 trigger: 'item',
                 formatter: "{a} <br/>{b} : {c}%"
             },
-            legend: {
-                data: []
+            toolbox: {
+                feature: {
+                    dataView: {readOnly: false},
+                    restore: {},
+                    saveAsImage: {}
+                }
             },
-            calculable: true,
+            legend: {
+                data: ['展现','点击','访问','咨询','订单']
+            },
+
             series: [
                 {
                     name:'漏斗图',
@@ -215,11 +220,11 @@
                         }
                     },
                     data: [
-                        {value: 60, name: '竞标投标'},
-                        {value: 40, name: '商务谈判'},
-                        {value: 20, name: '成交'},
-                        {value: 80, name: '方案报价'},
-                        {value: 100, name: '初次访问'}
+                        {value: 60, name: '访问'},
+                        {value: 40, name: '咨询'},
+                        {value: 20, name: '订单'},
+                        {value: 80, name: '点击'},
+                        {value: 100, name: '展现'}
                     ]
                 }
             ]
@@ -233,23 +238,35 @@
             success : function(result) {
                 //请求成功时执行该函数内容，result即为服务器返回的json对象
                 var fun=window.document.getElementById("funnel");
-                var content="<tr><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>";
+                var content="<tr><td>状态</td><td>商机数</td><td>百分比</td><td>金额</td><td>百分比</td></tr>";
                 if (result) {
                     var counthe =0;
                     var sumhe =0;
                     for (var i=result.length-1;i>=0;i--){
+                        names.push(result[i].typeName);
+                        //给百分比
+                        var obj =new Object();
+                        obj.name = result[i].typeName;
+                        obj.value = result[i].count;
+                        pie[i] = obj;
+                        //给文本框
+                        var obj2 = new Object();
+                        obj2.name = result[i].typeName;
+                        pie2[i] = obj;
+                        //总条数和总金额
                         counthe += result[i].count;
                         sumhe += result[i].sum;
                     }
+                        //设置第一行的值
                     var str=Number((counthe / counthe)*100).toFixed(2)+"%";
                     var str2=Number((sumhe / sumhe)*100).toFixed(2)+"%";
-                    content+="<tr><td>"+counthe+"</td><td>"+str+"</td><td>"+sumhe+"</td><td>"+str2+"</td></tr>";
-                    var con=result[result.length-1].count;
-                    var su=result[result.length-1].sum;
+                    content+="<tr><td>所有</td><td>"+counthe+"</td><td>"+str+"</td><td>"+sumhe+"</td><td>"+str2+"</td></tr>";
+                    //
                     for(var i=result.length-1;i>=0;i--){
                         var str=Number((result[i].count / counthe)*100).toFixed(2)+"%";
                         var str2=Number((result[i].sum / sumhe)*100).toFixed(2)+"%";
-                        content+="<tr><td>"+result[i].count+"</td><td>"+str+"</td><td>"+result[i].sum+"</td><td>"+str2+"</td></tr>";
+                        var str3 = result[i].typeName;
+                        content+="<tr><td>"+str3+"</td><td>"+result[i].count+"</td><td>"+str+"</td><td>"+result[i].sum+"</td><td>"+str2+"</td></tr>";
                     }
                 }
                 window.document.getElementById("funnelTable").innerHTML=content;
@@ -305,7 +322,7 @@
                 console.log("请求数据失败!")
                 //请求失败时执行该函数
                 //alert("请求数据失败!");
-                //myChart.hideLoading();s
+                //myChart.hideLoading();
             }
         });
 
@@ -479,8 +496,6 @@
                 //myChart.hideLoading();s
             }
         });
-    });
-
 
 </script>
 </body>

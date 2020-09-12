@@ -119,7 +119,6 @@
             if (result) {
                 for(var i=0;i<result.length;i++){
                     names.push(result[i].typeName);    //挨个取出类别并填入类别数组
-
                 }
                 for(var i=0;i<result.length;i++){
                     //百分比
@@ -159,7 +158,6 @@
         },
         error : function(errorMsg) {
             //请求失败时执行该函数
-            alert("图表请求数据失败!");
             myChart.hideLoading();
         }
     });

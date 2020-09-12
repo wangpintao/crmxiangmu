@@ -54,7 +54,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">合同主要信息</label>
                 <div class="layui-input-block">
-                    <textarea id="contract_context" th:value="${aftlist.aftDetails}" placeholder="请输入内容" style="width: 925px;height: 40px" class="layui-textarea"></textarea>
+                    <textarea id="contract_context"  placeholder="请输入内容" style="width: 925px;height: 40px" class="layui-textarea"></textarea>
                 </div>
             </div>
         </div>
@@ -164,7 +164,7 @@
         <br>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" style="width: 400px;height: 40px">立即提交</button>
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" style="width: 400px;height: 40px">返回</button>
             </div>
         </div>
     </form>
@@ -179,6 +179,8 @@
         var $ = layui.jquery;
         var laydate = layui.laydate;
 
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
         //日期
         laydate.render({
             elem: '#date'
@@ -197,6 +199,27 @@
             }
 
         });
+        var contract = window.document.getElementById("contract").value;
+        //监听下拉框contract改变事件
+            $.ajax({
+                type:"get",
+                url:"/after/queryByid.do",
+                data:{
+                    'clause':contract
+                },
+                success: function (data) {
+                    console.log(data);
+                    console.log(data.contract_name);
+                    var contract_context="";
+                    contract_context+="【合同全称】 "+data.conname+"  ";
+                    contract_context+="【关联人员】 "+data.conUname+"  ";
+                    contract_context+="【签约日期】 "+data.conStartdate+"  ";
+                    contract_context+="【生效日期】 "+data.conPredate+"  ";
+                    contract_context+="【服务期至】 "+data.conEnddate+"  ";
+                    window.document.getElementById("contract_context").innerText =contract_context;
+                }
+            });
+
     });
 </script>
 </body>

@@ -233,7 +233,6 @@
                     'clause':contract.value
                 },
                 success: function (data) {
-                    $("#contract_context").html("");
                     console.log(data);
                     console.log(data.contract_name);
                     var contract_context="";
@@ -243,9 +242,21 @@
                     contract_context+="【生效日期】 "+data.conPredate+"  ";
                     contract_context+="【服务期至】 "+data.conEnddate+"  ";
                     window.document.getElementById("contract_context").innerText=contract_context;
-                    window.document.getElementById("contact").value=data.conContacts;
-                    window.document.getElementById("phone").value=data.conPhone;
-                    window.document.getElementById("email").value=data.conMail;
+                    if (window.document.getElementById("contact").value=data.conContacts == null){
+                        window.document.getElementById("contact").value="这个合同联系人未填"
+                    }else {
+                        window.document.getElementById("contact").value=data.conContacts;
+                    }
+                    if (window.document.getElementById("phone").value=data.conPhone == null){
+                        window.document.getElementById("phone").value=1008611
+                    } else {
+                        window.document.getElementById("phone").value=data.conPhone;
+                    }
+                    if (window.document.getElementById("email").value=data.conMail == null){
+                        window.document.getElementById("email").value="这个合同邮箱未填"
+                    }  else {
+                        window.document.getElementById("email").value=data.conMail;
+                    }
                 }
             });
         });
