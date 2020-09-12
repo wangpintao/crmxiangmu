@@ -192,6 +192,27 @@ public class ContractController {
         return "/contract/register.html";
     }
 
+    @RequestMapping("/rupdates.do")
+    public String rupdates(Contract contract,Model model) {
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.eq("rid",contract.getConRid());
+        Register register=iRegisterServiceImp.getOne(queryWrapper);
+        model.addAttribute("reg",register);
+        QueryWrapper queryWrapper2=new QueryWrapper();
+        queryWrapper2.eq("uid",register.getrUid());
+        model.addAttribute("user",iUserServiceImp.getOne(queryWrapper2));
+        QueryWrapper queryWrapper3=new QueryWrapper();
+        queryWrapper3.eq("udid",register.getrDeptid());
+        model.addAttribute("dept",iUserDepartmentServiceImp.getOne(queryWrapper3));
+        QueryWrapper queryWrapper4=new QueryWrapper();
+        queryWrapper4.eq("ucid",register.getrUcid());
+        model.addAttribute("uc",iUserClienServiceImp.getOne(queryWrapper4));
+        QueryWrapper queryWrapper5=new QueryWrapper();
+        queryWrapper5.eq("conid",register.getrConid());
+        model.addAttribute("con",iContractServiceImp.getOne(queryWrapper5));
+        return "/contract/registers.html";
+    }
+
     @PostMapping("/rupdate1.do")
     public String rupdate1(Register register) {
         System.out.println(register);
@@ -204,12 +225,32 @@ public class ContractController {
         return "redirect:/contract/contract.html";
     }
 
+    @PostMapping("/rupdate1s.do")
+    public String rupdate1s(Register register) {
+        System.out.println(register);
+        iContractServiceImp.rupdate(register);
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.eq("con_rid",register.getRid());
+        Contract contract=iContractServiceImp.getOne(queryWrapper);
+        contract.setConRmoney(register.getrMoney());
+        iContractServiceImp.updateone(contract);
+        return "redirect:/contract/contract.html";
+    }
+
     @RequestMapping("/mupdate.do")
-    public String add1s(Contract contract,Model model) {
+    public String mupdate(Contract contract,Model model) {
         QueryWrapper queryWrapper=new QueryWrapper();
         queryWrapper.eq("mid",contract.getConMid());
         model.addAttribute("min",iMinvoiceServiceImp.getOne(queryWrapper));
         return "/contract/minvoice.html";
+    }
+
+    @RequestMapping("/mupdates.do")
+    public String mupdates(Contract contract,Model model) {
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.eq("mid",contract.getConMid());
+        model.addAttribute("min",iMinvoiceServiceImp.getOne(queryWrapper));
+        return "/contract/minvoices.html";
     }
 
     @PostMapping("/mupdate1.do")
@@ -249,6 +290,45 @@ public class ContractController {
             e.printStackTrace();
         }
         return "redirect:/contract/contract.html";
+    }
+
+    @PostMapping("/mupdate1s.do")
+    public String mupdate1s(@RequestParam("file") MultipartFile docfile,@RequestParam("file1") MultipartFile docfile1,Minvoice minvoice,HttpServletRequest request) {
+        try {
+            String oriName = docfile.getOriginalFilename();
+            if (oriName.length()!=0) {
+                String path = request.getServletContext().getRealPath("/upload");
+                File file = new File(path);
+                if (!file.exists()) {
+                    file.mkdirs();
+                }
+                docfile.transferTo(new File(path, oriName));
+                minvoice.setmRelefile(oriName);
+            } else {
+                minvoice.setmRelefile("无附件");
+            }
+            String oriName1 = docfile1.getOriginalFilename();
+            if (oriName1.length()!=0) {
+                String path = request.getServletContext().getRealPath("/upload");
+                File file = new File(path);
+                if (!file.exists()) {
+                    file.mkdirs();
+                }
+                docfile1.transferTo(new File(path, oriName1));
+                minvoice.setmFile(oriName1);
+            } else {
+                minvoice.setmFile("无附件");
+            }
+            iContractServiceImp.mupdate(minvoice);
+            QueryWrapper queryWrapper=new QueryWrapper();
+            queryWrapper.eq("con_mid",minvoice.getMid());
+            Contract contract=iContractServiceImp.getOne(queryWrapper);
+            contract.setConMmoney(minvoice.getmMoney());
+            iContractServiceImp.updateone(contract);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/contract/contracts.html";
     }
 
 

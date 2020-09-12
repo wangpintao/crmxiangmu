@@ -196,7 +196,9 @@ public class ContractService extends ServiceImpl<ContractMapper, Contract> imple
                 contract.setConFile("无附件");
             }
             contract.setConState(1);
-            if(contractMapper.insert(contract)>0){
+            System.out.println(contract);
+            /*int flag1=contractMapper.insert(contract);
+            if(flag1>0){
                 flag=1;
                 Contract contract1=queryone();
                 Long l=Long.valueOf("0");
@@ -226,9 +228,9 @@ public class ContractService extends ServiceImpl<ContractMapper, Contract> imple
                 //步骤
                 minvoice.setmStep("填单");
                 //责任人
-                minvoice.setmDuty(contract1.getConUcid());
+                minvoice.setmDuty(contract1.getConUid());
                 //负责人
-                minvoice.setmDuty1(contract1.getConUcid());
+                minvoice.setmDuty1(contract1.getConUid());
                 //用户id
                 minvoice.setmUid(contract1.getConUid());
                 //用户名
@@ -240,7 +242,7 @@ public class ContractService extends ServiceImpl<ContractMapper, Contract> imple
                 //客户id
                 minvoice.setmUcid(contract1.getConUcid());
                 QueryWrapper queryWrapper2=new QueryWrapper();
-                queryWrapper2.eq("",contract1.getConUcid());
+                queryWrapper2.eq("ucid",contract1.getConUcid());
                 UserClien userClien=userClienMapper.selectOne(queryWrapper2);
                 //客户名称
                 minvoice.setmUcname(userClien.getCliName());
@@ -256,7 +258,9 @@ public class ContractService extends ServiceImpl<ContractMapper, Contract> imple
                         minvoice.setmDname(userDepartment.getUdname());
                     }
                 }
-                if(registerMapper.insert(register)>0 && minvoiceMapper.insert(minvoice)>0){
+                int flag2=registerMapper.insert(register);
+                int flag3=minvoiceMapper.insert(minvoice);
+                if(flag2>0 && flag3>0){
                     Register register1=rone();
                     Minvoice minvoice1=mone();
                     contract1.setConRid(register1.getRid());
@@ -265,7 +269,7 @@ public class ContractService extends ServiceImpl<ContractMapper, Contract> imple
                     contract1.setConMmoney(l);
                 }
                 contractMapper.updateone(contract1);
-            }
+            }*/
         } catch (IOException e) {
             e.printStackTrace();
         }
