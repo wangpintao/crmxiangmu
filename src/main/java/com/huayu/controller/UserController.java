@@ -34,6 +34,7 @@ public class UserController {
     @RequestMapping("/login.do")
     @ResponseBody
     public StulayuiJson login(User user) {
+        System.out.println(user.getUsername() +"||" +user.getPassword());
         StulayuiJson stulayuiJson =new StulayuiJson();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(),user.getPassword());
         //拿到主体
