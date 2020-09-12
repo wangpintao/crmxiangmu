@@ -177,7 +177,6 @@ public class ContractController {
         queryWrapper.eq("rid",contract.getConRid());
         Register register=iRegisterServiceImp.getOne(queryWrapper);
         model.addAttribute("reg",register);
-        System.out.println(register);
         QueryWrapper queryWrapper2=new QueryWrapper();
         queryWrapper2.eq("uid",register.getrUid());
         model.addAttribute("user",iUserServiceImp.getOne(queryWrapper2));
@@ -193,10 +192,15 @@ public class ContractController {
         return "/contract/register.html";
     }
 
-    @RequestMapping("/rupdate1.do")
-    @ResponseBody
+    @PostMapping("/rupdate1.do")
     public String rupdate1(Register register) {
         System.out.println(register);
+        iContractServiceImp.rupdate(register);
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.eq("con_rid",register.getRid());
+        Contract contract=iContractServiceImp.getOne(queryWrapper);
+        contract.setConRmoney(register.getrMoney());
+        iContractServiceImp.updateone(contract);
         return "redirect:/contract/contract.html";
     }
 
@@ -206,6 +210,45 @@ public class ContractController {
         queryWrapper.eq("mid",contract.getConMid());
         model.addAttribute("min",iMinvoiceServiceImp.getOne(queryWrapper));
         return "/contract/minvoice.html";
+    }
+
+    @PostMapping("/mupdate1.do")
+    public String mupdate1(@RequestParam("file") MultipartFile docfile,@RequestParam("file1") MultipartFile docfile1,Minvoice minvoice,HttpServletRequest request) {
+        try {
+            String oriName = docfile.getOriginalFilename();
+            if (oriName.length()!=0) {
+                String path = request.getServletContext().getRealPath("/upload");
+                File file = new File(path);
+                if (!file.exists()) {
+                    file.mkdirs();
+                }
+                docfile.transferTo(new File(path, oriName));
+                minvoice.setmRelefile(oriName);
+            } else {
+                minvoice.setmRelefile("无附件");
+            }
+            String oriName1 = docfile1.getOriginalFilename();
+            if (oriName1.length()!=0) {
+                String path = request.getServletContext().getRealPath("/upload");
+                File file = new File(path);
+                if (!file.exists()) {
+                    file.mkdirs();
+                }
+                docfile1.transferTo(new File(path, oriName1));
+                minvoice.setmFile(oriName1);
+            } else {
+                minvoice.setmFile("无附件");
+            }
+            iContractServiceImp.mupdate(minvoice);
+            QueryWrapper queryWrapper=new QueryWrapper();
+            queryWrapper.eq("con_mid",minvoice.getMid());
+            Contract contract=iContractServiceImp.getOne(queryWrapper);
+            contract.setConMmoney(minvoice.getmMoney());
+            iContractServiceImp.updateone(contract);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/contract/contract.html";
     }
 
 

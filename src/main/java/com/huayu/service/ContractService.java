@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -218,8 +219,16 @@ public class ContractService extends ServiceImpl<ContractMapper, Contract> imple
                 register.setrName(contract1.getConUname());
 
                 Minvoice minvoice=new Minvoice();
+                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyyMMddHHmmSS");
+                String str=simpleDateFormat.format(new Date());
+                //主题
+                minvoice.setmTheme("开票申请-"+contract1.getConUname()+"-"+str);
                 //步骤
                 minvoice.setmStep("填单");
+                //责任人
+                minvoice.setmDuty(contract1.getConUcid());
+                //负责人
+                minvoice.setmDuty1(contract1.getConUcid());
                 //用户id
                 minvoice.setmUid(contract1.getConUid());
                 //用户名
@@ -276,5 +285,15 @@ public class ContractService extends ServiceImpl<ContractMapper, Contract> imple
     @Override
     public Minvoice mone() {
         return contractMapper.mone();
+    }
+
+    @Override
+    public Integer rupdate(Register register) {
+        return contractMapper.rupdate(register);
+    }
+
+    @Override
+    public Integer mupdate(Minvoice minvoice) {
+        return contractMapper.mupdate(minvoice);
     }
 }

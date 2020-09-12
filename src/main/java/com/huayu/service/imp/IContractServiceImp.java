@@ -34,4 +34,8 @@ public interface IContractServiceImp extends IService<Contract>{
     public Register rone();
 
     public Minvoice mone();
+
+    public Integer rupdate(Register register);
+
+    public Integer mupdate(Minvoice minvoice);
 }

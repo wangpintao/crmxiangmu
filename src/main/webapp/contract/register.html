@@ -10,7 +10,7 @@
 <body>
 <br>
 <div style="margin:0 auto; width:80%;height:auto;">
-    <form class="layui-form"  action="">
+    <form class="layui-form" method="post" action="/contract/rupdate1.do">
         <div class="layui-inline" style="float: left">
                 <input align="left" type="text" value="收入登记" readonly style="border:0px;font-size:20px"/>
         </div>
@@ -137,7 +137,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">收入说明</label>
                 <div class="layui-input-block">
-                    <textarea name="rExplain" th:value="${reg.rExplain}" placeholder="请输入收入说明"
+                    <textarea name="rExplain" th:text="${reg.rExplain}" placeholder="请输入收入说明"
                               class="layui-textarea" style="width: 925px;height: 40px"></textarea>
                 </div>
             </div>
@@ -147,7 +147,7 @@
         <div style="text-align: center;">
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button lay-submit="" lay-filter="formDemo" class="layui-btn layui-btn-radius layui-btn-normal">确定</button>
+                    <button lay-submit class="layui-btn layui-btn-radius layui-btn-normal">确定</button>
                     <a href="javascript:window.opener=null;window.open('','_self');window.close()"
                        class="layui-btn layui-btn-radius layui-btn-normal">取消</a>
                 </div>
@@ -161,16 +161,18 @@
         var $ = layui.jquery;//异步
         var upload = layui.upload;
         var laydate = layui.laydate;
-        form.render();
 
         laydate.render({
             elem: '#rDate'
         });
 
         form.on('submit(formDemo)', function(data){
+            alert(data);
             $.ajax({
-                url: '/contract/rupdate1.do',
+                url:"/contract/rupdate1.do",
                 data: data.field,
+                type:"post",
+                dataType:"text",
                 success: function (data) {
                     layer.msg("提交成功")
                 }

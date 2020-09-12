@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -40,6 +42,8 @@ public class Minvoice extends Model<Minvoice> {
      * 结束时间
      */
     @TableField("m_date")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date mDate;
 
     /**
@@ -88,6 +92,8 @@ public class Minvoice extends Model<Minvoice> {
      * 申请日期
      */
     @TableField("m_applydate")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date mApplydate;
 
     /**
@@ -148,6 +154,8 @@ public class Minvoice extends Model<Minvoice> {
      * 开票日期
      */
     @TableField("m_invoice_date")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date mInvoiceDate;
 
     /**

@@ -98,4 +98,10 @@ public interface ContractMapper extends BaseMapper<Contract> {
     @Select("SELECT * FROM minvoice order by conid desc limit 0,1")
     Minvoice mone();
 
+    @Update("update register set r_date=#{rDate},r_classify=#{rClassify},r_money=#{rMoney},r_way=#{rWay},r_explain=#{rExplain} where rid=#{rid}")
+    Integer rupdate(Register register);
+
+    @Update("update minvoice set m_date=#{mDate},m_address=#{mAddress},m_applydate=#{mApplydate},m_science=#{mScience},m_relefile=#{mRelefile},m_kind=#{mKind},m_ratepaying=#{mRatepaying},m_bank=#{mBank},m_address_phone=#{mAddressPhone},m_money=#{mMoney},m_invoice_date=#{mInvoiceDate},m_phone=#{mPhone},m_file=#{mFile} where mid=#{mid}")
+    Integer mupdate(Minvoice minvoice);
+
 }
