@@ -25,8 +25,8 @@
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">商机阶段</label>
-                <div class="layui-input-inline" style="width: 200px;height: 40px">
-                    <select  name="comStaid"   lay-filter="test">
+                <div class="layui-input-block" style="width: 200px;height: 40px">
+                    <select  name="comStaid"  >
                         <option value="0">请选择</option>
                         <option value="1">成交</option>
                         <option value="2">丢单</option>
@@ -98,12 +98,12 @@
         </thead>
         <tbody>
         <tr th:each="lis:${listbo}">
-            <td th:text="${lis.conname}"></td>
+            <td ><a th:href="@{/commercial/toc.do(coid=${lis.coid},ucid=${lis.comUcid})}" class="layui-table-link"  target="blank" style="color: #00F7DE">[[${lis.conname}]]</a></td>
             <td th:text="${lis.staname}"></td>
             <td th:text="${lis.comSum}"></td>
             <td th:text="${lis.comUname}"></td>
-            <td th:text="${lis.docDates}"></td>
-            <td th:text="${lis.conname}"></td>
+            <td > [[${#dates.format(lis.docDates, 'yyyy-MM-dd')}]] </td>
+            <td > [[${#dates.format(lis.docDates, 'yyyy-MM-dd')}]]</td>
 
         </tr>
         </tbody>
@@ -126,26 +126,6 @@
         //日期
         laydate.render({
             elem: '#date'
-        });
-
-
-        //第一个实例   var a=table.render表格重载第二种方式
-        table.render({
-            elem: '#demo'
-            ,toolbar:'#toolbarDemo'
-            ,height: 500
-            ,url: '/commercial/commercial.do' //数据接口
-            ,page: true //开启分页
-            ,limit:2
-            ,limits:[1,2,10,30]
-            ,cols: [[ //表头
-                {field: 'conname', title: '客户商机', width:220 , templet:'#coids'}
-                ,{field: 'staname', title: '商机阶段', width:220}
-                ,{field: 'comSum', title: '预计成交金额', width:220}
-                ,{field: 'comUname', title: '商机负责人', width:220}
-                ,{field: 'docDates', title: '最后跟单', width:220 , templet:'#zhgd'}
-                ,{field: 'comSouid', title: '讨论版', width:220}
-            ]]
         });
 
         //监听提交

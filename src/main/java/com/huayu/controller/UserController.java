@@ -68,6 +68,7 @@ public class UserController {
         queryWrapper.eq("username",name);
         return iUserServiceImp.getOne(queryWrapper);
     }
+
     @RequestMapping("/useradd.do")
     @ResponseBody
     public StulayuiJson useradd(User user){
