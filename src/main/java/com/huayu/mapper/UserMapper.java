@@ -4,6 +4,7 @@ package com.huayu.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.huayu.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * <p>
@@ -15,5 +16,8 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
+
+    @Select("select uid from user where username =#{username}")
+    Integer queryNameByID(String username);
 
 }

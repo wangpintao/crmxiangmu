@@ -11,7 +11,7 @@
 </head>
 <body>
 <div style="text-align: center;">
-    <form class="layui-form" action="/after/add.do" method="post" lay-filter="example">
+    <form class="layui-form"   lay-filter="example">
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
             <legend>售后服务详情</legend>
         </fieldset>
@@ -37,7 +37,7 @@
                 <label class="layui-form-label">客户名称</label>
                 <div class="layui-input-block" style="width: 400px;height: 40px">
                     <select name="aftUcid" lay-filter="clien" id="clien"  lay-verify="required" lay-search="">
-                        <option th:value="${aftlist.userClien.cliName}" th:text="${aftlist.userClien.cliName}"></option>
+                        <option th:value="${aftlist.userClien.cliName}" th:text="${aftlist.userClien.cliName}" disabled></option>
                     </select>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                 <label class="layui-form-label">合同编号</label>
                 <div class="layui-input-block" style="width: 400px;height: 40px">
                     <select name="aftConid" lay-filter="contract"  id="contract" lay-verify="required" lay-search="">
-                        <option th:value="${aftlist.contract.serial}" th:text="${aftlist.contract.serial}"></option>
+                        <option th:value="${aftlist.contract.serial}" th:text="${aftlist.contract.serial}" disabled></option>
                     </select>
                 </div>
             </div>
@@ -164,7 +164,7 @@
         <br>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" style="width: 400px;height: 40px">返回</button>
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" onclick="window.close();" style="width: 400px;height: 40px">关闭</button>
             </div>
         </div>
     </form>
@@ -179,8 +179,8 @@
         var $ = layui.jquery;
         var laydate = layui.laydate;
 
-        var index = parent.layer.getFrameIndex(window.name);
-        parent.layer.close(index);
+/*        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);*/
         //日期
         laydate.render({
             elem: '#date'

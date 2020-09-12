@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.huayu.JsonUtils.StulayuiJson;
 import com.huayu.pojo.AfterSale;
 import com.huayu.pojo.User;
+import com.huayu.pojo.UserRole;
+import com.huayu.service.imp.IUserRoleServiceImp;
 import com.huayu.service.imp.IUserServiceImp;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.apache.shiro.SecurityUtils;
@@ -29,6 +31,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     private IUserServiceImp iUserServiceImp;
+
+    private IUserRoleServiceImp iUserRoleServiceImp;
 
     //登录
     @RequestMapping("/login.do")
@@ -69,15 +73,34 @@ public class UserController {
         return iUserServiceImp.getOne(queryWrapper);
     }
 
-    @RequestMapping("/useradd.do")
+    //注册号
+    @RequestMapping("/register.do")
     @ResponseBody
-    public StulayuiJson useradd(User user){
-        StulayuiJson stulayuiJson = new StulayuiJson();
+    public StulayuiJson register(User user){
+        StulayuiJson stulayuiJson =new StulayuiJson();
         try {
             stulayuiJson.setCode(1);
-            iUserServiceImp.save(user);
-        } catch (Exception e) {
-            stulayuiJson.setCode(2);
+            String hashAlgorithmName = "MD5";//加密方式
+            Object credentials = user.getPassword();//要加密的密码
+            Object salt = ByteSource.Util.bytes(user.getUsername());//加的盐
+            int hashIterations = 1000;//加密次数
+            Object result = new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations);
+            System.out.println("result========"+result.toString());
+            user.setPassword(result.toString());
+            boolean uname = iUserServiceImp.save(user);
+            System.out.println("添加"+uname);
+
+            Integer uid = iUserServiceImp.queryNameByID(user.getUsername());
+            if (uname==true){
+                System.out.println(""+uid);
+                UserRole userOrRole = new UserRole();
+                userOrRole.setUrid(5);
+                userOrRole.setUid(uid);
+                iUserRoleServiceImp.saveOrUpdate(userOrRole);
+            }
+        } catch (CodecException e) {
+            e.printStackTrace();
+        } catch (UnknownAlgorithmException e) {
             e.printStackTrace();
         }
         return stulayuiJson;
