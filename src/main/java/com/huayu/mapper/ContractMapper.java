@@ -90,12 +90,12 @@ public interface ContractMapper extends BaseMapper<Contract> {
     @Select("SELECT * FROM contract order by conid desc limit 0,1")
     Contract queryone();
 
-    //查询最后一条合同
-    @Select("SELECT * FROM register order by conid desc limit 0,1")
+    //查询最后一条收入登记
+    @Select("SELECT * FROM register order by rid desc limit 0,1")
     Register rone();
 
-    //查询最后一条合同
-    @Select("SELECT * FROM minvoice order by conid desc limit 0,1")
+    //查询最后一条开票申请
+    @Select("SELECT * FROM minvoice order by mid desc limit 0,1")
     Minvoice mone();
 
     @Update("update register set r_date=#{rDate},r_classify=#{rClassify},r_money=#{rMoney},r_way=#{rWay},r_explain=#{rExplain} where rid=#{rid}")

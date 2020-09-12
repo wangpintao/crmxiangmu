@@ -75,7 +75,7 @@
                 <div class="layui-input-block">
                     <input type="hidden" name="conid" th:value="${con.conid}">
                     <input type="hidden" id="e" name="conUcid" th:value="${user.ucid}">
-                    <input type="hidden" id="f" name="conname">
+                    <input type="hidden" id="f" name="conname" th:value="${con.conname}">
                     <input type="text" id="h" onkeyup="add(this.value)" placeholder="请输入合同名称" lay-verify="conname"
                            autocomplete="off" class="layui-input"
                            style="width: 400px;height: 40px">
@@ -220,6 +220,10 @@
             <div class="layui-inline">
                 <label class="layui-form-label">当前状态</label>
                 <div class="layui-input-block">
+                    <input type="hidden" name="conRid" th:value="${con.conRid}">
+                    <input type="hidden" name="conRmoney" th:value="${con.conRmoney}">
+                    <input type="hidden" name="conMid" th:value="${con.conMid}">
+                    <input type="hidden" name="conMmoney" th:value="${con.conMmoney}">
                     <select name="conState" lay-verify="conState">
                         <option value="0">请选择</option>
                         <option th:if="${con.conState==1}" selected th:value="${con.conState}">执行</option>
