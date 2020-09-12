@@ -65,9 +65,9 @@ public class UserController {
     }
 
     //查询用户
-    @RequestMapping("/register.do")
+    @RequestMapping("/queryName.do")
     @ResponseBody
-    public User register(String name){
+    public User queryName(String name){
         System.out.println("前端值"+name);
         QueryWrapper queryWrapper =new QueryWrapper();
         queryWrapper.eq("username",name);
