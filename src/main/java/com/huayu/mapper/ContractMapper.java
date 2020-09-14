@@ -27,10 +27,14 @@ public interface ContractMapper extends BaseMapper<Contract> {
     //本周合同机数。
     @Select("SELECT COUNT(con_startdate) FROM contract WHERE YEARWEEK(DATE_FORMAT(con_startdate,'%Y-%m-%d')) = YEARWEEK(NOW())")
     Integer ConWeek();
+    @Select("SELECT COUNT(con_startdate) FROM contract WHERE YEARWEEK(DATE_FORMAT(con_startdate,'%Y-%m-%d')) = YEARWEEK(NOW()) AND con_uid =#{conuid}")
+    Integer UserConWeek(Integer conuid);
 
     //上周合同数
     @Select("SELECT COUNT(con_startdate) FROM contract WHERE YEARWEEK(DATE_FORMAT(con_startdate,'%Y-%m-%d')) = YEARWEEK(NOW())-1")
     Integer ConLaerWeek();
+    @Select("SELECT COUNT(con_startdate) FROM contract WHERE YEARWEEK(DATE_FORMAT(con_startdate,'%Y-%m-%d')) = YEARWEEK(NOW())-1 AND con_uid =#{conuid}")
+    Integer UserConLaerWeek(Integer conuid);
 
     //本月合同数
     @Select("SELECT COUNT(con_startdate) FROM contract WHERE DATE_FORMAT( con_startdate, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )")

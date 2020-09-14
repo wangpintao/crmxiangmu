@@ -77,6 +77,15 @@ public class StatisticsBoService {
         Integer uid = user.getUid();
         statisticsBo.setCom_count(commercialMapper.UserComWeek(uid));
         statisticsBo.setCom_last_coutn(commercialMapper.UserComLaerWeek(uid));
+        //成功
+        statisticsBo.setSucc_count(documentaryMapper.UserStateDocWeek(uid));
+        statisticsBo.setSucc_last_coutn(documentaryMapper.UserStateDocLaerWeek(uid));
+        //跟单
+        statisticsBo.setDoc_count(documentaryMapper.UserDocWeek(uid));
+        statisticsBo.setDoc_last_coutn(documentaryMapper.UserDocLaerWeek(uid));
+        //合同
+        statisticsBo.setCon_count(contractMapper.UserConWeek(uid));
+        statisticsBo.setCon_last_coutn(contractMapper.UserConLaerWeek(uid));
         return statisticsBo;
     }
 

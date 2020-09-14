@@ -36,16 +36,16 @@
             <div class="layui-inline">
                 <label class="layui-form-label">客户名称</label>
                 <div class="layui-input-block" style="width: 400px;height: 40px">
-                    <select name="aftUcid" lay-filter="clien" id="clien"  lay-verify="required" lay-search="">
-                        <option th:value="${aftlist.userClien.cliName}" th:text="${aftlist.userClien.cliName}" disabled></option>
+                    <select name="aftUcid" lay-filter="clien" id="clien"  lay-verify="required" lay-search="" disabled>
+                        <option th:value="${aftlist.userClien.cliName}" th:text="${aftlist.userClien.cliName}" ></option>
                     </select>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">合同编号</label>
                 <div class="layui-input-block" style="width: 400px;height: 40px">
-                    <select name="aftConid" lay-filter="contract"  id="contract" lay-verify="required" lay-search="">
-                        <option th:value="${aftlist.contract.serial}" th:text="${aftlist.contract.serial}" disabled></option>
+                    <select name="aftConid" lay-filter="contract"  id="contract" lay-verify="required" lay-search="" disabled>
+                        <option th:value="${aftlist.contract.serial}" th:text="${aftlist.contract.serial}" ></option>
                     </select>
                 </div>
             </div>

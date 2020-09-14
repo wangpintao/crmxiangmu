@@ -42,6 +42,7 @@ public class AfterSaleController {
 
     @PostMapping("/add.do")
     public String add(AfterSale afterSale){
+        afterSale.setAftFile(UploadController.url);
         iAfterSaleServiceImp.save(afterSale);
         return "redirect:/sale/saledisplay.html";
     }

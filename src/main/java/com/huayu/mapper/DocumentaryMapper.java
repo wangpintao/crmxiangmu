@@ -47,12 +47,22 @@ public interface DocumentaryMapper extends BaseMapper<Documentary> {
     //本周跟单机数
     @Select("SELECT COUNT(doc_date) FROM documentary WHERE YEARWEEK(DATE_FORMAT(doc_date,'%Y-%m-%d')) = YEARWEEK(NOW())")
     Integer DocWeek();
+    //用户周成交数
+    @Select("SELECT COUNT(*) FROM documentary WHERE YEARWEEK(DATE_FORMAT(doc_date,'%Y-%m-%d'),1) = YEARWEEK(NOW(),1) AND doc_staid =1 AND  doc_user=#{docuid}")
+    Integer UserStateDocWeek(Integer docuid);
     @Select("SELECT COUNT(*) FROM documentary WHERE YEARWEEK(DATE_FORMAT(doc_date,'%Y-%m-%d'),1) = YEARWEEK(NOW(),1) AND doc_staid =1")
     Integer StateDocWeek();
+    @Select("SELECT COUNT(*) FROM documentary WHERE YEARWEEK(DATE_FORMAT(doc_date,'%Y-%m-%d'),1) = YEARWEEK(NOW(),1) AND  doc_user=#{docuid}")
+    Integer UserDocWeek(Integer docuid);
 
     //上周跟单数
     @Select("SELECT COUNT(doc_date) FROM documentary WHERE YEARWEEK(DATE_FORMAT(doc_date,'%Y-%m-%d')) = YEARWEEK(NOW())-1")
     Integer DocLaerWeek();
+    @Select("SELECT COUNT(doc_date) FROM documentary WHERE YEARWEEK(DATE_FORMAT(doc_date,'%Y-%m-%d')) = YEARWEEK(NOW())-1 AND  doc_user=#{docuid}")
+    Integer UserDocLaerWeek(Integer docuid);
+    //上周用户跟单成交数
+    @Select("SELECT COUNT(doc_date) FROM documentary WHERE YEARWEEK(DATE_FORMAT(doc_date,'%Y-%m-%d')) = YEARWEEK(NOW())-1 AND  doc_staid =1 AND doc_user=#{docuid}")
+    Integer UserStateDocLaerWeek(Integer docuid);
     @Select("SELECT COUNT(doc_date) FROM documentary WHERE YEARWEEK(DATE_FORMAT(doc_date,'%Y-%m-%d')) = YEARWEEK(NOW())-1 AND doc_staid =1")
     Integer StateDocLaerWeek();
 

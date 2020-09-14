@@ -261,17 +261,28 @@
             });
         });
 
-    $.ajax({
-        url:"",
-        dataType:'json',
-        data:{
-        },
-        type:'post',
-        success:function(data){
-
-        }
-
-    });
+        var uploadInst = upload.render({
+            elem: '#test1' //绑定元素
+            ,url: '/upload.do'//上传接口
+            ,accept: 'file'
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#uploadimg').attr('src', result); //图片链接（base64）
+                });
+            }
+            ,done: function(res){
+                console.log("res:"+res);
+                if(res.code > 0){//自定义返回失败
+                    return layer.msg('上传失败');
+                }else{
+                    window.document.getElementById("fileName").value=res;
+                }
+            }
+            ,error: function(){
+                //请求异常回调
+            }
+        });
     });
 </script>
 </body>

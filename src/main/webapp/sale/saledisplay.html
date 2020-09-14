@@ -52,26 +52,26 @@
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
                         <a href="#"  onclick=tableRerole("queryAll")>查看所有分类</a>&nbsp;<span></span><br>
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#"  onclick=tableRerole(1)>处理中服务</a>&nbsp;<span id="label0"></span><br>
+                        <a href="#"  onclick=tableRerole(1)>处理中服务</a>&nbsp;<span style="float: right;margin-top: 10px" id="label0"></span><br>
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#"  onclick=tableRerole(2)>已结束服务</a>&nbsp;<span id="label1"></span><br>
+                        <a href="#"  onclick=tableRerole(2)>已结束服务</a>&nbsp;<span style="float: right;margin-top: 10px" id="label1"></span><br>
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#"  onclick=tableRerole(3)>以搁置服务</a>&nbsp;<span id="label2"></span><br>
+                        <a href="#"  onclick=tableRerole(3)>以搁置服务</a>&nbsp;<span style="float: right;margin-top: 10px" id="label2"></span><br>
                         <hr>
                     </div>
                     <div class="divcss5-b">
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#"  onclick=tableRerole('week')>本周新增</a>&nbsp;<span id="label3"></span><br>
+                        <a href="#"  onclick=tableRerole('week')>本周新增</a>&nbsp;<span style="float: right;margin-top: 10px" id="label3"></span><br>
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#"  onclick=tableRerole('lastWeek')>上周新增</a>&nbsp;<span id="label4"></span><br>
+                        <a href="#"  onclick=tableRerole('lastWeek')>上周新增</a>&nbsp;<span style="float: right;margin-top: 10px" id="label4"></span><br>
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#" onclick=tableRerole('month')>本月新增</a>&nbsp;<span id="label5"></span><br>
+                        <a href="#" onclick=tableRerole('month')>本月新增</a>&nbsp;<span style="float: right;margin-top: 10px" id="label5"></span><br>
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#" onclick=tableRerole('lastMonth')>上月新增</a>&nbsp;<span id="label6"></span><br>
+                        <a href="#" onclick=tableRerole('lastMonth')>上月新增</a>&nbsp;<span style="float: right;margin-top: 10px" id="label6"></span><br>
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#" onclick=tableRerole('quarter')>本季新增</a>&nbsp;<span id="label7"></span><br>
+                        <a href="#" onclick=tableRerole('quarter')>本季新增</a>&nbsp;<span style="float: right;margin-top: 10px" id="label7"></span><br>
                         <img src="../static/image/zoom_search_24px_505321_easyicon.net.png"/>
-                        <a href="#" onclick=tableRerole('lastQuarter')>上季新增</a>&nbsp;<span id="label8"></span><br>
+                        <a href="#" onclick=tableRerole('lastQuarter')>上季新增</a>&nbsp;<span  style="float: right;margin-top: 10px" id="label8"></span><br>
                         <hr>
 
                     </div>
@@ -219,7 +219,7 @@
                 console.log(data.value);
                 for(var i=0;i<data.length;i++){
                     var count="label"+i;
-                    window.document.getElementById(count).innerHTML=" <span style='font-size:20px;'> "+data[i]+" </span>";
+                    window.document.getElementById(count).innerHTML=" <span class='layui-badge layui-bg-blue' style='float: right;margin-top: 10px'> "+data[i]+" </span>";
                 }
             }
         });
