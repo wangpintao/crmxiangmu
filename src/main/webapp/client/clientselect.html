@@ -72,9 +72,7 @@
             }
         </script>
 
-        <script type="text/html" id="barDemo">
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
-        </script>
+
 
         <table id="demo" lay-filter="test"></table>
 
@@ -110,6 +108,7 @@
         //第一个实例   var a=table.render表格重载第二种方式
         table.render({
             elem: '#demo'
+            ,toolbar:'#toolbarDemo'
             ,height: 500
             ,url: '/userClien/clientid.do' //数据接口
             ,page: true //开启分页

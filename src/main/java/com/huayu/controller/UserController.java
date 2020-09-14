@@ -2,6 +2,7 @@ package com.huayu.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.huayu.JsonUtils.StulayuiJson;
+import com.huayu.layuiUtils.Stulayui;
 import com.huayu.pojo.AfterSale;
 import com.huayu.pojo.User;
 import com.huayu.pojo.UserRole;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -37,7 +39,7 @@ public class UserController {
     //登录
     @RequestMapping("/login.do")
     @ResponseBody
-    public StulayuiJson login(User user) {
+    public StulayuiJson login(User user,HttpServletRequest request) {
         System.out.println(user.getUsername() +"||" +user.getPassword());
         StulayuiJson stulayuiJson =new StulayuiJson();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(),user.getPassword());
@@ -51,7 +53,8 @@ public class UserController {
             subject.login(token);
             QueryWrapper queryWrapper =new QueryWrapper();
             queryWrapper.eq("username",user.getUsername());
-            iUserServiceImp.getOne(queryWrapper);
+            User user1=iUserServiceImp.getOne(queryWrapper);
+            request.setAttribute("user1",user1);
         } catch (IncorrectCredentialsException e){
             stulayuiJson.setCode(2);
             System.out.println("密码错误");
@@ -113,12 +116,17 @@ public class UserController {
      * @throws Exception
      */
     @RequestMapping("/logout.do")
-    public String logout() throws Exception{
+    @ResponseBody
+    public Stulayui logout(HttpServletRequest request) throws Exception{
+        Stulayui stulayui=new Stulayui();
         Subject subject = SecurityUtils.getSubject();
         if(subject.isAuthenticated()){
             subject.logout();
         }
-        return "redirect:/login.html";
+        request.getSession().invalidate();
+        stulayui.setCode(0);
+        stulayui.setMsg("成功");
+        return stulayui;
     }
 
     @GetMapping("/querytext.do")
